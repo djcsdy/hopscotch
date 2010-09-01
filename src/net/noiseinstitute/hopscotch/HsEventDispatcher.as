@@ -9,7 +9,7 @@ package net.noiseinstitute.hopscotch {
 		}
 		
 		public function addEventListener (listener:Function) :void {
-			listeners.push(listener);
+			listeners[listeners.length] = listener;
 		}
 		
 		public function removeEventListener (listener:Function) :void {
