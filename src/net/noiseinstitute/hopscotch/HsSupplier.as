@@ -5,9 +5,9 @@ package net.noiseinstitute.hopscotch {
 		
 		private var length:uint;
 		private var numMembers:uint;
-		private var defunctMembers:Vector.<FlxObject>;
+		private var members:Vector.<FlxObject>;
 		private var numDefunctMembers:uint;
-		private var _populate:Function;
+		private var populator:Function;
 		
 		/** Creates a new HsSupplier.
 		 * 
@@ -17,15 +17,15 @@ package net.noiseinstitute.hopscotch {
 		public function HsSupplier (size:uint=0) {
 			this.length = size;
 			if (size == 0) {
-				defunctMembers = new Vector.<FlxObject>();
+				members = new Vector.<FlxObject>();
 			} else {
-				defunctMembers = new Vector.<FlxObject>(size, true);
+				members = new Vector.<FlxObject>(size, true);
 			}
 		}
 		
 		public function populate (f:Function) :HsSupplier {
 			if (length == 0) {
-				_populate = f;
+				populator = f;
 			}
 			for (var i:uint=numMembers; i<length; ++i) {
 				add(f());
@@ -43,28 +43,61 @@ package net.noiseinstitute.hopscotch {
 						"Cannot add a null value to an HsSupplier");
 			}
 			
-			++numMembers;
-			if (!object.exists) {
-				defunctMembers[numDefunctMembers++] = object;
+			if (object.exists) {
+				members[numMembers++] = object;
+			} else {
+				var i:int = numMembers;
+				while (i > numDefunctMembers) {
+					members[i] = members[--i];
+				}
+				members[i] = object;
+				++numMembers;
+				++numDefunctMembers;
 			}
 			
 			object.addDefunctEventListener(function () :void {
-				defunctMembers[numDefunctMembers++] = object;
+				if (members[numDefunctMembers] == object) {
+					++numDefunctMembers;
+					return;
+				} else {
+					var previousMember:FlxObject = members[numDefunctMembers];
+					var i:int = numDefunctMembers+1;
+					do {
+						var tmp:FlxObject = members[i];
+						members[i] = previousMember;
+						previousMember = tmp;
+						++i;
+					} while (previousMember != object);
+					members[numDefunctMembers++] = object;
+				}
 			});
 			
 			return this;
 		}
 		
-		public function getInitialized () :FlxObject {
-			var object:FlxObject;
+		public function getInitialized (reuseLive:Boolean=false) :FlxObject {
+			var object:FlxObject; 
 			if (numDefunctMembers == 0) {
-				if (length == 0) {
-					object = _populate();
+				if (reuseLive) {
+					if (members.length > 0) {
+						object = members[0];
+						var i:int = 0;
+						var c:int = members.length-1;
+						while (i<c) {
+							members[i] = members[++i];
+						}
+						members[i] = object;
+					} else {
+						return null;
+					}
+				} else if (length == 0) {
+					object = populator();
+					members[numMembers++] = object;
 				} else {
 					return null;
 				}
 			} else {
-				object = defunctMembers[--numDefunctMembers];
+				object = members[--numDefunctMembers];
 			}
 			if (object != null) {
 				object.reset(0, 0);
