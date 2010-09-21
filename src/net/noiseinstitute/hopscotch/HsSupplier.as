@@ -23,6 +23,20 @@ package net.noiseinstitute.hopscotch {
 			}
 		}
 		
+		/** Populate the <code>HsSupplier</code> by calling back a function
+		 * <code>f</code> that creates <code>FlxObject</code>s.
+		 * 
+		 * <p>If the <code>HsSupplier</code> has a fixed size, then
+		 * <code>f</code> will be called back immediately and repeatedly, until
+		 * the <code>HsSupplier</code> is full. Thereafter, <code>f</code> will
+		 * not be called again.</p>
+		 * 
+		 * <p>Otherwise, <code>f</code> will be called on a call to
+		 * <code>getInitialized</code>, if the <code>HsSupplier</code> has
+		 * run out of defunct members.</p>
+		 * 
+		 * @param f a function used to populate the <code>HsSupplier</code>,
+		 *   defined in the form <code>function():FlxObject</code>. */
 		public function populate (f:Function) :HsSupplier {
 			if (length == 0) {
 				populator = f;
@@ -33,6 +47,7 @@ package net.noiseinstitute.hopscotch {
 			return this;
 		}
 		
+		/** Add an object to the <code>HsSupplier</code>. */
 		public function add (object:FlxObject) :HsSupplier {
 			if (length > 0 && numMembers >= length) {
 				throw new RangeError("HsSupplier is full");
