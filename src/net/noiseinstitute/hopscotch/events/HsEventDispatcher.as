@@ -16,9 +16,9 @@ package net.noiseinstitute.hopscotch.events {
 			listeners.splice(listeners.indexOf(listener), 1);
 		}
 		
-		public function dispatchEvent (event:HsEvent) :void {
+		public function dispatchEvent (target:Object=null, ...args) :void {
 			for each (var listener:Function in listeners) {
-				listener(event);
+				listener.apply(target, args);
 			}
 		}
 		
