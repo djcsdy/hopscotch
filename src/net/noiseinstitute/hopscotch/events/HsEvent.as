@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch {
+package net.noiseinstitute.hopscotch.events {
 	
 	public class HsEvent {
 		
