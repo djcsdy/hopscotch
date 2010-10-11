@@ -1,47 +1,63 @@
-package net.noiseinstitute.hopscotch {
+package net.noiseinstitute.hopscotch.engine {
 	import flash.display.DisplayObject;
 	import flash.events.Event;
+	import flash.events.IEventDispatcher;
+	import flash.utils.Timer;
 	
 	public class HsEngine {
 		
-		private var root :DisplayObject;
+		private var frameEventDispatcher :IEventDispatcher;
+		private var timeSource :ITimeSource;
 		private var startTime :Number = 0;
+		private var stopTweenFactor :Number = 0;
 		private var now :Number = 0;
 		private var updateIntervalMs :Number = 10;
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
 		
-		public function HsEngine (root:DisplayObject) {
-			if (!root) {
-				throw new TypeError("root must be non-null");
+		public function HsEngine (
+				frameEventDispatcher:IEventDispatcher,
+				timeSource:ITimeSource=new TimeSource()) {
+			if (!frameEventDispatcher) {
+				throw new TypeError("frameEventDispatcher must be non-null");
 			}
-			this.root = root;
+			this.frameEventDispatcher = frameEventDispatcher;
+			this.timeSource = timeSource;
 		}
 		
 		public function start () :void {
 			if (!running) {
 				running = true;
-				startTime = now = new Date().time;
-				root.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+				startTime = now = timeSource.getTime() - stopTweenFactor*updateIntervalMs;
+				frameEventDispatcher.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			}
+		}
+		
+		public function stop () :void {
+			if (running) {
+				running = false;
+				var fractionalUpdateCount:Number = (now - startTime) / updateIntervalMs;
+				stopTweenFactor = fractionalUpdateCount - updateCount;
+				frameEventDispatcher.removeEventListener(Event.ENTER_FRAME, onEnterFrame); 
 			}
 		}
 		
 		private function onEnterFrame () :void {
 			var previousUpdateCount:int = updateCount;
 			
-			now = new Date().time;
+			now = timeSource.getTime();
 			var fractionalUpdateCount:Number = (now - startTime) / updateIntervalMs;
 			updateCount = Math.floor(fractionalUpdateCount);
-			var mu:Number = fractionalUpdateCount - updateCount;
+			var tweenFactor:Number = fractionalUpdateCount - updateCount;
 			
 			for (var i:int=previousUpdateCount; i<updateCount; ++i) {
-				for each (entity:Entity in entities) {
+				for each (var entity:Entity in entities) {
 					entity.update();
 				}
 			}
 			
-			for each (entity:Entity in entities) {
-				entity.render(mu);
+			for each (var entity:Entity in entities) {
+				entity.render(tweenFactor);
 			}
 		}
 		
