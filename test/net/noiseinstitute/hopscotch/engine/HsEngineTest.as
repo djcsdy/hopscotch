@@ -7,12 +7,13 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
+	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;
 	
-	public class HsEngineTest {
+	public class HsEngineTest extends TestCaseWithMocks {
 		
 		private var mocker :MockRepository;
 		private var frameEventDispatcher :IEventDispatcher;
@@ -21,18 +22,17 @@ package net.noiseinstitute.hopscotch.engine {
 		private var engine :HsEngine;
 		
 		
-		[Before(async, timeout=5000)]
-		public function prepareMocks () :void {
+		public function HsEngineTest () {
+			super(ITimeSource, IUpdater);
+		}
+		
+		[Before]
+		public function setup () :void {
 			mocker = new MockRepository();
-			Async.handleEvent(this,
-					mocker.prepare([ITimeSource, IUpdater]),
-					Event.COMPLETE,
-					function () :void {
-						frameEventDispatcher = new EventDispatcher();
-						timeSource = mocker.createStub(ITimeSource) as ITimeSource;
-						updater = mocker.createStub(IUpdater) as IUpdater;
-						engine = new HsEngine(frameEventDispatcher, timeSource);
-					});
+			frameEventDispatcher = new EventDispatcher();
+			timeSource = mocker.createStub(ITimeSource) as ITimeSource;
+			updater = mocker.createStub(IUpdater) as IUpdater;
+			engine = new HsEngine(frameEventDispatcher, timeSource);
 		}
 		
 		[Test]
