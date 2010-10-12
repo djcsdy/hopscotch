@@ -44,7 +44,7 @@ package net.noiseinstitute.hopscotch.engine {
 		public function stop () :void {
 			if (running) {
 				running = false;
-				var fractionalUpdateCount:Number = (now - startTime) / _updateIntervalMs;
+				var fractionalUpdateCount:Number = 1 + (now - startTime) / _updateIntervalMs;
 				stopTweenFactor = fractionalUpdateCount - updateCount;
 				frameEventDispatcher.removeEventListener(Event.ENTER_FRAME, onEnterFrame); 
 			}
@@ -70,7 +70,7 @@ package net.noiseinstitute.hopscotch.engine {
 			var previousUpdateCount:int = updateCount;
 			
 			now = timeSource.getTime();
-			var fractionalUpdateCount:Number = (now - startTime) / _updateIntervalMs;
+			var fractionalUpdateCount:Number = 1 + (now - startTime) / _updateIntervalMs;
 			updateCount = Math.floor(fractionalUpdateCount);
 			var tweenFactor:Number = fractionalUpdateCount - updateCount;
 			
@@ -94,7 +94,7 @@ package net.noiseinstitute.hopscotch.engine {
 				throw new ArgumentError("updateIntervalMs must be > 0");
 			}
 			
-			var fractionalUpdateCount:Number = (now - startTime) / this._updateIntervalMs;
+			var fractionalUpdateCount:Number = 1 + (now - startTime) / this._updateIntervalMs;
 			var unservedFractionalUpdates:Number = fractionalUpdateCount - updateCount;
 			
 			updateCount = 0;

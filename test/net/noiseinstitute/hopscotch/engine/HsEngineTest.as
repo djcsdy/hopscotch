@@ -49,13 +49,20 @@ package net.noiseinstitute.hopscotch.engine {
 		[Test]
 		public function testUpdateIsCalledExpectedNumberOfTimes () :void {
 			SetupResult.forCall(timeSource.getTime()).returnValue(0);
-			Expect.notCalled(updater.update());
+			Expect.call(updater.update());
 			mocker.replayAll();
 			
 			var updateIntervalMs:Number = 10;
 			engine.updateIntervalMs = updateIntervalMs;
 			engine.addUpdater(updater);
 			engine.start();
+			
+			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
+			mocker.verify(updater);
+			
+			mocker.backToRecord(updater);
+			Expect.notCalled(updater.update());
+			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
