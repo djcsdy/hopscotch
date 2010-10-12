@@ -10,15 +10,9 @@ package net.noiseinstitute.hopscotch.engine {
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	import org.flexunit.Assert;
+	import org.flexunit.async.Async;
 	
-	[RunWith("asmock.integration.flexunit.ASMockClassRunner")]
 	public class HsEngineTest {
-		
-		[Mock]
-		public static var timeSourceMock :ITimeSource = null;
-		
-		[Mock]
-		public static var updaterMock :IUpdater;
 		
 		private var mocker :MockRepository;
 		private var frameEventDispatcher :IEventDispatcher;
@@ -27,13 +21,18 @@ package net.noiseinstitute.hopscotch.engine {
 		private var engine :HsEngine;
 		
 		
-		[Before]
-		public function setup () :void {
+		[Before(async, timeout=5000)]
+		public function prepareMocks () :void {
 			mocker = new MockRepository();
-			frameEventDispatcher = new EventDispatcher();
-			timeSource = mocker.createStub(ITimeSource) as ITimeSource;
-			updater = mocker.createStub(IUpdater) as IUpdater;
-			engine = new HsEngine(frameEventDispatcher, timeSource);
+			Async.handleEvent(this,
+					mocker.prepare([ITimeSource, IUpdater]),
+					Event.COMPLETE,
+					function () :void {
+						frameEventDispatcher = new EventDispatcher();
+						timeSource = mocker.createStub(ITimeSource) as ITimeSource;
+						updater = mocker.createStub(IUpdater) as IUpdater;
+						engine = new HsEngine(frameEventDispatcher, timeSource);
+					});
 		}
 		
 		[Test]
