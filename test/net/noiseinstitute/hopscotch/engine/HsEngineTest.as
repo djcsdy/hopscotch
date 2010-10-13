@@ -141,50 +141,56 @@ package net.noiseinstitute.hopscotch.engine {
 		
 		[Test]
 		public function testUpdateAndRenderAreCalledInCorrectOrder () :void {
-			var updateIntervalMs:Number = engine.updateIntervalMs;
-			var numUpdatesToSimulate:int = 3;
-			var expectedNumCallsToRender:int = 3*updateIntervalMs;
-			
-			var numTimesUpdateHasBeenCalled:int = 0;
-			var numTimesUpdateHadBeenCalledOnLastRender:int = 0;
-			var lastRenderTweenFactor:Number = 0;
-			
-			Expect.call(updater.update()).
-					repeat.times(numUpdatesToSimulate, numUpdatesToSimulate).
-					doAction(function () :void {
-						++numTimesUpdateHasBeenCalled;
-					});
-			
-			Expect.call(renderer.render(0)).
-					ignoreArguments().
-					repeat.times(expectedNumCallsToRender, expectedNumCallsToRender).
-					doAction(function (tweenFactor:Number) :void {
-						if (tweenFactor < lastRenderTweenFactor) {
-							Assert.assertTrue(numTimesUpdateHasBeenCalled >
-									numTimesUpdateHadBeenCalledOnLastRender);
-						}
-						lastRenderTweenFactor = tweenFactor;
-						numTimesUpdateHadBeenCalledOnLastRender =
-								numTimesUpdateHasBeenCalled;
-					});
-			
-			mocker.replayAll();
-			
-			engine.addUpdater(updater);
-			engine.addRenderer(renderer);
-			engine.start();
-			
-			var  time:Number = 0;
-			while (time < expectedNumCallsToRender) {
-				mocker.backToRecord(timeSource);
-				SetupResult.forCall(timeSource.getTime()).returnValue(time);
-				mocker.replay(timeSource);
+			for each (var frameIntervalMs:int in [1, 10, 17]) {
+				var updateIntervalMs:Number = engine.updateIntervalMs;
+				var numUpdatesToSimulate:int = 3;
+				var totalDurationMs:int = 3*updateIntervalMs;
+				var expectedNumCallsToRender:int = Math.floor(totalDurationMs/frameIntervalMs);
 				
-				frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
-				++time;
+				var numTimesUpdateHasBeenCalled:int = 0;
+				var numTimesUpdateHadBeenCalledOnLastRender:int = 0;
+				var lastRenderTweenFactor:Number = 0;
+				
+				mocker.backToRecord(updater);
+				mocker.backToRecord(renderer);
+				
+				Expect.call(updater.update()).
+						repeat.times(numUpdatesToSimulate, numUpdatesToSimulate).
+						doAction(function () :void {
+							++numTimesUpdateHasBeenCalled;
+						});
+				
+				Expect.call(renderer.render(0)).
+						ignoreArguments().
+						repeat.times(expectedNumCallsToRender, expectedNumCallsToRender).
+						doAction(function (tweenFactor:Number) :void {
+							if (tweenFactor < lastRenderTweenFactor) {
+								Assert.assertTrue(numTimesUpdateHasBeenCalled >
+										numTimesUpdateHadBeenCalledOnLastRender);
+							}
+							lastRenderTweenFactor = tweenFactor;
+							numTimesUpdateHadBeenCalledOnLastRender =
+									numTimesUpdateHasBeenCalled;
+						});
+				
+				mocker.replayAll();
+				
+				engine.addUpdater(updater);
+				engine.addRenderer(renderer);
+				engine.start();
+				
+				var  time:Number = 0;
+				while (time < totalDurationMs) {
+					mocker.backToRecord(timeSource);
+					SetupResult.forCall(timeSource.getTime()).returnValue(time);
+					mocker.replay(timeSource);
+					
+					frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
+					time += frameIntervalMs;
+				}
+				mocker.verify(updater);
+				mocker.verify(renderer);
 			}
-			mocker.verify(updater);
-			mocker.verify(renderer);
 		}
 		
 	}
