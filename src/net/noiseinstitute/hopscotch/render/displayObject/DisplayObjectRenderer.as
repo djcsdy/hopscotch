@@ -1,5 +1,6 @@
 package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObject;
+	import flash.geom.Matrix;
 	
 	import net.noiseinstitute.hopscotch.Entity;
 	import net.noiseinstitute.hopscotch.HsPoint;
@@ -26,9 +27,12 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		}
 		
 		public function render (tweenFactor:Number) :void {
-			_displayObject.x = _entity.x - origin.x;
-			_displayObject.y = _entity.y - origin.y;
-			_displayObject.rotation = _entity.rotation * RADIANS_TO_DEGREES;
+			var matrix:Matrix = _displayObject.matrix;
+			matrix.identity();
+			matrix.translate(-origin.x, -origin.y);
+			matrix.rotate(_entity.rotation * RADIANS_TO_DEGREES);
+			matrix.translate(_entity.x, _entity.y);
+			_displayObject.matrix = matrix;
 		}
 		
 		public function get displayObject () :DisplayObject {
