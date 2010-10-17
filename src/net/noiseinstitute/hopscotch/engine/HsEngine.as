@@ -32,8 +32,6 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 			this.frameEventDispatcher = frameEventDispatcher;
 			this.timeSource = timeSource;
-			
-			new LayerRenderer();
 		}
 		
 		public function start () :void {
