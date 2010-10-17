@@ -1,7 +1,6 @@
 package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
 	import net.noiseinstitute.hopscotch.render.IRenderer;
