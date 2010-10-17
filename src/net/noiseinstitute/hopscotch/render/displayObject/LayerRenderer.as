@@ -47,7 +47,9 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 				delete rendererIndices[renderer];
 				
 				var displayObject:DisplayObject = renderer.displayObject;
-				_container.removeChild(displayObject);
+				if (displayObject.parent == container) {
+					_container.removeChild(displayObject);
+				}
 			}
 		}
 		
