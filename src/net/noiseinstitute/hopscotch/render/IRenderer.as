@@ -1,6 +1,6 @@
 package net.noiseinstitute.hopscotch.render {
 	
-	public interface IRenderManager {
+	public interface IRenderer {
 		function render (tweenFactor:Number) :void;
 	}
 	

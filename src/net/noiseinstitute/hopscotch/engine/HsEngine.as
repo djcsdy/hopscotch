@@ -4,9 +4,9 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.IEventDispatcher;
 	import flash.utils.Timer;
 	
-	import net.noiseinstitute.hopscotch.render.IRenderManager;
-	import net.noiseinstitute.hopscotch.render.displayObject.DisplayObjectRenderManager;
-	import net.noiseinstitute.hopscotch.update.IUpdateManager;
+	import net.noiseinstitute.hopscotch.render.IRenderer;
+	import net.noiseinstitute.hopscotch.render.displayObject.LayerRenderer;
+	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	public class HsEngine {
 		
@@ -18,8 +18,8 @@ package net.noiseinstitute.hopscotch.engine {
 		private var _updateIntervalMs :Number = 10;
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
-		private var updateManagers :Vector.<IUpdateManager> = new Vector.<IUpdateManager>();
-		private var renderManagers :Vector.<IRenderManager> = new Vector.<IRenderManager>();
+		private var updaters :Vector.<IUpdater> = new Vector.<IUpdater>();
+		private var renderers :Vector.<IRenderer> = new Vector.<IRenderer>();
 		
 		public function HsEngine (
 				frameEventDispatcher:IEventDispatcher,
@@ -32,6 +32,8 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 			this.frameEventDispatcher = frameEventDispatcher;
 			this.timeSource = timeSource;
+			
+			new LayerRenderer();
 		}
 		
 		public function start () :void {
@@ -51,20 +53,20 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 		}
 		
-		public function addUpdateManager (updateManager:IUpdateManager) :void {
-			updateManagers[updateManagers.length] = updateManager;
+		public function addUpdater (updater:IUpdater) :void {
+			updaters[updaters.length] = updater;
 		}
 		
-		public function removeUpdateManager (updateManager:IUpdateManager) :void {
-			updateManagers.splice(updateManagers.indexOf(updateManager), 1);
+		public function removeUpdater (updater:IUpdater) :void {
+			updaters.splice(updaters.indexOf(updater), 1);
 		}
 		
-		public function addRenderManager (renderManager:IRenderManager) :void {
-			renderManagers[renderManagers.length] = renderManager;
+		public function addRenderer (renderer:IRenderer) :void {
+			renderers[renderers.length] = renderer;
 		}
 		
-		public function removeRenderManager (renderManager:IRenderManager) :void {
-			renderManagers.splice(renderManagers.indexOf(renderManager), 1);
+		public function removeRenderer (renderer:IRenderer) :void {
+			renderers.splice(renderers.indexOf(renderer), 1);
 		}
 		
 		private function onEnterFrame (event:Event) :void {
@@ -76,13 +78,13 @@ package net.noiseinstitute.hopscotch.engine {
 			var tweenFactor:Number = fractionalUpdateCount - updateCount;
 			
 			for (var i:int=previousUpdateCount; i<updateCount; ++i) {
-				for each (var updateManager:IUpdateManager in updateManagers) {
-					updateManager.update();
+				for each (var updater:IUpdater in updaters) {
+					updater.update();
 				}
 			}
 			
-			for each (var renderManager:IRenderManager in renderManagers) {
-				renderManager.render(tweenFactor);
+			for each (var renderer:IRenderer in renderers) {
+				renderer.render(tweenFactor);
 			}
 		}
 		

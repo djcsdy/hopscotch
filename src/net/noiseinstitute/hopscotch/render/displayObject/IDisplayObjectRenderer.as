@@ -1,9 +1,9 @@
 package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObject;
 	
-	public interface IDisplayObjectRenderer {
-		
-		function render (tweenFactor:Number) :void;
+	import net.noiseinstitute.hopscotch.render.IRenderer;
+	
+	public interface IDisplayObjectRenderer extends IRenderer {
 		
 		function get displayObject () :DisplayObject;
 		

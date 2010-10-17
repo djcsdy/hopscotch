@@ -4,16 +4,16 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
-	import net.noiseinstitute.hopscotch.render.IRenderManager;
+	import net.noiseinstitute.hopscotch.render.IRenderer;
 	
-	public class DisplayObjectRenderManager implements IRenderManager {
+	public class LayerRenderer implements IDisplayObjectRenderer {
 		
 		private var _container :DisplayObjectContainer;
 		private var renderers :Vector.<IDisplayObjectRenderer> =
 				new Vector.<IDisplayObjectRenderer>();
 		private var rendererIndices :Dictionary;
 		
-		public function DisplayObjectRenderManager (container:DisplayObjectContainer=null) {
+		public function LayerRenderer (container:DisplayObjectContainer=null) {
 			if (container) {
 				_container = container;
 			} else {
@@ -47,6 +47,10 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 				var displayObject:DisplayObject = renderer.displayObject;
 				_container.removeChild(displayObject);
 			}
+		}
+		
+		public function get displayObject () :DisplayObject {
+			return _container;
 		}
 		
 		public function get container () :DisplayObjectContainer {
