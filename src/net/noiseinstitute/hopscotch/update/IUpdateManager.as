@@ -1,5 +1,5 @@
 package net.noiseinstitute.hopscotch.update {
-	public interface IUpdater {
+	public interface IUpdateManager {
 		function update () :void;
 	}
 }
