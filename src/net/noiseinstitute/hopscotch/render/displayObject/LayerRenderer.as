@@ -5,7 +5,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	
 	import net.noiseinstitute.hopscotch.Entity;
 	
-	public class LayerRenderer extends SpriteRenderer {
+	public class LayerRenderer extends DisplayObjectRenderer {
 		
 		private var _container :DisplayObjectContainer;
 		private var renderers :Vector.<IDisplayObjectRenderer> =
