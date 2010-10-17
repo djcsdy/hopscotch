@@ -28,5 +28,29 @@ package net.noiseinstitute.hopscotch {
 			_position.y = y;
 		}
 		
+		public function get position () :HsPoint {
+			return _position;
+		}
+		
+		public function set position (position:HsPoint) :void {
+			_position = position;
+		}
+		
+		public function get velocity () :HsPoint {
+			return _velocity;
+		}
+		
+		public function set velocity (velocity:HsPoint) :void {
+			_velocity = velocity;
+		}
+		
+		public function get acceleration () :HsPoint {
+			return _acceleration;
+		}
+		
+		public function set acceleration (acceleration:HsPoint) :void {
+			_acceleration = acceleration;
+		}
+		
 	}
 }
