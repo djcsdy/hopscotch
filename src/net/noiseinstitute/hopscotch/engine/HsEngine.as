@@ -92,13 +92,13 @@ package net.noiseinstitute.hopscotch.engine {
 				throw new ArgumentError("updateIntervalMs must be > 0");
 			}
 			
-			var fractionalUpdateCount:Number = 1 + (now - startTime) / this._updateIntervalMs;
+			var fractionalUpdateCount:Number = 1 + (now - startTime) / _updateIntervalMs;
 			var unservedFractionalUpdates:Number = fractionalUpdateCount - updateCount;
 			
-			updateCount = 0;
-			startTime = now - unservedFractionalUpdates * updateIntervalMs;
+			updateCount = 1;
+			startTime = now - unservedFractionalUpdates * _updateIntervalMs;
 			
-			this._updateIntervalMs = updateIntervalMs;
+			_updateIntervalMs = updateIntervalMs;
 		}
 		
 		public function get updatesPerSecond () :Number {
