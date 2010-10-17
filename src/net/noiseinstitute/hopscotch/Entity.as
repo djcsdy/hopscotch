@@ -6,26 +6,31 @@ package net.noiseinstitute.hopscotch {
 		public var position :HsPoint = new HsPoint();
 		public var velocity :HsPoint = new HsPoint();
 		public var acceleration :HsPoint = new HsPoint();
+		public var angle :Number = 0;
+		public var rotationSpeed :Number = 0;
+		public var rotationAcceleration :Number = 0;
 		
 		public function update () :void {
-			_velocity.addInPlace(_acceleration);
-			_position.addInPlace(_velocity);
+			velocity.addInPlace(_acceleration);
+			position.addInPlace(_velocity);
+			rotationSpeed += rotationAcceleration;
+			angle += rotationSpeed;
 		}
 		
 		public function get x () :Number {
-			return _position.x;
+			return position.x;
 		}
 		
 		public function set x (x:Number) :void {
-			_position.x = x;
+			position.x = x;
 		}
 		
 		public function get y () :Number {
-			return _position.y;
+			return position.y;
 		}
 		
 		public function set (y:Number) :void {
-			_position.y = y;
+			position.y = y;
 		}
 		
 	}
