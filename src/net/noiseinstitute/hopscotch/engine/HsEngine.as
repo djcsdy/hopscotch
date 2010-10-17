@@ -1,11 +1,8 @@
 package net.noiseinstitute.hopscotch.engine {
-	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
-	import flash.utils.Timer;
 	
 	import net.noiseinstitute.hopscotch.render.IRenderer;
-	import net.noiseinstitute.hopscotch.render.displayObject.LayerRenderer;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	public class HsEngine {
