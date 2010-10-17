@@ -3,16 +3,23 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObjectContainer;
 	import flash.utils.Dictionary;
 	
+	import net.noiseinstitute.hopscotch.Entity;
 	import net.noiseinstitute.hopscotch.render.IRenderer;
 	
 	public class LayerRenderer implements IDisplayObjectRenderer {
 		
+		private var _entity :Entity;
 		private var _container :DisplayObjectContainer;
 		private var renderers :Vector.<IDisplayObjectRenderer> =
 				new Vector.<IDisplayObjectRenderer>();
 		private var rendererIndices :Dictionary;
 		
-		public function LayerRenderer (container:DisplayObjectContainer=null) {
+		public function LayerRenderer (entity:Entity=null, container:DisplayObjectContainer=null) {
+			if (entity) {
+				_entity = entity;
+			} else {
+				_entity = new Entity();
+			}
 			if (container) {
 				_container = container;
 			} else {
@@ -21,6 +28,9 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		}
 		
 		public function render (tweenFactor:Number) :void {
+			_container.x = _entity.x;
+			_container.y = _entity.y;
+			
 			for each (var renderer:IDisplayObjectRenderer in renderers) {
 				renderer.render(tweenFactor);
 			}
