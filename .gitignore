@@ -8,3 +8,6 @@
 /src/FlexUnitApplication.as
 /.idea
 /.FlexUnitSettings
+/*.ipr
+/*.iws
+/*.iml
