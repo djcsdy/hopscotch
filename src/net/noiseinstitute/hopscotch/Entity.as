@@ -3,9 +3,9 @@ package net.noiseinstitute.hopscotch {
 	
 	public class Entity implements IUpdater {
 		
-		private var _position :HsPoint = new HsPoint();
-		private var _velocity :HsPoint = new HsPoint();
-		private var _acceleration :HsPoint = new HsPoint();
+		public var position :HsPoint = new HsPoint();
+		public var velocity :HsPoint = new HsPoint();
+		public var acceleration :HsPoint = new HsPoint();
 		
 		public function update () :void {
 			_velocity.addInPlace(_acceleration);
@@ -26,30 +26,6 @@ package net.noiseinstitute.hopscotch {
 		
 		public function set (y:Number) :void {
 			_position.y = y;
-		}
-		
-		public function get position () :HsPoint {
-			return _position;
-		}
-		
-		public function set position (position:HsPoint) :void {
-			_position = position;
-		}
-		
-		public function get velocity () :HsPoint {
-			return _velocity;
-		}
-		
-		public function set velocity (velocity:HsPoint) :void {
-			_velocity = velocity;
-		}
-		
-		public function get acceleration () :HsPoint {
-			return _acceleration;
-		}
-		
-		public function set acceleration (acceleration:HsPoint) :void {
-			_acceleration = acceleration;
 		}
 		
 	}
