@@ -4,34 +4,25 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.utils.Dictionary;
 	
 	import net.noiseinstitute.hopscotch.Entity;
-	import net.noiseinstitute.hopscotch.HsPoint;
-	import net.noiseinstitute.hopscotch.render.IRenderer;
 	
-	public class LayerRenderer implements IDisplayObjectRenderer {
+	public class LayerRenderer extends SpriteRenderer {
 		
-		private var _entity :Entity;
 		private var _container :DisplayObjectContainer;
-		public var origin :HsPoint = new HsPoint(); 
 		private var renderers :Vector.<IDisplayObjectRenderer> =
 				new Vector.<IDisplayObjectRenderer>();
 		private var rendererIndices :Dictionary;
 		
 		public function LayerRenderer (entity:Entity=null, container:DisplayObjectContainer=null) {
-			if (entity) {
-				_entity = entity;
-			} else {
-				_entity = new Entity();
-			}
 			if (container) {
 				_container = container;
 			} else {
 				_container = new DisplayObjectContainer();
 			}
+			super(entity, _container);
 		}
 		
-		public function render (tweenFactor:Number) :void {
-			_container.x = _entity.x - origin.x;
-			_container.y = _entity.y - origin.y;
+		override public function render (tweenFactor:Number) :void {
+			super.render(tweenFactor);
 			
 			for each (var renderer:IDisplayObjectRenderer in renderers) {
 				renderer.render(tweenFactor);
@@ -63,10 +54,6 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 					_container.removeChild(displayObject);
 				}
 			}
-		}
-		
-		public function get displayObject () :DisplayObject {
-			return _container;
 		}
 		
 		public function get container () :DisplayObjectContainer {
