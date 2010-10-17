@@ -4,3 +4,7 @@
 /.settings
 /bin-debug
 /html-template
+/src/FlexUnitCompilerApplication.as
+/src/FlexUnitApplication.as
+/.idea
+/.FlexUnitSettings
