@@ -41,6 +41,9 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		public function removeRenderer (renderer:IDisplayObjectRenderer) :void {
 			if (rendererIndices[renderer] != null) {
 				var i:uint = rendererIndices[renderer];
+				if (renderers[i] != renderer) {
+					i = renderers.indexOf(renderer);
+				}
 				renderers.splice(i, 1);
 				delete rendererIndices[renderer];
 				
