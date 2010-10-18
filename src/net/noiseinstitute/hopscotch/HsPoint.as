@@ -6,8 +6,8 @@ package net.noiseinstitute.hopscotch {
 		public var y :Number;
 		
 		public function HsPoint (x:Number=0, y:Number=0) {
-			x = x;
-			y = y;
+			this.x = x;
+			this.y = y;
 		}
 		
 		public function add (p:HsPoint) :HsPoint {
@@ -73,7 +73,7 @@ package net.noiseinstitute.hopscotch {
 		}
 		
 		public function magnitude () :Number {
-			return Math.sqrt(x*x, y*y);
+			return Math.sqrt(x*x + y*y);
 		}
 		
 		public function normalize () :HsPoint {
@@ -99,7 +99,7 @@ package net.noiseinstitute.hopscotch {
 		public function distance (p:HsPoint) :Number {
 			var xd:Number = x - p.x;
 			var yd:Number = y - p.y;
-			return Math.sqrt(xd*xd, yd*yd);
+			return Math.sqrt(xd*xd + yd*yd);
 		}
 	
 		public static function unitVector (angle:Number) :HsPoint {
