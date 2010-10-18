@@ -6,17 +6,104 @@ package net.noiseinstitute.hopscotch {
 		public var y :Number;
 		
 		public function HsPoint (x:Number=0, y:Number=0) {
-			this.x = x;
-			this.y = y;
+			x = x;
+			y = y;
 		}
 		
-		public function addInPlace (point:HsPoint) :void {
-			this.x += point.x;
-			this.y += point.y;
+		public function add (p:HsPoint) :HsPoint {
+			return new HsPoint(x+p.x, y+p.y);
 		}
 		
-		public static function add (p1:HsPoint, p2:HsPoint) :HsPoint {
-			return new HsPoint(p1.x + p2.x, p1.y + p2.y);
+		public function addInPlace (p:HsPoint) :void {
+			x += p.x;
+			y += p.y;
+		}
+		
+		public function subtract (p:HsPoint) :HsPoint {
+			return new HsPoint(x-p.x, y-p.y);
+		}
+		
+		public function subtractInPlace (p:HsPoint) :void {
+			x -= p.x;
+			y -= p.y;
+		}
+		
+		public function dot (p:HsPoint) :Number {
+			return x*p.x + y*p.y;
+		}
+		
+		public function cross (p:HsPoint) :Number {
+			return x*p.y - y*p.x;
+		}
+		
+		public function multiply (n:Number) :HsPoint {
+			return new HsPoint(x*n, y*n);
+		}
+		
+		public function multiplyInPlace (n:Number) :void {
+			x *= n;
+			y *= n;
+		}
+		
+		public function addScalar (n:Number) :HsPoint {
+			return new HsPoint(x+n, y+n);
+		}
+		
+		public function addScalarInPlace (n:Number) :void {
+			x += n;
+			y += n;
+		}
+		
+		public function subtractScalar (n:Number) :HsPoint {
+			return new HsPoint(x-n, y-n);
+		}
+		
+		public function subtractScalarInPlace (n:Number) :void {
+			x -= n;
+			y -= n;
+		}
+		
+		public function negate () :HsPoint {
+			return new HsPoint(-x, -y);
+		}
+		
+		public function negateInPlace () :void {
+			x = -x;
+			y = -y;
+		}
+		
+		public function magnitude () :Number {
+			return Math.sqrt(x*x, y*y);
+		}
+		
+		public function normalize () :HsPoint {
+			var m:Number = magnitude();
+			if (m == 0) {
+				return new HsPoint(0, 0);
+			} else {
+				return new HsPoint(x/m, y/m);
+			}
+		}
+		
+		public function normalizeInPlace () :void {
+			var m:Number = magnitude();
+			if (m == 0) {
+				x = 0;
+				y = 0;
+			} else {
+				x /= m;
+				y /= m;
+			}
+		}
+		
+		public function distance (p:HsPoint) :Number {
+			var xd:Number = x - p.x;
+			var yd:Number = y - p.y;
+			return Math.sqrt(xd*xd, yd*yd);
+		}
+	
+		public static function unitVector (angle:Number) :HsPoint {
+			return new HsPoint(Math.sin(angle), -Math.cos(angle));
 		}
 		
 	}
