@@ -224,12 +224,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(updater);
 			mocker.backToRecord(renderer);
 			Expect.notCalled(updater.update());
-			Expect.call(renderer.render(0.25)).
-					ignoreArguments().
-					repeat.once().
-					doAction(function (tweenFactor:Number) :void {
-						trace(tweenFactor);
-					});
+			Expect.call(renderer.render(0.25)).repeat.once();
 			mocker.replayAll();
 			
 			engine.updateIntervalMs = defaultUpdateIntervalMs * 2;
