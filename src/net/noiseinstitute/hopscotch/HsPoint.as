@@ -45,24 +45,6 @@ package net.noiseinstitute.hopscotch {
 			y *= n;
 		}
 		
-		public function addScalar (n:Number) :HsPoint {
-			return new HsPoint(x+n, y+n);
-		}
-		
-		public function addScalarInPlace (n:Number) :void {
-			x += n;
-			y += n;
-		}
-		
-		public function subtractScalar (n:Number) :HsPoint {
-			return new HsPoint(x-n, y-n);
-		}
-		
-		public function subtractScalarInPlace (n:Number) :void {
-			x -= n;
-			y -= n;
-		}
-		
 		public function negate () :HsPoint {
 			return new HsPoint(-x, -y);
 		}

@@ -50,28 +50,6 @@ package net.noiseinstitute.hopscotch {
 		}
 		
 		[Test]
-		public function testAddScalar () :void {
-			p1.x = 2;
-			p1.y = 3;
-			
-			p2 = p1.addScalar(5);
-			Assert.assertEquals(2, p1.x);
-			Assert.assertEquals(3, p1.y);
-			Assert.assertEquals(7, p2.x);
-			Assert.assertEquals(8, p2.y);
-		}
-		
-		[Test]
-		public function testAddScalarInPlace () :void {
-			p1.x = 2;
-			p1.y = 3;
-			
-			p1.addScalarInPlace(5);
-			Assert.assertEquals(7, p1.x);
-			Assert.assertEquals(8, p1.y);
-		}
-		
-		[Test]
 		public function testCross () :void {
 			p1.x = 2;
 			p1.y = 3;
@@ -196,27 +174,6 @@ package net.noiseinstitute.hopscotch {
 		}
 		
 		[Test]
-		public function testSubtractScalar () :void {
-			p1.x = 2;
-			p1.y = 3;
-			
-			p2 = p1.subtractScalar(4);
-			Assert.assertEquals(2, p1.x);
-			Assert.assertEquals(3, p1.y);
-			Assert.assertEquals(-2, p2.x);
-			Assert.assertEquals(-1, p2.y);
-		}
-		
-		[Test]
-		public function testSubtractScalarInPlace () :void {
-			p1.x = 2;
-			p1.y = 3;
-			
-			p1.subtractScalarInPlace(4);
-			Assert.assertEquals(-2, p1.x);
-			Assert.assertEquals(-1, p1.y);
-		}
-		
 		[Test]
 		public function testUnitVector () :void {
 			// Up
