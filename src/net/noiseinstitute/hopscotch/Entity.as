@@ -11,8 +11,8 @@ package net.noiseinstitute.hopscotch {
 		public var rotationAcceleration :Number = 0;
 		
 		public function update () :void {
-			velocity.addInPlace(_acceleration);
-			position.addInPlace(_velocity);
+			velocity.addInPlace(acceleration);
+			position.addInPlace(velocity);
 			rotationSpeed += rotationAcceleration;
 			rotation += rotationSpeed;
 		}
@@ -29,7 +29,7 @@ package net.noiseinstitute.hopscotch {
 			return position.y;
 		}
 		
-		public function set (y:Number) :void {
+		public function set y (y:Number) :void {
 			position.y = y;
 		}
 		
