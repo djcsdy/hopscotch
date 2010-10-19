@@ -56,12 +56,27 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 			Assert.assertEquals(2, displayObject.x);
 			Assert.assertEquals(3, displayObject.y);
 			
-			entity.x = 0;
-			entity.y = 0;
 			entity.rotation = Math.PI;
 			
 			renderer.render(0);
+			Assert.assertEquals(2, displayObject.x);
+			Assert.assertEquals(3, displayObject.y);
 			Assert.assertEquals(180, displayObject.rotation);
+			
+			entity.rotation = Math.PI/4;
+			
+			renderer.render(0);
+			Assert.assertEquals(2, displayObject.x);
+			Assert.assertEquals(3, displayObject.y);
+			Assert.assertEquals(45, displayObject.rotation);
+			
+			entity.x = 0;
+			entity.y = 0;
+			
+			renderer.render(0);
+			Assert.assertEquals(0, displayObject.x);
+			Assert.assertEquals(0, displayObject.y);
+			Assert.assertEquals(45, displayObject.rotation);
 		}
 	}
 }
