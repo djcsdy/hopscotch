@@ -12,13 +12,13 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 				new Vector.<IDisplayObjectRenderer>();
 		private var rendererIndices :Dictionary;
 		
-		public function LayerRenderer (entity:Entity=null, container:DisplayObjectContainer=null) {
+		public function LayerRenderer (container:DisplayObjectContainer=null, entity:Entity=null) {
 			if (container) {
 				_container = container;
 			} else {
 				_container = new DisplayObjectContainer();
 			}
-			super(entity, _container);
+			super(_container, entity);
 		}
 		
 		override public function render (tweenFactor:Number) :void {

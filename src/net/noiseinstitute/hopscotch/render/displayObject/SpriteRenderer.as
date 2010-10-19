@@ -9,7 +9,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		
 		public function SpriteRenderer (entity:Entity) {
 			_sprite = new Sprite();
-			super(entity, _sprite);
+			super(_sprite, entity);
 		}
 		
 		public function get sprite () :Sprite {

@@ -7,32 +7,34 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	
 	public class DisplayObjectRenderer implements IDisplayObjectRenderer {
 		
-		private static const RADIANS_TO_DEGREES :Number = 180/Math.PI;
-		
-		private var _entity :Entity;
+		public var _entity :Entity;
 		private var _displayObject :DisplayObject;
 		public var origin :HsPoint = new HsPoint();
 		
-		public function DisplayObjectRenderer (entity:Entity=null, displayObject:DisplayObject=null) {
-			if (entity) {
-				_entity = entity;
-			} else {
-				_entity = new Entity();
-			}
+		public function DisplayObjectRenderer (displayObject:DisplayObject=null, entity:Entity=null) {
 			if (displayObject) {
 				_displayObject = displayObject;
 			} else {
 				_displayObject = new DisplayObject();
 			}
+			if (entity) {
+				_entity = entity;
+			} else {
+				_entity = new Entity();
+			}
 		}
 		
 		public function render (tweenFactor:Number) :void {
-			var matrix:Matrix = _displayObject.matrix;
+			var matrix:Matrix = _displayObject.transform.matrix;
 			matrix.identity();
 			matrix.translate(-origin.x, -origin.y);
-			matrix.rotate(_entity.rotation * RADIANS_TO_DEGREES);
+			matrix.rotate(_entity.rotation);
 			matrix.translate(_entity.x, _entity.y);
-			_displayObject.matrix = matrix;
+			_displayObject.transform.matrix = matrix;
+		}
+		
+		public function get entity () :Entity {
+			return _entity;
 		}
 		
 		public function get displayObject () :DisplayObject {
