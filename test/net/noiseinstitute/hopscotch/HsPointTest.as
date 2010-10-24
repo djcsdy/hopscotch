@@ -174,7 +174,6 @@ package net.noiseinstitute.hopscotch {
 		}
 		
 		[Test]
-		[Test]
 		public function testUnitVector () :void {
 			// Up
 			p1 = HsPoint.unitVector(0); 
@@ -223,6 +222,17 @@ package net.noiseinstitute.hopscotch {
 			Assert.assertEquals(-Math.cos(7*Math.PI/4), p1.y);
 			Assert.assertTrue(p1.x < 0);
 			Assert.assertTrue(p1.y < 0);
+		}
+		
+		[Test]
+		public function testClone () :void {
+			p1.x = 2;
+			p1.y = 3;
+			
+			p2 = p1.clone();
+			Assert.assertFalse(p1 === p2);
+			Assert.assertEquals(p1.x, p2.x);
+			Assert.assertEquals(p1.y, p2.y);
 		}
 	}
 }

@@ -83,6 +83,10 @@ package net.noiseinstitute.hopscotch {
 			var yd:Number = y - p.y;
 			return Math.sqrt(xd*xd + yd*yd);
 		}
+		
+		public function clone () :HsPoint {
+			return new HsPoint(x, y);
+		}
 	
 		public static function unitVector (angle:Number) :HsPoint {
 			return new HsPoint(Math.sin(angle), -Math.cos(angle));
