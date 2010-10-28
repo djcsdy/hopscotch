@@ -1,15 +1,14 @@
-package net.noiseinstitute.hopscotch {
-	import org.flixel.FlxObject;
+package net.noiseinstitute.hopscotch.reuse {
 	
-	public class HsSupplier {
+	public class Supplier {
 		
 		private var length:uint;
 		private var numMembers:uint;
-		private var members:Vector.<FlxObject>;
-		private var numDefunctMembers:uint;
+		private var members:Vector.<IReusable>;
+		private var numDeadMembers:uint;
 		private var populator:Function;
 		
-		/** Creates a new HsSupplier.
+		/** Creates a new <code>Supplier</code>.
 		 * 
 		 * @param size The maximum number of members that this
 		 * supplier can supply. If the size is zero (the default),
@@ -17,26 +16,26 @@ package net.noiseinstitute.hopscotch {
 		public function HsSupplier (size:uint=0) {
 			this.length = size;
 			if (size == 0) {
-				members = new Vector.<FlxObject>();
+				members = new Vector.<IReusable>();
 			} else {
-				members = new Vector.<FlxObject>(size, true);
+				members = new Vector.<IReusable>(size, true);
 			}
 		}
 		
-		/** Populate the <code>HsSupplier</code> by calling back a function
-		 * <code>f</code> that creates <code>FlxObject</code>s.
+		/** Populate the <code>Supplier</code> by calling back a function
+		 * <code>f</code> that creates <code>IReusable</code>s.
 		 * 
-		 * <p>If the <code>HsSupplier</code> has a fixed size, then
-		 * <code>f</code> will be called back immediately and repeatedly, until
-		 * the <code>HsSupplier</code> is full. Thereafter, <code>f</code> will
-		 * not be called again.</p>
+		 * <p>If the <code>Supplier</code> has a fixed size, then
+		 * <code>f</code> will be called back immediately and repeatedly, 
+		 * until the <code>Supplier</code> is full. Thereafter, <code>f</code>
+		 * will not be called again.</p>
 		 * 
 		 * <p>Otherwise, <code>f</code> will be called on a call to
-		 * <code>getInitialized</code>, if the <code>HsSupplier</code> has
-		 * run out of defunct members.</p>
+		 * <code>getInitialized</code>, if the <code>Supplier</code> has
+		 * run out of dead members.</p>
 		 * 
-		 * @param f a function used to populate the <code>HsSupplier</code>,
-		 *   defined in the form <code>function():FlxObject</code>. */
+		 * @param f a function used to populate the <code>Supplier</code>,
+		 *   defined in the form <code>function():IReusable</code>. */
 		public function populate (f:Function) :HsSupplier {
 			if (length == 0) {
 				populator = f;
@@ -47,8 +46,8 @@ package net.noiseinstitute.hopscotch {
 			return this;
 		}
 		
-		/** Add an object to the <code>HsSupplier</code>. */
-		public function add (object:FlxObject) :HsSupplier {
+		/** Add an object to the <code>Supplier</code>. */
+		public function add (object:IReusable) :Supplier {
 			if (length > 0 && numMembers >= length) {
 				throw new RangeError("HsSupplier is full");
 			}
@@ -62,37 +61,37 @@ package net.noiseinstitute.hopscotch {
 				members[numMembers++] = object;
 			} else {
 				var i:int = numMembers;
-				while (i > numDefunctMembers) {
+				while (i > numDeadMembers) {
 					members[i] = members[--i];
 				}
 				members[i] = object;
 				++numMembers;
-				++numDefunctMembers;
+				++numDeadMembers;
 			}
 			
-			object.addDefunctEventListener(function () :void {
-				if (members[numDefunctMembers] == object) {
-					++numDefunctMembers;
+			object.addDeadEventListener(function () :void {
+				if (members[numDeadMembers] == object) {
+					++numDeadMembers;
 					return;
 				} else {
-					var previousMember:FlxObject = members[numDefunctMembers];
-					var i:int = numDefunctMembers+1;
+					var previousMember:IReusable = members[numDeadMembers];
+					var i:int = numDeadMembers+1;
 					do {
-						var tmp:FlxObject = members[i];
+						var tmp:IReusable = members[i];
 						members[i] = previousMember;
 						previousMember = tmp;
 						++i;
 					} while (previousMember != object);
-					members[numDefunctMembers++] = object;
+					members[numDeadMembers++] = object;
 				}
 			});
 			
 			return this;
 		}
 		
-		public function getInitialized (reuseLive:Boolean=false) :FlxObject {
-			var object:FlxObject; 
-			if (numDefunctMembers == 0) {
+		public function getInitialized (reuseLive:Boolean=false) :IReusable {
+			var object:IReusable; 
+			if (numDeadMembers == 0) {
 				if (reuseLive) {
 					if (members.length > 0) {
 						object = members[0];
@@ -112,7 +111,7 @@ package net.noiseinstitute.hopscotch {
 					return null;
 				}
 			} else {
-				object = members[--numDefunctMembers];
+				object = members[--numDeadMembers];
 			}
 			if (object != null) {
 				object.reset(0, 0);
