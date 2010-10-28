@@ -1,5 +1,6 @@
 package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
 	
 	import net.noiseinstitute.hopscotch.Entity;
@@ -15,7 +16,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 			if (displayObject) {
 				_displayObject = displayObject;
 			} else {
-				_displayObject = new DisplayObject();
+				_displayObject = new Sprite();
 			}
 			if (entity) {
 				_entity = entity;
@@ -39,6 +40,10 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		
 		public function get displayObject () :DisplayObject {
 			return _displayObject;
+		}
+		
+		public function get sprite () :Sprite {
+			return _displayObject as Sprite;
 		}
 		
 	}

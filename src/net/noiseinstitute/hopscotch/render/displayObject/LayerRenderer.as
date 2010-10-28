@@ -1,6 +1,7 @@
 package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
 	import net.noiseinstitute.hopscotch.Entity;
@@ -13,12 +14,8 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		private var rendererIndices :Dictionary;
 		
 		public function LayerRenderer (container:DisplayObjectContainer=null, entity:Entity=null) {
-			if (container) {
-				_container = container;
-			} else {
-				_container = new DisplayObjectContainer();
-			}
-			super(_container, entity);
+			super(container, entity);
+			_container = sprite;
 		}
 		
 		override public function render (tweenFactor:Number) :void {
