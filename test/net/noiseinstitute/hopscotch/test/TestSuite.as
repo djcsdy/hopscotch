@@ -1,4 +1,5 @@
 package net.noiseinstitute.hopscotch.test {
+	import net.noiseinstitute.hopscotch.ActionQueueTest;
 	import net.noiseinstitute.hopscotch.EntityTest;
 	import net.noiseinstitute.hopscotch.HsPointTest;
 	import net.noiseinstitute.hopscotch.engine.HsEngineTest;
@@ -11,6 +12,7 @@ package net.noiseinstitute.hopscotch.test {
 		public var hsPointTest :HsPointTest;
 		public var entityTest :EntityTest;
 		public var displayObjectRendererTest :DisplayObjectRendererTest;
+		public var actionQueueTest :ActionQueueTest;
 	}
 	
 }
