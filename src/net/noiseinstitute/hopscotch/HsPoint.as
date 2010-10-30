@@ -10,6 +10,11 @@ package net.noiseinstitute.hopscotch {
 			this.y = y;
 		}
 		
+		public function copyFrom (p:HsPoint) :void {
+			x = p.x;
+			y = p.y;
+		}
+		
 		public function add (p:HsPoint) :HsPoint {
 			return new HsPoint(x+p.x, y+p.y);
 		}

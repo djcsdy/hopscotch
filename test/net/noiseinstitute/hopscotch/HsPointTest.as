@@ -28,6 +28,20 @@ package net.noiseinstitute.hopscotch {
 		}
 		
 		[Test]
+		public function testCopyFrom () :void {
+			p1.x = 1;
+			p1.y = 2;
+			p2.x = 3;
+			p2.y = 4;
+			
+			p1.copyFrom(p2);
+			Assert.assertEquals(3, p1.x);
+			Assert.assertEquals(4, p1.y);
+			Assert.assertEquals(3, p2.x);
+			Assert.assertEquals(4, p2.y);
+		}
+		
+		[Test]
 		public function testAdd () :void {
 			p1.x = 2;
 			p1.y = 3;
