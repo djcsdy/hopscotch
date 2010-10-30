@@ -2,23 +2,18 @@ package net.noiseinstitute.hopscotch {
 	
 	public class ActionQueue {
 		
-		private static function doNothing () :void {
-		}
-		
-		private var actions :Function = doNothing
+		private var actions :Vector.<Function> = new Vector.<Function>();
 			
 		public function enqueue (action:Function) :ActionQueue {
-			var previousActions:Function = actions;
-			actions = function () :void {
-				previousActions();
-				action();
-			};
+			actions[actions.length] = action;
 			return this;
 		}
 		
 		public function execute () :ActionQueue {
-			actions();
-			actions = doNothing; 
+			for each (var action:Function in actions) {
+				action();
+			}
+			actions = new Vector.<Function>();
 			return this;
 		}
 		
