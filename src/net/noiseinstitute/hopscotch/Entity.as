@@ -10,11 +10,25 @@ package net.noiseinstitute.hopscotch {
 		public var rotationSpeed :Number = 0;
 		public var rotationAcceleration :Number = 0;
 		
-		public function update () :void {
-			velocity.addInPlace(acceleration);
-			position.addInPlace(velocity);
-			rotationSpeed += rotationAcceleration;
-			rotation += rotationSpeed;
+		private var savedVelocity :HsPoint = new HsPoint();
+		private var savedAcceleration :HsPoint = new HsPoint();
+		private var savedRotationSpeed :Number = 0;
+		private var savedRotationAcceleration :Number = 0;
+		
+		public function update (deferredActions:ActionQueue) :void {
+			savedVelocity.copyFrom(velocity);
+			savedAcceleration.copyFrom(acceleration);
+			savedRotationSpeed = rotationSpeed;
+			savedRotationAcceleration = rotationAcceleration;
+			
+			deferredActions.enqueue(function () :void {
+				velocity.addInPlace(savedAcceleration);
+				savedVelocity.addInPlace(savedAcceleration);
+				position.addInPlace(savedVelocity);
+				rotationSpeed += savedRotationAcceleration;
+				savedRotationSpeed += savedRotationAcceleration;
+				rotation += savedRotationSpeed;
+			});
 		}
 		
 		public function get x () :Number {

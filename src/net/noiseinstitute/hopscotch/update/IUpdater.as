@@ -1,5 +1,7 @@
 package net.noiseinstitute.hopscotch.update {
+	import net.noiseinstitute.hopscotch.ActionQueue;
+
 	public interface IUpdater {
-		function update () :void;
+		function update (deferredActions:ActionQueue) :void;
 	}
 }
