@@ -1,5 +1,4 @@
 package net.noiseinstitute.hopscotch.update {
-	import net.noiseinstitute.hopscotch.ActionQueue;
 	
 	public class UpdateGroup implements IUpdater {
 		

@@ -1,5 +1,6 @@
 package net.noiseinstitute.hopscotch {
 	import org.flexunit.Assert;
+	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	
 	public class EntityTest {
 		

@@ -13,17 +13,17 @@ package net.noiseinstitute.hopscotch.engine {
 	
 	import org.flexunit.Assert;
 	
-	public class HsEngineTest extends TestCaseWithMocks {
+	public class EngineTest extends TestCaseWithMocks {
 		
 		private var mocker :MockRepository;
 		private var frameEventDispatcher :IEventDispatcher;
 		private var timeSource :ITimeSource;
 		private var updater :IUpdater;
 		private var renderer :IRenderer;
-		private var engine :HsEngine;
+		private var engine :Engine;
 		
 		
-		public function HsEngineTest () {
+		public function EngineTest () {
 			super(ITimeSource, IUpdater, IRenderer);
 		}
 		
@@ -34,14 +34,14 @@ package net.noiseinstitute.hopscotch.engine {
 			timeSource = mocker.createStub(ITimeSource) as ITimeSource;
 			updater = mocker.createStub(IUpdater) as IUpdater;
 			renderer = mocker.createStub(IRenderer) as IRenderer;
-			engine = new HsEngine(frameEventDispatcher, timeSource);
+			engine = new Engine(frameEventDispatcher, timeSource);
 		}
 		
 		[Test]
 		public function testFrameEventDispatcherMustNotBeNull () :void {
 			var caught:Boolean = false;
 			try {
-				new HsEngine(null, timeSource);
+				new Engine(null, timeSource);
 			} catch (e:TypeError) {
 				caught = true;
 			}

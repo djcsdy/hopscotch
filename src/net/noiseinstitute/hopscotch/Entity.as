@@ -1,5 +1,7 @@
 package net.noiseinstitute.hopscotch {
 	import net.noiseinstitute.hopscotch.update.IUpdater;
+	import net.noiseinstitute.hopscotch.update.ActionQueue;
+	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	
 	public class Entity implements IUpdater {
 		

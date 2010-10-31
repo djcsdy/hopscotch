@@ -2,7 +2,7 @@ package net.noiseinstitute.hopscotch.collision {
 	import flash.utils.getQualifiedClassName;
 	
 	import net.noiseinstitute.hopscotch.Entity;
-	import net.noiseinstitute.hopscotch.HsPoint;
+	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	
 	final public class CircleCollider implements ICollider {
 		

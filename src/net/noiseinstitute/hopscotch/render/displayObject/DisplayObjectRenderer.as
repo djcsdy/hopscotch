@@ -4,7 +4,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.geom.Matrix;
 	
 	import net.noiseinstitute.hopscotch.Entity;
-	import net.noiseinstitute.hopscotch.HsPoint;
+	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	
 	public class DisplayObjectRenderer implements IDisplayObjectRenderer {
 		

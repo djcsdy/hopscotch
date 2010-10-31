@@ -2,11 +2,11 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
-	import net.noiseinstitute.hopscotch.ActionQueue;
+	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.render.IRenderer;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
-	public class HsEngine {
+	public class Engine {
 		
 		private var frameEventDispatcher :IEventDispatcher;
 		private var timeSource :ITimeSource;
@@ -20,7 +20,7 @@ package net.noiseinstitute.hopscotch.engine {
 		private var renderers :Vector.<IRenderer> = new Vector.<IRenderer>();
 		private var deferredActions :ActionQueue = new ActionQueue();
 		
-		public function HsEngine (
+		public function Engine (
 				frameEventDispatcher:IEventDispatcher,
 				timeSource:ITimeSource=null) {
 			if (!frameEventDispatcher) {
