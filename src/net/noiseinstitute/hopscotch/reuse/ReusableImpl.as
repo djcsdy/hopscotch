@@ -5,42 +5,19 @@ package net.noiseinstitute.hopscotch.reuse {
 		
 		private var _alive :Boolean = false;
 		
-		private var aliveEventDispatcher :HsEventDispatcher =
-				new HsEventDispatcher();
 		private var deadEventDispatcher :HsEventDispatcher =
 				new HsEventDispatcher();
 		
 		
-		public function ReusableMixin () {
-			this.consumer = consumer;
+		public function init () :void {
+			_alive = true;
 		}
 		
-		public dynamic function init () :void {
-			alive = true;
-		}
-		
-		public function get alive () :Boolean {
-			return _alive;
-		}
-		
-		public function set alive (alive:Boolean) :void {
-			var wasAlive:Boolean = _alive;
-			_alive = alive;
-			if (alive != wasAlive) {
-				if (alive) {
-					aliveEventDispatcher.dispatchEvent();
-				} else {
-					deadEventDispatcher.dispatchEvent();
-				}
+		public function kill () :void {
+			if (_alive) {
+				_alive = false;
+				deadEventDispatcher.dispatchEvent();
 			}
-		}
-		
-		public function addAliveListener (listener:Function) :void {
-			aliveEventDispatcher.addEventListener(listener);
-		}
-		
-		public function removeAliveListener (listener:Function) :void {
-			aliveEventDispatcher.removeEventListener(listener);
 		}
 		
 		public function addDeadListener (listener:Function) :void {
@@ -49,6 +26,10 @@ package net.noiseinstitute.hopscotch.reuse {
 		
 		public function removeDeadListener (listener:Function) :void {
 			deadEventDispatcher.removeEventListener(listener);
+		}
+		
+		public function get alive () :Boolean {
+			return _alive;
 		}
 		
 	}

@@ -69,7 +69,7 @@ package net.noiseinstitute.hopscotch.reuse {
 				++numDeadMembers;
 			}
 			
-			object.addDeadEventListener(function () :void {
+			object.addDeadListener(function () :void {
 				if (members[numDeadMembers] == object) {
 					++numDeadMembers;
 					return;

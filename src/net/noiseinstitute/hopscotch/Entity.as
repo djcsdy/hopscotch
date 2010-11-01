@@ -1,9 +1,11 @@
 package net.noiseinstitute.hopscotch {
-	import net.noiseinstitute.hopscotch.update.IUpdater;
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
+	import net.noiseinstitute.hopscotch.reuse.IReusable;
+	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
+	import net.noiseinstitute.hopscotch.update.ActionQueue;
+	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
-	public class Entity implements IUpdater {
+	public class Entity implements IUpdater, IReusable {
 		
 		public var position :HsPoint = new HsPoint();
 		public var velocity :HsPoint = new HsPoint();
@@ -16,6 +18,25 @@ package net.noiseinstitute.hopscotch {
 		private var savedAcceleration :HsPoint = new HsPoint();
 		private var savedRotationSpeed :Number = 0;
 		private var savedRotationAcceleration :Number = 0;
+		
+		private var reusableImpl :ReusableImpl = new ReusableImpl();
+		
+		public function init () :void {
+			reusableImpl.init();
+			position.x = 0;
+			position.y = 0;
+			velocity.x = 0;
+			velocity.y = 0;
+			acceleration.x = 0;
+			acceleration.y = 0;
+			rotation = 0;
+			rotationSpeed = 0;
+			rotationAcceleration = 0;
+		}
+		
+		public function kill () :void {
+			reusableImpl.kill();
+		}
 		
 		public function update (deferredActions:ActionQueue) :void {
 			savedVelocity.copyFrom(velocity);
@@ -33,6 +54,14 @@ package net.noiseinstitute.hopscotch {
 			});
 		}
 		
+		public function addDeadListener (listener:Function) :void {
+			reusableImpl.addDeadListener(listener);
+		}
+		
+		public function removeDeadListener (listener:Function) :void {
+			reusableImpl.removeDeadListener(listener);
+		}
+		
 		public function get x () :Number {
 			return position.x;
 		}
@@ -47,6 +76,10 @@ package net.noiseinstitute.hopscotch {
 		
 		public function set y (y:Number) :void {
 			position.y = y;
+		}
+		
+		public function get alive () :Boolean {
+			return reusableImpl.alive;
 		}
 		
 	}
