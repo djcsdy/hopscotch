@@ -8,6 +8,8 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	
 	public class LayerRenderer extends DisplayObjectRenderer {
 		
+		public var sortComparison :Function;
+		
 		private var _container :DisplayObjectContainer;
 		private var renderers :Vector.<IDisplayObjectRenderer> =
 				new Vector.<IDisplayObjectRenderer>();
@@ -21,8 +23,18 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		override public function render (tweenFactor:Number) :void {
 			super.render(tweenFactor);
 			
-			for each (var renderer:IDisplayObjectRenderer in renderers) {
+			var renderer:IDisplayObjectRenderer;
+			for each (renderer in renderers) {
 				renderer.render(tweenFactor);
+			}
+			
+			if (sortComparison != null) {
+				var sortedRenderers:Vector.<IDisplayObjectRenderer> =
+						renderers.sort(sortComparison);
+				for (var i:Number=0; i<sortedRenderers.length; ++i) {
+					renderer = renderers[i];
+					_container.setChildIndex(renderer.displayObject, i);
+				}
 			}
 		}
 		
