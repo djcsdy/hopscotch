@@ -2,8 +2,8 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.render.IRenderer;
+	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	public class Engine {
@@ -110,7 +110,7 @@ package net.noiseinstitute.hopscotch.engine {
 		}
 		
 		public function set updatesPerSecond (updatesPerSecond:Number) :void {
-			_updateIntervalMs = updatesPerSecond/1000;
+			_updateIntervalMs = 1000/updatesPerSecond;
 		}
 		
 	}
