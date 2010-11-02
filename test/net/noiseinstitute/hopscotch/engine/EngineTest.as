@@ -293,6 +293,21 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.verify(renderer);
 		}
 		
+		[Test]
+		public function testSetUpdatesPerSecond () :void {
+			engine.updatesPerSecond = 1;
+			Assert.assertEquals(1000, engine.updateIntervalMs);
+			
+			engine.updatesPerSecond = 2;
+			Assert.assertEquals(500, engine.updateIntervalMs);
+			
+			engine.updatesPerSecond = 4;
+			Assert.assertEquals(250, engine.updateIntervalMs);
+			
+			engine.updatesPerSecond = 50;
+			Assert.assertEquals(20, engine.updateIntervalMs);
+		}
+		
 	}
 	
 }
