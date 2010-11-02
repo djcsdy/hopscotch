@@ -3,7 +3,7 @@ package net.noiseinstitute.hopscotch.input {
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	public interface IInputAxes extends IUpdater {
-		public function get position () :HsPoint;
+		function get position () :HsPoint;
 	}
 	
 }
