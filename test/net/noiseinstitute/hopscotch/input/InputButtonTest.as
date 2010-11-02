@@ -33,47 +33,64 @@ package net.noiseinstitute.hopscotch.input {
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(0, button.pressedTicks);
+			Assert.assertEquals(1, button.releasedTicks);
 			
 			button.update(null);
 			Assert.assertTrue(button.pressed);
 			Assert.assertTrue(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(1, button.pressedTicks);
+			Assert.assertEquals(0, button.releasedTicks);
 			
 			button.update(null);
 			Assert.assertTrue(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(2, button.pressedTicks);
+			Assert.assertEquals(0, button.releasedTicks);
 			
 			button.update(null);
 			Assert.assertTrue(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(3, button.pressedTicks);
+			Assert.assertEquals(0, button.releasedTicks);
 			
 			button.release();
 			Assert.assertTrue(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(3, button.pressedTicks);
+			Assert.assertEquals(0, button.releasedTicks);
 			
 			button.update(null);
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertTrue(button.justReleased);
+			Assert.assertEquals(0, button.pressedTicks);
+			Assert.assertEquals(1, button.releasedTicks); 
 			
 			button.update(null);
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(0, button.pressedTicks);
+			Assert.assertEquals(2, button.releasedTicks);
 			
 			button.press();
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
+			Assert.assertEquals(0, button.pressedTicks);
+			Assert.assertEquals(2, button.releasedTicks);
 			
 			button.update(null);
 			Assert.assertTrue(button.pressed);
 			Assert.assertTrue(button.justPressed);
 			Assert.assertFalse(button.justReleased);
-			
+			Assert.assertEquals(1, button.pressedTicks);
+			Assert.assertEquals(0, button.releasedTicks);
 		}
 		
 	}
