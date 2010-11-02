@@ -13,7 +13,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		private var _container :DisplayObjectContainer;
 		private var renderers :Vector.<IDisplayObjectRenderer> =
 				new Vector.<IDisplayObjectRenderer>();
-		private var rendererIndices :Dictionary;
+		private var rendererIndices :Dictionary = new Dictionary();
 		
 		public function LayerRenderer (container:DisplayObjectContainer=null, entity:Entity=null) {
 			super(container, entity);
@@ -39,7 +39,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 		}
 		
 		public function addRenderer (renderer:IDisplayObjectRenderer) :void {
-			if (rendererIndices[renderer] != null) {
+			if (rendererIndices[renderer] == null) {
 				var i:uint = renderers.length;
 				rendererIndices[renderer] = i
 				renderers[i] = renderer;
