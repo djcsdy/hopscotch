@@ -89,10 +89,24 @@ package net.noiseinstitute.hopscotch.geom {
 			return Math.sqrt(xd*xd + yd*yd);
 		}
 		
+		public function scale (s:Number) :HsPoint {
+			return new HsPoint(x*s, y*s);
+		}
+		
+		public function scaleInPlace (s:Number) :void {
+			x *= s;
+			y *= s;
+		}
+		
 		public function clone () :HsPoint {
 			return new HsPoint(x, y);
 		}
-	
+		
+		public function becomeUnitVector (angle:Number) :void {
+			x = Math.sin(angle);
+			y = -Math.cos(angle);
+		}
+		
 		public static function unitVector (angle:Number) :HsPoint {
 			return new HsPoint(Math.sin(angle), -Math.cos(angle));
 		}

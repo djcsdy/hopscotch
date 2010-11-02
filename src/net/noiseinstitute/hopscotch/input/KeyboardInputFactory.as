@@ -30,34 +30,34 @@ package net.noiseinstitute.hopscotch.input {
 			keyButtons = new Dictionary();
 		}
 		
-		public function buttonForKey (charCode:int) :InputButton {
-			var button:InputButton = keyButtons[charCode];
+		public function buttonForKey (keyCode:uint) :InputButton {
+			var button:InputButton = keyButtons[keyCode];
 			if (!button) {
 				button = new InputButton();
-				keyButtons[charCode] = button;
+				keyButtons[keyCode] = button;
 			}
 			return button;
 		}
 		
-		public function axesForKeys (upCharCode:int, downCharCode:int,
-				leftCharCode:int, rightCharCode:int) :InputButtonAxes {
+		public function axesForKeys (upKeyCode:uint, downKeyCode:uint,
+				leftKeyCode:uint, rightKeyCode:uint) :InputButtonAxes {
 			var axes:InputButtonAxes = new InputButtonAxes();
-			axes.upButton = buttonForKey(upCharCode);
-			axes.downButton = buttonForKey(downCharCode);
-			axes.leftButton = buttonForKey(leftCharCode);
-			axes.rightButton = buttonForKey(rightCharCode);
+			axes.upButton = buttonForKey(upKeyCode);
+			axes.downButton = buttonForKey(downKeyCode);
+			axes.leftButton = buttonForKey(leftKeyCode);
+			axes.rightButton = buttonForKey(rightKeyCode);
 			return axes;
 		}
 		
 		private function onKeyDown (event:KeyboardEvent) :void {
-			var button:InputButton = keyButtons[event.charCode];
+			var button:InputButton = keyButtons[event.keyCode];
 			if (button) {
 				button.press();
 			}
 		}
 		
 		private function onKeyUp (event:KeyboardEvent) :void {
-			var button:InputButton = keyButtons[event.charCode];
+			var button:InputButton = keyButtons[event.keyCode];
 			if (button) {
 				button.release();
 			}

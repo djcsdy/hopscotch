@@ -48,7 +48,7 @@ package net.noiseinstitute.hopscotch.input {
 		}
 		
 		public function get position () :HsPoint {
-			return position;
+			return _position;
 		}
 		
 	}
