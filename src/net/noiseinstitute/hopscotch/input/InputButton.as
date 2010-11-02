@@ -1,29 +1,33 @@
 package net.noiseinstitute.hopscotch.input {
+	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
 	public class InputButton implements IUpdater {
 		
+		private var pressQueued :Boolean = false;
 		private var _pressed :Boolean = false;
 		private var _justPressed :Boolean = false;
 		private var _justReleased :Boolean = false;
 		private var _pressedTicks :uint = 0;
-		private var _releasedTicks :uint = 0;
+		private var _releasedTicks :uint = 1;
 		
 		public function press () :void {
-			_pressed = true;
+			pressQueued = true;
 		}
 		
 		public function release () :void {
-			_pressed = false;
+			pressQueued = false;
 		}
 		
-		public function update () :void {
-			if (_pressed) {
+		public function update (deferredActions:ActionQueue) :void {
+			if (pressQueued) {
+				_pressed = true;
 				_justPressed = (_pressedTicks == 0);
 				_releasedTicks = 0;
 				_justReleased = false;
 				_pressedTicks++;
 			} else {
+				_pressed = false;
 				_justReleased = (_releasedTicks == 0);
 				_pressedTicks = 0;
 				_justPressed = false;

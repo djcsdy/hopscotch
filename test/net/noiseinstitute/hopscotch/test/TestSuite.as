@@ -1,9 +1,10 @@
 package net.noiseinstitute.hopscotch.test {
-	import net.noiseinstitute.hopscotch.update.ActionQueueTest;
 	import net.noiseinstitute.hopscotch.EntityTest;
-	import net.noiseinstitute.hopscotch.geom.HsPointTest;
 	import net.noiseinstitute.hopscotch.engine.EngineTest;
+	import net.noiseinstitute.hopscotch.geom.HsPointTest;
+	import net.noiseinstitute.hopscotch.input.InputButtonTest;
 	import net.noiseinstitute.hopscotch.render.displayObject.DisplayObjectRendererTest;
+	import net.noiseinstitute.hopscotch.update.ActionQueueTest;
 	
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]
@@ -13,6 +14,7 @@ package net.noiseinstitute.hopscotch.test {
 		public var entityTest :EntityTest;
 		public var displayObjectRendererTest :DisplayObjectRendererTest;
 		public var actionQueueTest :ActionQueueTest;
+		public var inputButtonTest :InputButtonTest;
 	}
 	
 }
