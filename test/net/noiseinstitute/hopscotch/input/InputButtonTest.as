@@ -2,6 +2,7 @@ package net.noiseinstitute.hopscotch.input {
 	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	
 	import org.flexunit.Assert;
+	import net.noiseinstitute.hopscotch.input.digital.InputButton;
 	
 	public class InputButtonTest {
 		

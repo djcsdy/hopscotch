@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch.input {
+package net.noiseinstitute.hopscotch.input.digital {
 	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	

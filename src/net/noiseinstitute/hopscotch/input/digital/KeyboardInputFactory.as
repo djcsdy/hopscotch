@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch.input {
+package net.noiseinstitute.hopscotch.input.digital {
 	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.utils.Dictionary;
@@ -39,14 +39,24 @@ package net.noiseinstitute.hopscotch.input {
 			return button;
 		}
 		
-		public function axesForKeys (upKeyCode:uint, downKeyCode:uint,
-				leftKeyCode:uint, rightKeyCode:uint) :InputButtonAxes {
-			var axes:InputButtonAxes = new InputButtonAxes();
-			axes.upButton = buttonForKey(upKeyCode);
-			axes.downButton = buttonForKey(downKeyCode);
-			axes.leftButton = buttonForKey(leftKeyCode);
-			axes.rightButton = buttonForKey(rightKeyCode);
-			return axes;
+		public function throttleForKey (keyCode:uint) :ButtonThrottle {
+			var button:InputButton = buttonForKey(keyCode);
+			return new ButtonThrottle(button);
+		}
+		
+		public function wheelForKeys (leftKeyCode:uint, rightKeyCode:uint) :ButtonWheel {
+			var leftButton:InputButton = buttonForKey(leftKeyCode);
+			var rightButton:InputButton = buttonForKey(rightKeyCode);
+			return new ButtonWheel(leftButton, rightButton);
+		}
+		
+		public function joystickForKeys (upKeyCode:uint, downKeyCode:uint,
+				leftKeyCode:uint, rightKeyCode:uint) :ButtonJoystick {
+			var upButton:InputButton = buttonForKey(upKeyCode);
+			var downButton:InputButton = buttonForKey(downKeyCode);
+			var leftButton:InputButton = buttonForKey(leftKeyCode);
+			var rightButton:InputButton = buttonForKey(rightKeyCode);
+			return new ButtonJoystick(upButton, downButton, leftButton, rightButton);
 		}
 		
 		private function onKeyDown (event:KeyboardEvent) :void {
