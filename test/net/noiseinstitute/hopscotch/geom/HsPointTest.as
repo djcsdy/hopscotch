@@ -188,6 +188,85 @@ package net.noiseinstitute.hopscotch.geom {
 		}
 		
 		[Test]
+		public function testScale () :void {
+			p1.x = 2;
+			p1.y = 3;
+			
+			p2 = p1.scale(2);
+			Assert.assertEquals(4, p2.x);
+			Assert.assertEquals(6, p2.y);
+			
+			p2 = p1.scale(0.5);
+			Assert.assertEquals(1, p2.x);
+			Assert.assertEquals(1.5, p2.y);
+		}
+		
+		[Test]
+		public function testScaleInPlace () :void {
+			p1.x = 2;
+			p1.y = 3;
+			
+			p1.scaleInPlace(2);
+			Assert.assertEquals(4, p1.x);
+			Assert.assertEquals(6, p1.y);
+			
+			p1.scaleInPlace(0.5);
+			Assert.assertEquals(2, p1.x);
+			Assert.assertEquals(3, p1.y);
+		}
+		
+		[Test]
+		public function testBecomeUnitVector () :void {
+			// Up
+			p1.becomeUnitVector(0); 
+			Assert.assertEquals(0, p1.x);
+			Assert.assertEquals(-1, p1.y);
+			
+			// Up-right
+			p1.becomeUnitVector(Math.PI/4);
+			Assert.assertEquals(Math.sin(Math.PI/4), p1.x);
+			Assert.assertEquals(-Math.cos(Math.PI/4), p1.y);
+			Assert.assertTrue(p1.x > 0);
+			Assert.assertTrue(p1.y < 0);
+			
+			// Right
+			p1.becomeUnitVector(Math.PI/2);
+			Assert.assertEquals(1, p1.x);
+			Assert.assertTrue(Math.abs(p1.y) < 1e-15); // approximately zero, due to rounding errors.
+			
+			// Down-right
+			p1.becomeUnitVector(3*Math.PI/4);
+			Assert.assertEquals(Math.sin(3*Math.PI/4), p1.x);
+			Assert.assertEquals(-Math.cos(3*Math.PI/4), p1.y);
+			Assert.assertTrue(p1.x > 0);
+			Assert.assertTrue(p1.y > 0);
+			
+			// Down
+			p1.becomeUnitVector(Math.PI);
+			Assert.assertTrue(Math.abs(p1.x) < 1e-15); // approximately zero, due to rounding errors.
+			Assert.assertEquals(1, p1.y);
+			
+			// Down-left
+			p1.becomeUnitVector(5*Math.PI/4);
+			Assert.assertEquals(Math.sin(5*Math.PI/4), p1.x);
+			Assert.assertEquals(-Math.cos(5*Math.PI/4), p1.y);
+			Assert.assertTrue(p1.x < 0);
+			Assert.assertTrue(p1.y > 0);
+			
+			// Left
+			p1.becomeUnitVector(3*Math.PI/2);
+			Assert.assertEquals(-1, p1.x);
+			Assert.assertTrue(Math.abs(p1.y) < 1e-15); // approximately zero, due to rounding errors.
+			
+			// Up-left
+			p1.becomeUnitVector(7*Math.PI/4);
+			Assert.assertEquals(Math.sin(7*Math.PI/4), p1.x);
+			Assert.assertEquals(-Math.cos(7*Math.PI/4), p1.y);
+			Assert.assertTrue(p1.x < 0);
+			Assert.assertTrue(p1.y < 0);
+		}
+		
+		[Test]
 		public function testUnitVector () :void {
 			// Up
 			p1 = HsPoint.unitVector(0); 
