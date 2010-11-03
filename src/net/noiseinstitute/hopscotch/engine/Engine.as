@@ -2,7 +2,6 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
-	import net.noiseinstitute.hopscotch.render.IRenderer;
 	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
@@ -17,7 +16,6 @@ package net.noiseinstitute.hopscotch.engine {
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
 		private var updaters :Vector.<IUpdater> = new Vector.<IUpdater>();
-		private var renderers :Vector.<IRenderer> = new Vector.<IRenderer>();
 		private var deferredActions :ActionQueue = new ActionQueue();
 		
 		public function Engine (
@@ -58,14 +56,6 @@ package net.noiseinstitute.hopscotch.engine {
 			updaters.splice(updaters.indexOf(updater), 1);
 		}
 		
-		public function addRenderer (renderer:IRenderer) :void {
-			renderers[renderers.length] = renderer;
-		}
-		
-		public function removeRenderer (renderer:IRenderer) :void {
-			renderers.splice(renderers.indexOf(renderer), 1);
-		}
-		
 		private function onEnterFrame (event:Event) :void {
 			var previousUpdateCount:int = updateCount;
 			
@@ -74,16 +64,17 @@ package net.noiseinstitute.hopscotch.engine {
 			updateCount = Math.floor(fractionalUpdateCount);
 			var tweenFactor:Number = fractionalUpdateCount - updateCount;
 			
+			var updater:IUpdater;
 			for (var i:int=previousUpdateCount; i<updateCount; ++i) {
-				for each (var updater:IUpdater in updaters) {
+				for each (updater in updaters) {
 					updater.update(deferredActions);
 				}
 			}
 			
 			deferredActions.execute();
 			
-			for each (var renderer:IRenderer in renderers) {
-				renderer.render(tweenFactor);
+			for each (updater in updaters) {
+				updater.render(tweenFactor);
 			}
 		}
 		

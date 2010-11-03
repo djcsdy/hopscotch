@@ -7,7 +7,6 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import net.noiseinstitute.hopscotch.render.IRenderer;
 	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
@@ -19,12 +18,11 @@ package net.noiseinstitute.hopscotch.engine {
 		private var frameEventDispatcher :IEventDispatcher;
 		private var timeSource :ITimeSource;
 		private var updater :IUpdater;
-		private var renderer :IRenderer;
 		private var engine :Engine;
 		
 		
 		public function EngineTest () {
-			super(ITimeSource, IUpdater, IRenderer);
+			super(ITimeSource, IUpdater);
 		}
 		
 		[Before]
@@ -33,7 +31,6 @@ package net.noiseinstitute.hopscotch.engine {
 			frameEventDispatcher = new EventDispatcher();
 			timeSource = mocker.createStub(ITimeSource) as ITimeSource;
 			updater = mocker.createStub(IUpdater) as IUpdater;
-			renderer = mocker.createStub(IRenderer) as IRenderer;
 			engine = new Engine(frameEventDispatcher, timeSource);
 		}
 		
@@ -104,43 +101,43 @@ package net.noiseinstitute.hopscotch.engine {
 		[Test]
 		public function testRenderIsCalledWithExpectedTweenFactor () :void {
 			SetupResult.forCall(timeSource.getTime()).returnValue(0);
-			Expect.call(renderer.render(0)).repeat.once();
+			Expect.call(updater.render(0)).repeat.once();
 			mocker.replayAll();
 			
 			var updateIntervalMs:Number = engine.updateIntervalMs;
-			engine.addRenderer(renderer);
+			engine.addUpdater(updater);
 			engine.start();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
-			mocker.verify(renderer);
+			mocker.verify(updater);
 			
 			mocker.backToRecord(timeSource);
-			mocker.backToRecord(renderer);
+			mocker.backToRecord(updater);
 			SetupResult.forCall(timeSource.getTime()).returnValue(0.5 * updateIntervalMs);
-			Expect.call(renderer.render(0.5)).repeat.twice();
+			Expect.call(updater.render(0.5)).repeat.twice();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
-			mocker.verify(renderer);
+			mocker.verify(updater);
 			
 			mocker.backToRecord(timeSource);
-			mocker.backToRecord(renderer);
+			mocker.backToRecord(updater);
 			SetupResult.forCall(timeSource.getTime()).returnValue(updateIntervalMs);
-			Expect.call(renderer.render(0)).repeat.once();
+			Expect.call(updater.render(0)).repeat.once();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
-			mocker.verify(renderer);
+			mocker.verify(updater);
 			
 			mocker.backToRecord(timeSource);
-			mocker.backToRecord(renderer);
+			mocker.backToRecord(updater);
 			SetupResult.forCall(timeSource.getTime()).returnValue(1.75 * updateIntervalMs);
-			Expect.call(renderer.render(0.75)).repeat.once();
+			Expect.call(updater.render(0.75)).repeat.once();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
-			mocker.verify(renderer);
+			mocker.verify(updater);
 		}
 		
 		[Test]
@@ -156,7 +153,6 @@ package net.noiseinstitute.hopscotch.engine {
 				var lastRenderTweenFactor:Number = 0;
 				
 				mocker.backToRecord(updater);
-				mocker.backToRecord(renderer);
 				
 				Expect.call(updater.update(null)).
 						ignoreArguments().
@@ -165,7 +161,7 @@ package net.noiseinstitute.hopscotch.engine {
 							++numTimesUpdateHasBeenCalled;
 						});
 				
-				Expect.call(renderer.render(0)).
+				Expect.call(updater.render(0)).
 						ignoreArguments().
 						repeat.times(expectedNumCallsToRender, expectedNumCallsToRender).
 						doAction(function (tweenFactor:Number) :void {
@@ -181,7 +177,6 @@ package net.noiseinstitute.hopscotch.engine {
 				mocker.replayAll();
 				
 				engine.addUpdater(updater);
-				engine.addRenderer(renderer);
 				engine.start();
 				
 				var  time:Number = 0;
@@ -194,7 +189,6 @@ package net.noiseinstitute.hopscotch.engine {
 					time += frameIntervalMs;
 				}
 				mocker.verify(updater);
-				mocker.verify(renderer);
 			}
 		}
 		
@@ -204,93 +198,79 @@ package net.noiseinstitute.hopscotch.engine {
 			Expect.call(updater.update(null)).
 					ignoreArguments().
 					repeat.once();
-			Expect.call(renderer.render(0)).repeat.once();
+			Expect.call(updater.render(0)).repeat.once();
 			mocker.replayAll();
 			
 			var defaultUpdateIntervalMs:Number = engine.updateIntervalMs;
 			engine.addUpdater(updater);
-			engine.addRenderer(renderer);
 			engine.start();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 			
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(updater);
-			mocker.backToRecord(renderer);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 0.5);
 			Expect.notCalled(updater.update(null)).ignoreArguments();
-			Expect.call(renderer.render(0.5)).repeat.once();
+			Expect.call(updater.render(0.5)).repeat.once();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 			
 			mocker.backToRecord(updater);
-			mocker.backToRecord(renderer);
 			Expect.notCalled(updater.update(null)).ignoreArguments();
-			Expect.call(renderer.render(0.25)).repeat.once();
+			Expect.call(updater.render(0.25)).repeat.once();
 			mocker.replayAll();
 			
 			engine.updateIntervalMs = defaultUpdateIntervalMs * 2;
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 			
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(updater);
-			mocker.backToRecord(renderer);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs);
 			Expect.notCalled(updater.update(null)).ignoreArguments();
-			Expect.call(renderer.render(0.5)).repeat.once();
+			Expect.call(updater.render(0.5)).repeat.once();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 			
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(updater);
-			mocker.backToRecord(renderer);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 2);
 			Expect.call(updater.update(null)).
 					ignoreArguments().
 					repeat.once();
-			Expect.call(renderer.render(0));
+			Expect.call(updater.render(0));
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 			
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(updater);
-			mocker.backToRecord(renderer);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 2.5);
 			Expect.notCalled(updater.update(null)).ignoreArguments();
-			Expect.call(renderer.render(0.5)).repeat.once();
+			Expect.call(updater.render(0.5)).repeat.once();
 			mocker.replayAll();
 			
 			engine.updateIntervalMs = defaultUpdateIntervalMs;
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 			
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(updater);
-			mocker.backToRecord(renderer);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 3);
 			Expect.call(updater.update(null)).
 					ignoreArguments().
 					repeat.once();
-			Expect.call(renderer.render(0)).repeat.once();
+			Expect.call(updater.render(0)).repeat.once();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
 			mocker.verify(updater);
-			mocker.verify(renderer);
 		}
 		
 		[Test]

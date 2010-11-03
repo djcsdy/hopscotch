@@ -26,24 +26,14 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 			mocker = new MockRepository();
 			entity = new Entity();
 			displayObject = new Sprite();
-			renderer = new DisplayObjectRenderer(displayObject, entity);
+			renderer = new DisplayObjectRenderer(displayObject);
 		}
 		
 		public function testConstructor () :void {
 			renderer = new DisplayObjectRenderer();
-			Assert.assertNotNull(renderer.entity);
 			Assert.assertNotNull(renderer.displayObject);
 			
 			renderer = new DisplayObjectRenderer(displayObject);
-			Assert.assertNotNull(renderer.entity);
-			Assert.assertEquals(displayObject, renderer.displayObject);
-			
-			renderer = new DisplayObjectRenderer(null, entity);
-			Assert.assertEquals(entity, renderer.entity);
-			Assert.assertNotNull(renderer.displayObject);
-			
-			renderer = new DisplayObjectRenderer(displayObject, entity);
-			Assert.assertEquals(entity, renderer.entity);
 			Assert.assertEquals(displayObject, renderer.displayObject);
 		}
 		
@@ -52,20 +42,20 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 			entity.x = 2;
 			entity.y = 3;
 			
-			renderer.render(0);
+			renderer.render(entity);
 			Assert.assertEquals(2, displayObject.x);
 			Assert.assertEquals(3, displayObject.y);
 			
 			entity.rotation = Math.PI;
 			
-			renderer.render(0);
+			renderer.render(entity);
 			Assert.assertEquals(2, displayObject.x);
 			Assert.assertEquals(3, displayObject.y);
 			Assert.assertEquals(180, displayObject.rotation);
 			
 			entity.rotation = Math.PI/4;
 			
-			renderer.render(0);
+			renderer.render(entity);
 			Assert.assertEquals(2, displayObject.x);
 			Assert.assertEquals(3, displayObject.y);
 			Assert.assertEquals(45, displayObject.rotation);
@@ -73,7 +63,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 			entity.x = 0;
 			entity.y = 0;
 			
-			renderer.render(0);
+			renderer.render(entity);
 			Assert.assertEquals(0, displayObject.x);
 			Assert.assertEquals(0, displayObject.y);
 			Assert.assertEquals(45, displayObject.rotation);

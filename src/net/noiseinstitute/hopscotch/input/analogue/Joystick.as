@@ -12,6 +12,9 @@ package net.noiseinstitute.hopscotch.input.analogue {
 		public function update (deferredActions:ActionQueue) :void {
 		}
 		
+		public function render (tweenFactor:Number) :void {
+		}
+		
 		public function get position () :HsPoint {
 			return _position;
 		}

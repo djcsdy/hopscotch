@@ -10,6 +10,12 @@ package net.noiseinstitute.hopscotch.update {
 			}
 		}
 		
+		public function render (tweenFactor:Number) :void {
+			for each (var member:IUpdater in _members) {
+				member.render(tweenFactor);
+			}
+		}
+		
 		public function get members () :Vector.<IUpdater> {
 			return _members;
 		}

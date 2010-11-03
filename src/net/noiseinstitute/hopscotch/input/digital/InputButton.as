@@ -35,6 +35,9 @@ package net.noiseinstitute.hopscotch.input.digital {
 			}
 		}
 		
+		public function render (tweenFactor:Number) :void {
+		}
+		
 		public function get pressed () :Boolean {
 			return _pressed;
 		}
