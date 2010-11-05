@@ -1,6 +1,6 @@
 package net.noiseinstitute.hopscotch {
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
-	import net.noiseinstitute.hopscotch.render.IEntityRenderer;
+	import net.noiseinstitute.hopscotch.render.EntityRenderer;
 	import net.noiseinstitute.hopscotch.reuse.IReusable;
 	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
 	import net.noiseinstitute.hopscotch.update.ActionQueue;
@@ -15,7 +15,7 @@ package net.noiseinstitute.hopscotch {
 		public var rotationSpeed :Number = 0;
 		public var rotationAcceleration :Number = 0;
 		
-		public var renderer :IEntityRenderer;
+		public var renderer :EntityRenderer;
 		
 		private var savedVelocity :HsPoint = new HsPoint();
 		private var savedAcceleration :HsPoint = new HsPoint();

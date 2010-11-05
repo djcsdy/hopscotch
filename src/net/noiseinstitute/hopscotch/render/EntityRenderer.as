@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch.render.displayObject {
+package net.noiseinstitute.hopscotch.render {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
@@ -6,12 +6,12 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import net.noiseinstitute.hopscotch.Entity;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	
-	public class DisplayObjectRenderer implements IDisplayObjectRenderer {
+	public class EntityRenderer {
 		
 		private var _displayObject :DisplayObject;
 		public var origin :HsPoint = new HsPoint();
 		
-		public function DisplayObjectRenderer (displayObject:DisplayObject=null) {
+		public function EntityRenderer (displayObject:DisplayObject=null) {
 			if (displayObject) {
 				_displayObject = displayObject;
 			} else {

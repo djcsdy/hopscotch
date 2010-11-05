@@ -9,15 +9,16 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 	
 	import org.flexunit.Assert;
+	import net.noiseinstitute.hopscotch.render.EntityRenderer;
 	
-	public class DisplayObjectRendererTest extends TestCaseWithMocks {
+	public class EntityRendererTest extends TestCaseWithMocks {
 		
 		private var mocker :MockRepository;
-		private var renderer :DisplayObjectRenderer;
+		private var renderer :EntityRenderer;
 		private var entity :Entity;
 		private var displayObject :DisplayObject;
 		
-		public function DisplayObjectRendererTest () {
+		public function EntityRendererTest () {
 			super(DisplayObject);
 		}
 		
@@ -26,14 +27,14 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 			mocker = new MockRepository();
 			entity = new Entity();
 			displayObject = new Sprite();
-			renderer = new DisplayObjectRenderer(displayObject);
+			renderer = new EntityRenderer(displayObject);
 		}
 		
 		public function testConstructor () :void {
-			renderer = new DisplayObjectRenderer();
+			renderer = new EntityRenderer();
 			Assert.assertNotNull(renderer.displayObject);
 			
-			renderer = new DisplayObjectRenderer(displayObject);
+			renderer = new EntityRenderer(displayObject);
 			Assert.assertEquals(displayObject, renderer.displayObject);
 		}
 		
