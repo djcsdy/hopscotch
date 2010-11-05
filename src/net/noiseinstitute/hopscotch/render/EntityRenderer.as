@@ -3,7 +3,7 @@ package net.noiseinstitute.hopscotch.render {
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
 	
-	import net.noiseinstitute.hopscotch.Entity;
+	import net.noiseinstitute.hopscotch.entities.Entity;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	
 	public class EntityRenderer {

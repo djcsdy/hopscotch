@@ -1,5 +1,5 @@
 package net.noiseinstitute.hopscotch.test {
-	import net.noiseinstitute.hopscotch.EntityTest;
+	import net.noiseinstitute.hopscotch.entities.EntityTest;
 	import net.noiseinstitute.hopscotch.engine.EngineTest;
 	import net.noiseinstitute.hopscotch.geom.HsPointTest;
 	import net.noiseinstitute.hopscotch.input.InputButtonTest;

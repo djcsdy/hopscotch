@@ -5,7 +5,7 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
-	import net.noiseinstitute.hopscotch.Entity;
+	import net.noiseinstitute.hopscotch.entities.Entity;
 	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 	
 	import org.flexunit.Assert;

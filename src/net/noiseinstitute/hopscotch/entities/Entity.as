@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch {
+package net.noiseinstitute.hopscotch.entities {
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	import net.noiseinstitute.hopscotch.render.EntityRenderer;
 	import net.noiseinstitute.hopscotch.reuse.IReusable;
