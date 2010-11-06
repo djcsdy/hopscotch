@@ -13,7 +13,7 @@ package net.noiseinstitute.hopscotch.reuse {
 		 * @param size The maximum number of members that this
 		 * supplier can supply. If the size is zero (the default),
 		 * then this supplier can supply any number of members. */
-		public function HsSupplier (size:uint=0) {
+		public function Supplier (size:uint=0) {
 			this.length = size;
 			if (size == 0) {
 				members = new Vector.<IReusable>();
@@ -36,7 +36,7 @@ package net.noiseinstitute.hopscotch.reuse {
 		 * 
 		 * @param f a function used to populate the <code>Supplier</code>,
 		 *   defined in the form <code>function():IReusable</code>. */
-		public function populate (f:Function) :HsSupplier {
+		public function populate (f:Function) :Supplier {
 			if (length == 0) {
 				populator = f;
 			}
@@ -57,7 +57,7 @@ package net.noiseinstitute.hopscotch.reuse {
 						"Cannot add a null value to an HsSupplier");
 			}
 			
-			if (object.exists) {
+			if (object.alive) {
 				members[numMembers++] = object;
 			} else {
 				var i:int = numMembers;
@@ -114,7 +114,7 @@ package net.noiseinstitute.hopscotch.reuse {
 				object = members[--numDeadMembers];
 			}
 			if (object != null) {
-				object.reset(0, 0);
+				object.init();
 			}
 			return object;
 		}
