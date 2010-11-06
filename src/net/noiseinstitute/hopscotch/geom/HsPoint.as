@@ -2,6 +2,8 @@ package net.noiseinstitute.hopscotch.geom {
 	
 	public class HsPoint {
 		
+		private static const PI_BY_2 :Number = Math.PI/2;
+		
 		public var x :Number;
 		public var y :Number;
 		
@@ -96,6 +98,17 @@ package net.noiseinstitute.hopscotch.geom {
 		public function scaleInPlace (s:Number) :void {
 			x *= s;
 			y *= s;
+		}
+		
+		public function rotate (angle:Number) :HsPoint {
+			return new HsPoint(Math.sin(angle)*-y + Math.cos(angle)*x,
+					Math.cos(angle)*y + Math.sin(angle)*x);
+		}
+		
+		public function rotateInPlace (angle:Number) :void {
+			var oldX:Number = x;
+			x = Math.sin(angle)*-y + Math.cos(angle)*x;
+			y = Math.cos(angle)*y + Math.sin(angle)*oldX;
 		}
 		
 		public function clone () :HsPoint {
