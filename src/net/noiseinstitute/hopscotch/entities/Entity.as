@@ -34,6 +34,12 @@ package net.noiseinstitute.hopscotch.entities {
 			rotation = 0;
 			rotationSpeed = 0;
 			rotationAcceleration = 0;
+			savedVelocity.x = 0;
+			savedVelocity.y = 0;
+			savedAcceleration.x = 0;
+			savedAcceleration.y = 0;
+			savedRotationSpeed = 0;
+			savedRotationAcceleration = 0;
 		}
 		
 		public function kill () :void {
