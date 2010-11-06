@@ -1,8 +1,7 @@
 package net.noiseinstitute.hopscotch.input.digital {
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
-	import net.noiseinstitute.hopscotch.update.IUpdater;
+	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	
-	public class InputButton implements IUpdater {
+	public class InputButton {
 		
 		private var pressQueued :Boolean = false;
 		private var _pressed :Boolean = false;
@@ -33,9 +32,6 @@ package net.noiseinstitute.hopscotch.input.digital {
 				_justPressed = false;
 				_releasedTicks++;
 			}
-		}
-		
-		public function render (tweenFactor:Number) :void {
 		}
 		
 		public function get pressed () :Boolean {

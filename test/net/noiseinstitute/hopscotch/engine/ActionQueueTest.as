@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch.update {
+package net.noiseinstitute.hopscotch.engine {
 	import org.flexunit.Assert;
 	
 	public class ActionQueueTest {		

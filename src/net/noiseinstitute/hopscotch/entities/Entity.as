@@ -1,12 +1,11 @@
 package net.noiseinstitute.hopscotch.entities {
+	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	import net.noiseinstitute.hopscotch.render.EntityRenderer;
 	import net.noiseinstitute.hopscotch.reuse.IReusable;
 	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
-	import net.noiseinstitute.hopscotch.update.IUpdater;
 	
-	public class Entity implements IUpdater, IReusable {
+	public class Entity implements IReusable {
 		
 		public var position :HsPoint = new HsPoint();
 		public var velocity :HsPoint = new HsPoint();
@@ -42,6 +41,10 @@ package net.noiseinstitute.hopscotch.entities {
 		}
 		
 		public function update (deferredActions:ActionQueue) :void {
+			if (!alive) {
+				return;
+			}
+			
 			savedVelocity.copyFrom(velocity);
 			savedAcceleration.copyFrom(acceleration);
 			savedRotationSpeed = rotationSpeed;
@@ -58,7 +61,14 @@ package net.noiseinstitute.hopscotch.entities {
 		}
 		
 		public function render (tweenFactor:Number) :void {
-			renderer.render(this);
+			if (!renderer) {
+				return;
+			}
+			if (alive) {
+				renderer.render(this);
+			} else {
+				renderer.hide();
+			}
 		}
 		
 		public function addDeadListener (listener:Function) :void {

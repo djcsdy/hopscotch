@@ -1,6 +1,7 @@
 package net.noiseinstitute.hopscotch.entities {
+	import net.noiseinstitute.hopscotch.engine.ActionQueue;
+	
 	import org.flexunit.Assert;
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
 	
 	public class EntityTest {
 		
@@ -15,6 +16,7 @@ package net.noiseinstitute.hopscotch.entities {
 		
 		[Test]
 		public function testDefaultValues () :void {
+			Assert.assertEquals(false, entity.alive);
 			Assert.assertEquals(0, entity.position.x);
 			Assert.assertEquals(0, entity.position.y);
 			Assert.assertEquals(0, entity.velocity.x);
@@ -24,7 +26,36 @@ package net.noiseinstitute.hopscotch.entities {
 		}
 		
 		[Test]
+		public function testInit () :void {
+			entity.init();
+			Assert.assertEquals(true, entity.alive);
+			Assert.assertEquals(0, entity.position.x);
+			Assert.assertEquals(0, entity.position.y);
+			Assert.assertEquals(0, entity.velocity.x);
+			Assert.assertEquals(0, entity.velocity.y);
+			Assert.assertEquals(0, entity.acceleration.x);
+			Assert.assertEquals(0, entity.acceleration.y);
+		}
+		
+		[Test]
+		public function testKill () :void {
+			entity.init();
+			
+			var count:int = 0;
+			entity.addDeadListener(function () :void {
+				++count;
+			});
+			
+			entity.kill();
+			
+			Assert.assertEquals(false, entity.alive);
+			Assert.assertEquals(1, count);
+		}
+		
+		[Test]
 		public function testUpdate () :void {
+			entity.init();
+			
 			entity.update(deferredActions);
 			deferredActions.execute();
 			Assert.assertEquals(0, entity.position.x);
@@ -78,6 +109,8 @@ package net.noiseinstitute.hopscotch.entities {
 		
 		[Test]
 		public function testThatDefaultUpdateActionsAreCorrectlyDeferred () :void {
+			entity.init();
+			
 			entity.velocity.x = 5;
 			entity.update(deferredActions);
 			Assert.assertEquals(0, entity.position.x);

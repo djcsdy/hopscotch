@@ -1,6 +1,6 @@
 package net.noiseinstitute.hopscotch.input.digital {
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
+	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.input.analogue.Joystick;
 	
 	public class ButtonJoystick extends Joystick {

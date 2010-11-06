@@ -4,7 +4,7 @@ package net.noiseinstitute.hopscotch.test {
 	import net.noiseinstitute.hopscotch.geom.HsPointTest;
 	import net.noiseinstitute.hopscotch.input.InputButtonTest;
 	import net.noiseinstitute.hopscotch.render.displayObject.EntityRendererTest;
-	import net.noiseinstitute.hopscotch.update.ActionQueueTest;
+	import net.noiseinstitute.hopscotch.engine.ActionQueueTest;
 	
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]

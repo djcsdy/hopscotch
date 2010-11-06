@@ -20,12 +20,18 @@ package net.noiseinstitute.hopscotch.render {
 		}
 		
 		public function render (entity:Entity) :void {
+			_displayObject.visible = true;
+			
 			var matrix:Matrix = _displayObject.transform.matrix;
 			matrix.identity();
 			matrix.translate(-origin.x, -origin.y);
 			matrix.rotate(entity.rotation);
 			matrix.translate(entity.x, entity.y);
 			_displayObject.transform.matrix = matrix;
+		}
+		
+		public function hide () :void {
+			_displayObject.visible = false;
 		}
 		
 		public function get displayObject () :DisplayObject {

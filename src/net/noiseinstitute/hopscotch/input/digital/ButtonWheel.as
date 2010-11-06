@@ -1,5 +1,5 @@
 package net.noiseinstitute.hopscotch.input.digital {
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
+	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.input.analogue.Wheel;
 	
 	public class ButtonWheel extends Wheel {

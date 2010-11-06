@@ -2,8 +2,7 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
-	import net.noiseinstitute.hopscotch.update.ActionQueue;
-	import net.noiseinstitute.hopscotch.update.IUpdater;
+	import net.noiseinstitute.hopscotch.entities.Entity;
 	
 	public class Engine {
 		
@@ -15,7 +14,7 @@ package net.noiseinstitute.hopscotch.engine {
 		private var _updateIntervalMs :Number = 10;
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
-		private var updaters :Vector.<IUpdater> = new Vector.<IUpdater>();
+		private var entities :Vector.<Entity> = new Vector.<Entity>();
 		private var deferredActions :ActionQueue = new ActionQueue();
 		
 		public function Engine (
@@ -48,12 +47,12 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 		}
 		
-		public function addUpdater (updater:IUpdater) :void {
-			updaters[updaters.length] = updater;
+		public function addEntity (entity:Entity) :void {
+			entities[entities.length] = entity;
 		}
 		
-		public function removeUpdater (updater:IUpdater) :void {
-			updaters.splice(updaters.indexOf(updater), 1);
+		public function removeEntity (entity:Entity) :void {
+			entities.splice(entities.indexOf(entity), 1);
 		}
 		
 		private function onEnterFrame (event:Event) :void {
@@ -64,17 +63,17 @@ package net.noiseinstitute.hopscotch.engine {
 			updateCount = Math.floor(fractionalUpdateCount);
 			var tweenFactor:Number = fractionalUpdateCount - updateCount;
 			
-			var updater:IUpdater;
+			var entity:Entity;
 			for (var i:int=previousUpdateCount; i<updateCount; ++i) {
-				for each (updater in updaters) {
-					updater.update(deferredActions);
+				for each (entity in entities) {
+					entity.update(deferredActions);
 				}
 			}
 			
 			deferredActions.execute();
 			
-			for each (updater in updaters) {
-				updater.render(tweenFactor);
+			for each (entity in entities) {
+				entity.render(tweenFactor);
 			}
 		}
 		
