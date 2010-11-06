@@ -68,9 +68,8 @@ package net.noiseinstitute.hopscotch.engine {
 				for each (entity in entities) {
 					entity.update(deferredActions);
 				}
+				deferredActions.execute();
 			}
-			
-			deferredActions.execute();
 			
 			for each (entity in entities) {
 				entity.render(tweenFactor);
