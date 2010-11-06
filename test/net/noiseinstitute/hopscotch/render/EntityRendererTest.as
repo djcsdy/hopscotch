@@ -1,4 +1,4 @@
-package net.noiseinstitute.hopscotch.render.displayObject {
+package net.noiseinstitute.hopscotch.render {
 	import asmock.framework.Expect;
 	import asmock.framework.MockRepository;
 	
@@ -9,7 +9,6 @@ package net.noiseinstitute.hopscotch.render.displayObject {
 	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 	
 	import org.flexunit.Assert;
-	import net.noiseinstitute.hopscotch.render.EntityRenderer;
 	
 	public class EntityRendererTest extends TestCaseWithMocks {
 		
