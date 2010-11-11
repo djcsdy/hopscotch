@@ -49,7 +49,12 @@ package net.noiseinstitute.hopscotch.collision {
 					return thisCentre.distance(otherCentre) <
 							(radius + other.radius);
 				} else {
-					return collider.collides(this);
+					testingReverseCondition = true;
+					try {
+						return collider.collides(this);
+					} finally {
+						testingReverseCondition = false;
+					}
 				}
 			}
 		}
