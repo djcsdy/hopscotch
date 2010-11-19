@@ -11,3 +11,5 @@
 /*.ipr
 /*.iws
 /*.iml
+/*_temp*_config.xml
+/out
