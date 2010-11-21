@@ -68,9 +68,13 @@ package net.noiseinstitute.hopscotch.engine {
 		}
 
 		public function set world (world:World) :void {
-			_world.kill();
+			if (_world) {
+				_world.kill();
+			}
 			_world = world;
-			_world.init();
+			if (_world) {
+				_world.init();
+			}
 		}
 		
 		public function get updateIntervalMs () :Number {
