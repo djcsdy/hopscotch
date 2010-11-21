@@ -16,7 +16,6 @@ package net.noiseinstitute.hopscotch.engine {
 		private var _updateIntervalMs :Number = 10;
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
-		private var deferredActions :ActionQueue = new ActionQueue();
 		private var _world :World = new World();
 		
 		public function Engine (
@@ -60,8 +59,7 @@ package net.noiseinstitute.hopscotch.engine {
 
 			for (var i:int=previousUpdateCount; i<updateCount; ++i) {
 				inputs.update();
-				world.update(deferredActions);
-				deferredActions.execute();
+				world.update();
 			}
 
 			world.render(tweenFactor);

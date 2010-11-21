@@ -7,7 +7,6 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 
-	import net.noiseinstitute.hopscotch.engine.World;
 	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 
 	import org.flexunit.Assert;
@@ -48,7 +47,7 @@ package net.noiseinstitute.hopscotch.engine {
 		[Test]
 		public function testUpdateIsCalledExpectedNumberOfTimes () :void {
 			SetupResult.forCall(timeSource.getTime()).returnValue(0);
-			Expect.call(world.update(null)).
+			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
 			mocker.replayAll();
@@ -61,7 +60,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.verify(world);
 			
 			mocker.backToRecord(world);
-			Expect.notCalled(world.update(null)).ignoreArguments();
+			Expect.notCalled(world.update()).ignoreArguments();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -71,7 +70,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(updateIntervalMs);
-			Expect.call(world.update(null)).
+			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.never();
 			mocker.replayAll();
@@ -82,7 +81,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(updateIntervalMs*4);
-			Expect.call(world.update(null)).
+			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.twice();
 			mocker.replayAll();
@@ -91,7 +90,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.verify(world);
 			
 			mocker.backToRecord(world);
-			Expect.notCalled(world.update(null)).ignoreArguments();
+			Expect.notCalled(world.update()).ignoreArguments();
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -154,7 +153,7 @@ package net.noiseinstitute.hopscotch.engine {
 				
 				mocker.backToRecord(world);
 				
-				Expect.call(world.update(null)).
+				Expect.call(world.update()).
 						ignoreArguments().
 						repeat.times(numUpdatesToSimulate, numUpdatesToSimulate).
 						doAction(function () :void {
@@ -196,7 +195,7 @@ package net.noiseinstitute.hopscotch.engine {
 		[Test]
 		public function testThatUpdateAndRenderAreCalledCorrectlyAfterChangingUpdateInterval () :void {
 			SetupResult.forCall(timeSource.getTime()).returnValue(0);
-			Expect.call(world.update(null)).
+			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
 			Expect.call(world.render(0)).repeat.once();
@@ -212,7 +211,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 0.5);
-			Expect.notCalled(world.update(null)).ignoreArguments();
+			Expect.notCalled(world.update()).ignoreArguments();
 			Expect.call(world.render(0.5)).repeat.once();
 			mocker.replayAll();
 			
@@ -220,7 +219,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.verify(world);
 			
 			mocker.backToRecord(world);
-			Expect.notCalled(world.update(null)).ignoreArguments();
+			Expect.notCalled(world.update()).ignoreArguments();
 			Expect.call(world.render(0.25)).repeat.once();
 			mocker.replayAll();
 			
@@ -231,7 +230,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs);
-			Expect.notCalled(world.update(null)).ignoreArguments();
+			Expect.notCalled(world.update()).ignoreArguments();
 			Expect.call(world.render(0.5)).repeat.once();
 			mocker.replayAll();
 			
@@ -241,7 +240,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 2);
-			Expect.call(world.update(null)).
+			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
 			Expect.call(world.render(0));
@@ -253,7 +252,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 2.5);
-			Expect.notCalled(world.update(null)).ignoreArguments();
+			Expect.notCalled(world.update()).ignoreArguments();
 			Expect.call(world.render(0.5)).repeat.once();
 			mocker.replayAll();
 			
@@ -264,7 +263,7 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 3);
-			Expect.call(world.update(null)).
+			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
 			Expect.call(world.render(0)).repeat.once();

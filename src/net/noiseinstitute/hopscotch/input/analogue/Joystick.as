@@ -1,5 +1,4 @@
 package net.noiseinstitute.hopscotch.input.analogue {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	import net.noiseinstitute.hopscotch.input.IInput;
 

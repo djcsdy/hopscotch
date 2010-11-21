@@ -1,7 +1,6 @@
 package net.noiseinstitute.hopscotch.input.digital {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.input.analogue.Wheel;
-	
+
 	public class ButtonWheel extends Wheel {
 		
 		public var ease :Number = 0.2;
@@ -14,7 +13,7 @@ package net.noiseinstitute.hopscotch.input.digital {
 			this.leftButton = leftButton;
 			this.rightButton = rightButton;
 		}
-		
+
 		override public function update () :void {
 			super.update();
 			leftButton.update();

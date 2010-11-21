@@ -1,10 +1,9 @@
 package net.noiseinstitute.hopscotch.entities {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	import net.noiseinstitute.hopscotch.render.EntityRenderer;
 	import net.noiseinstitute.hopscotch.reuse.IReusable;
 	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
-	
+
 	public class Entity implements IReusable {
 		
 		public var position :HsPoint = new HsPoint();
@@ -15,11 +14,6 @@ package net.noiseinstitute.hopscotch.entities {
 		public var rotationAcceleration :Number = 0;
 		
 		public var renderer :EntityRenderer;
-		
-		private var savedVelocity :HsPoint = new HsPoint();
-		private var savedAcceleration :HsPoint = new HsPoint();
-		private var savedRotationSpeed :Number = 0;
-		private var savedRotationAcceleration :Number = 0;
 		
 		private var reusableImpl :ReusableImpl = new ReusableImpl();
 		
@@ -34,36 +28,21 @@ package net.noiseinstitute.hopscotch.entities {
 			rotation = 0;
 			rotationSpeed = 0;
 			rotationAcceleration = 0;
-			savedVelocity.x = 0;
-			savedVelocity.y = 0;
-			savedAcceleration.x = 0;
-			savedAcceleration.y = 0;
-			savedRotationSpeed = 0;
-			savedRotationAcceleration = 0;
 		}
 		
 		public function kill () :void {
 			reusableImpl.kill();
 		}
 		
-		public function update (deferredActions:ActionQueue) :void {
+		public function update () :void {
 			if (!alive) {
 				return;
 			}
 			
-			savedVelocity.copyFrom(velocity);
-			savedAcceleration.copyFrom(acceleration);
-			savedRotationSpeed = rotationSpeed;
-			savedRotationAcceleration = rotationAcceleration;
-			
-			deferredActions.enqueue(function () :void {
-				velocity.addInPlace(savedAcceleration);
-				savedVelocity.addInPlace(savedAcceleration);
-				position.addInPlace(savedVelocity);
-				rotationSpeed += savedRotationAcceleration;
-				savedRotationSpeed += savedRotationAcceleration;
-				rotation += savedRotationSpeed;
-			});
+			velocity.addInPlace(acceleration);
+			position.addInPlace(velocity);
+			rotationSpeed += rotationAcceleration;
+			rotation += rotationSpeed;
 		}
 		
 		public function render (tweenFactor:Number) :void {

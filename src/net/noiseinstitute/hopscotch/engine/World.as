@@ -8,9 +8,9 @@ package net.noiseinstitute.hopscotch.engine {
 		private var reusableImpl :ReusableImpl = new ReusableImpl();
 		private var entities :Vector.<Entity> = new Vector.<Entity>();
 
-		public function update (deferredActions:ActionQueue) :void {
+		public function update () :void {
 			for each (var entity:Entity in entities) {
-				entity.update(deferredActions);
+				entity.update();
 			}
 		}
 

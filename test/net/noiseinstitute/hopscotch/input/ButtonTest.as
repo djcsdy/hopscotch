@@ -1,9 +1,8 @@
 package net.noiseinstitute.hopscotch.input {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
-	
-	import org.flexunit.Assert;
 	import net.noiseinstitute.hopscotch.input.digital.Button;
-	
+
+	import org.flexunit.Assert;
+
 	public class ButtonTest {
 		
 		private var button :Button;
