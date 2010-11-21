@@ -1,8 +1,7 @@
 package net.noiseinstitute.hopscotch.input.digital {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	import net.noiseinstitute.hopscotch.input.analogue.Joystick;
-	
+
 	public class ButtonJoystick extends Joystick {
 		
 		public var circular :Boolean = true;
@@ -24,12 +23,12 @@ package net.noiseinstitute.hopscotch.input.digital {
 			this.rightButton = rightButton;
 		}
 		
-		override public function update (deferredActions:ActionQueue) :void {
-			super.update(deferredActions);
-			upButton.update(deferredActions);
-			downButton.update(deferredActions);
-			leftButton.update(deferredActions);
-			rightButton.update(deferredActions);
+		override public function update () :void {
+			super.update();
+			upButton.update();
+			downButton.update();
+			leftButton.update();
+			rightButton.update();
 			
 			target.x = 0;
 			target.y = 0;

@@ -1,5 +1,4 @@
 package net.noiseinstitute.hopscotch.input.digital {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	import net.noiseinstitute.hopscotch.input.analogue.Throttle;
 
 	public class ButtonThrottle extends Throttle {
@@ -12,9 +11,9 @@ package net.noiseinstitute.hopscotch.input.digital {
 			this.button = button;
 		}
 		
-		override public function update (deferredActions:ActionQueue) :void {
-			super.update(deferredActions);
-			button.update(deferredActions);
+		override public function update () :void {
+			super.update();
+			button.update();
 			
 			var target:Number;
 			if (button.pressed) {

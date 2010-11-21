@@ -2,7 +2,11 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 
+	import net.noiseinstitute.hopscotch.input.InputGroup;
+
 	public class Engine {
+		
+		public var inputs :InputGroup = new InputGroup();
 		
 		private var frameEventDispatcher :IEventDispatcher;
 		private var timeSource :ITimeSource;
@@ -13,7 +17,6 @@ package net.noiseinstitute.hopscotch.engine {
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
 		private var deferredActions :ActionQueue = new ActionQueue();
-
 		private var _world :World = new World();
 		
 		public function Engine (
@@ -56,6 +59,7 @@ package net.noiseinstitute.hopscotch.engine {
 			var tweenFactor:Number = fractionalUpdateCount - updateCount;
 
 			for (var i:int=previousUpdateCount; i<updateCount; ++i) {
+				inputs.update();
 				world.update(deferredActions);
 				deferredActions.execute();
 			}

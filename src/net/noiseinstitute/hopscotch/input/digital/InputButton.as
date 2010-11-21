@@ -1,7 +1,7 @@
 package net.noiseinstitute.hopscotch.input.digital {
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
-	
-	public class InputButton {
+	import net.noiseinstitute.hopscotch.input.IInput;
+
+	public class InputButton implements IInput {
 		
 		private var pressQueued :Boolean = false;
 		private var _pressed :Boolean = false;
@@ -18,7 +18,7 @@ package net.noiseinstitute.hopscotch.input.digital {
 			pressQueued = false;
 		}
 		
-		public function update (deferredActions:ActionQueue) :void {
+		public function update () :void {
 			if (pressQueued) {
 				_pressed = true;
 				_justPressed = (_pressedTicks == 0);

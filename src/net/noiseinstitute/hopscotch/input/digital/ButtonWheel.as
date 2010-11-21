@@ -15,10 +15,10 @@ package net.noiseinstitute.hopscotch.input.digital {
 			this.rightButton = rightButton;
 		}
 		
-		override public function update (deferredActions:ActionQueue) :void {
-			super.update(deferredActions);
-			leftButton.update(deferredActions);
-			rightButton.update(deferredActions);
+		override public function update () :void {
+			super.update();
+			leftButton.update();
+			rightButton.update();
 			
 			var target:Number = 0;
 			if (leftButton.pressed) {
