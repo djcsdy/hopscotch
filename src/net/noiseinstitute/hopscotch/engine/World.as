@@ -1,9 +1,11 @@
 package net.noiseinstitute.hopscotch.engine {
 	import net.noiseinstitute.hopscotch.entities.*;
-	import net.noiseinstitute.hopscotch.engine.ActionQueue;
+	import net.noiseinstitute.hopscotch.reuse.IReusable;
+	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
 
-	public class World {
+	public class World implements IReusable {
 
+		private var reusableImpl :ReusableImpl = new ReusableImpl();
 		private var entities :Vector.<Entity> = new Vector.<Entity>();
 
 		public function update (deferredActions:ActionQueue) :void {
@@ -26,6 +28,26 @@ package net.noiseinstitute.hopscotch.engine {
 			entities.splice(entities.indexOf(entity), 1);
 		}
 
+		public function get alive () :Boolean {
+			return reusableImpl.alive;
+		}
+
+		public function init () :void {
+			reusableImpl.init();
+		}
+
+		public function kill () :void {
+			reusableImpl.kill();
+		}
+
+		public function addDeadListener (listener:Function) :void {
+			reusableImpl.addDeadListener(listener);
+		}
+
+		public function removeDeadListener (listener:Function ):void {
+			reusableImpl.removeDeadListener(listener);
+		}
+		
 	}
 
 }

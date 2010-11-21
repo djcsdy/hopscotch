@@ -2,8 +2,6 @@ package net.noiseinstitute.hopscotch.engine {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 
-	import net.noiseinstitute.hopscotch.engine.World;
-
 	public class Engine {
 		
 		private var frameEventDispatcher :IEventDispatcher;
@@ -16,7 +14,7 @@ package net.noiseinstitute.hopscotch.engine {
 		private var running :Boolean = false;
 		private var deferredActions :ActionQueue = new ActionQueue();
 
-		public var world :World = new World();
+		private var _world :World = new World();
 		
 		public function Engine (
 				frameEventDispatcher:IEventDispatcher,
@@ -29,6 +27,7 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 			this.frameEventDispatcher = frameEventDispatcher;
 			this.timeSource = timeSource;
+			_world.init();
 		}
 		
 		public function start () :void {
@@ -62,6 +61,16 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 
 			world.render(tweenFactor);
+		}
+
+		public function get world () :World {
+			return _world;
+		}
+
+		public function set world (world:World) :void {
+			_world.kill();
+			_world = world;
+			_world.init();
 		}
 		
 		public function get updateIntervalMs () :Number {
