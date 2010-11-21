@@ -1,7 +1,7 @@
 package net.noiseinstitute.hopscotch.input.digital {
 	import net.noiseinstitute.hopscotch.input.IInput;
 
-	public class InputButton implements IInput {
+	public class Button implements IInput {
 		
 		private var pressQueued :Boolean = false;
 		private var _pressed :Boolean = false;

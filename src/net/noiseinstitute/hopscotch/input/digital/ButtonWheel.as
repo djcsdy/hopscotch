@@ -6,11 +6,11 @@ package net.noiseinstitute.hopscotch.input.digital {
 		
 		public var ease :Number = 0.2;
 		
-		private var leftButton :InputButton;
-		private var rightButton :InputButton;
+		private var leftButton :Button;
+		private var rightButton :Button;
 		
 		public function ButtonWheel (
-				leftButton:InputButton, rightButton:InputButton) {
+				leftButton:Button, rightButton:Button) {
 			this.leftButton = leftButton;
 			this.rightButton = rightButton;
 		}

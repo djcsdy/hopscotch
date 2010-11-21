@@ -7,16 +7,16 @@ package net.noiseinstitute.hopscotch.input.digital {
 		public var circular :Boolean = true;
 		public var ease :Number = 0.2;
 		
-		private var upButton :InputButton;
-		private var downButton :InputButton;
-		private var leftButton :InputButton;
-		private var rightButton :InputButton;
+		private var upButton :Button;
+		private var downButton :Button;
+		private var leftButton :Button;
+		private var rightButton :Button;
 		
 		private var target :HsPoint = new HsPoint();
 		
 		public function ButtonJoystick (
-				upButton:InputButton, downButton:InputButton,
-				leftButton:InputButton, rightButton:InputButton) {
+				upButton:Button, downButton:Button,
+				leftButton:Button, rightButton:Button) {
 			this.upButton = upButton;
 			this.downButton = downButton;
 			this.leftButton = leftButton;

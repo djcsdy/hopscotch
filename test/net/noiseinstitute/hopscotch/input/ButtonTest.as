@@ -2,15 +2,15 @@ package net.noiseinstitute.hopscotch.input {
 	import net.noiseinstitute.hopscotch.engine.ActionQueue;
 	
 	import org.flexunit.Assert;
-	import net.noiseinstitute.hopscotch.input.digital.InputButton;
+	import net.noiseinstitute.hopscotch.input.digital.Button;
 	
-	public class InputButtonTest {
+	public class ButtonTest {
 		
-		private var button :InputButton;
+		private var button :Button;
 		
 		[Before]
 		public function setup () :void {
-			button = new InputButton();
+			button = new Button();
 		}
 		
 		[Test]
@@ -22,7 +22,7 @@ package net.noiseinstitute.hopscotch.input {
 		
 		[Test]
 		public function testStateAfterFirstUpdate () :void {
-			button.update(null);
+			button.update();
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
@@ -37,21 +37,21 @@ package net.noiseinstitute.hopscotch.input {
 			Assert.assertEquals(0, button.pressedTicks);
 			Assert.assertEquals(1, button.releasedTicks);
 			
-			button.update(null);
+			button.update();
 			Assert.assertTrue(button.pressed);
 			Assert.assertTrue(button.justPressed);
 			Assert.assertFalse(button.justReleased);
 			Assert.assertEquals(1, button.pressedTicks);
 			Assert.assertEquals(0, button.releasedTicks);
 			
-			button.update(null);
+			button.update();
 			Assert.assertTrue(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
 			Assert.assertEquals(2, button.pressedTicks);
 			Assert.assertEquals(0, button.releasedTicks);
 			
-			button.update(null);
+			button.update();
 			Assert.assertTrue(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
@@ -65,14 +65,14 @@ package net.noiseinstitute.hopscotch.input {
 			Assert.assertEquals(3, button.pressedTicks);
 			Assert.assertEquals(0, button.releasedTicks);
 			
-			button.update(null);
+			button.update();
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertTrue(button.justReleased);
 			Assert.assertEquals(0, button.pressedTicks);
 			Assert.assertEquals(1, button.releasedTicks); 
 			
-			button.update(null);
+			button.update();
 			Assert.assertFalse(button.pressed);
 			Assert.assertFalse(button.justPressed);
 			Assert.assertFalse(button.justReleased);
@@ -86,7 +86,7 @@ package net.noiseinstitute.hopscotch.input {
 			Assert.assertEquals(0, button.pressedTicks);
 			Assert.assertEquals(2, button.releasedTicks);
 			
-			button.update(null);
+			button.update();
 			Assert.assertTrue(button.pressed);
 			Assert.assertTrue(button.justPressed);
 			Assert.assertFalse(button.justReleased);

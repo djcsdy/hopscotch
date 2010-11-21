@@ -5,9 +5,9 @@ package net.noiseinstitute.hopscotch.input.digital {
 		
 		public var ease :Number = 0.2;
 		
-		private var button :InputButton;
+		private var button :Button;
 		
-		public function ButtonThrottle (button:InputButton=null) {
+		public function ButtonThrottle (button:Button=null) {
 			this.button = button;
 		}
 		
