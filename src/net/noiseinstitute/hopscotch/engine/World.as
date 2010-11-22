@@ -38,6 +38,9 @@ package net.noiseinstitute.hopscotch.engine {
 
 		public function kill () :void {
 			reusableImpl.kill();
+			for each (var entity:Entity in entities) {
+				entity.kill();
+			}
 		}
 
 		public function addDeadListener (listener:Function) :void {
@@ -47,7 +50,7 @@ package net.noiseinstitute.hopscotch.engine {
 		public function removeDeadListener (listener:Function ):void {
 			reusableImpl.removeDeadListener(listener);
 		}
-		
+
 	}
 
 }
