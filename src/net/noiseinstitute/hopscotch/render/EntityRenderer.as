@@ -1,17 +1,21 @@
 package net.noiseinstitute.hopscotch.render {
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
-	import flash.geom.Matrix;
-	
-	import net.noiseinstitute.hopscotch.entities.Entity;
-	import net.noiseinstitute.hopscotch.geom.HsPoint;
-	
-	public class EntityRenderer {
+import flash.display.DisplayObject;
+import flash.display.Sprite;
+import flash.geom.Matrix;
+
+import net.noiseinstitute.hopscotch.engine.RenderInfo;
+import net.noiseinstitute.hopscotch.entities.Entity;
+import net.noiseinstitute.hopscotch.geom.HsPoint;
+
+public class EntityRenderer {
 		
+		private var _entity :Entity;
 		private var _displayObject :DisplayObject;
 		public var origin :HsPoint = new HsPoint();
 		
-		public function EntityRenderer (displayObject:DisplayObject=null) {
+		public function EntityRenderer (entity:Entity,
+				displayObject:DisplayObject=null) {
+			_entity = entity;
 			if (displayObject) {
 				_displayObject = displayObject;
 			} else {
@@ -19,7 +23,7 @@ package net.noiseinstitute.hopscotch.render {
 			}
 		}
 		
-		public function render (entity:Entity) :void {
+		public function render (renderInfo:RenderInfo) :void {
 			_displayObject.visible = true;
 			
 			var matrix:Matrix = _displayObject.transform.matrix;
@@ -32,6 +36,10 @@ package net.noiseinstitute.hopscotch.render {
 		
 		public function hide () :void {
 			_displayObject.visible = false;
+		}
+		
+		public function get entity () :Entity {
+			return _entity;
 		}
 		
 		public function get displayObject () :DisplayObject {

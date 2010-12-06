@@ -1,9 +1,9 @@
 package net.noiseinstitute.hopscotch.engine {
-	import net.noiseinstitute.hopscotch.entities.*;
-	import net.noiseinstitute.hopscotch.reuse.IReusable;
-	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
+import net.noiseinstitute.hopscotch.entities.*;
+import net.noiseinstitute.hopscotch.reuse.IReusable;
+import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
 
-	public class World implements IReusable {
+public class World implements IReusable {
 
 		private var reusableImpl :ReusableImpl = new ReusableImpl();
 		private var entities :Vector.<Entity> = new Vector.<Entity>();
@@ -14,9 +14,9 @@ package net.noiseinstitute.hopscotch.engine {
 			}
 		}
 
-		public function render (tweenFactor:Number) :void {
+		public function render (renderInfo:RenderInfo) :void {
 			for each (var entity:Entity in entities) {
-				entity.render(tweenFactor);
+				entity.render(renderInfo);
 			}
 		}
 

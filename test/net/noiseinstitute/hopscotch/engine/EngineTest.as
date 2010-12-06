@@ -1,17 +1,18 @@
 package net.noiseinstitute.hopscotch.engine {
-	import asmock.framework.Expect;
-	import asmock.framework.MockRepository;
-	import asmock.framework.SetupResult;
+import asmock.framework.Expect;
+import asmock.framework.MockRepository;
+import asmock.framework.SetupResult;
+import asmock.framework.constraints.Property;
 
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.IEventDispatcher;
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
 
-	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
+import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 
-	import org.flexunit.Assert;
+import org.flexunit.Assert;
 
-	public class EngineTest extends TestCaseWithMocks {
+public class EngineTest extends TestCaseWithMocks {
 		
 		private var mocker :MockRepository;
 		private var frameEventDispatcher :IEventDispatcher;
@@ -100,7 +101,9 @@ package net.noiseinstitute.hopscotch.engine {
 		[Test]
 		public function testRenderIsCalledWithExpectedTweenFactor () :void {
 			SetupResult.forCall(timeSource.getTime()).returnValue(0);
-			Expect.call(world.render(0)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0)]);
 			mocker.replayAll();
 			
 			var updateIntervalMs:Number = engine.updateIntervalMs;
@@ -113,7 +116,9 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(0.5 * updateIntervalMs);
-			Expect.call(world.render(0.5)).repeat.twice();
+			Expect.call(world.render(null)).
+					repeat.twice().
+					constraints([Property.value("tweenFactor", 0.5)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -123,7 +128,9 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(updateIntervalMs);
-			Expect.call(world.render(0)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -132,7 +139,9 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(timeSource);
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(1.75 * updateIntervalMs);
-			Expect.call(world.render(0.75)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0.75)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -160,15 +169,15 @@ package net.noiseinstitute.hopscotch.engine {
 							++numTimesUpdateHasBeenCalled;
 						});
 				
-				Expect.call(world.render(0)).
+				Expect.call(world.render(null)).
 						ignoreArguments().
 						repeat.times(expectedNumCallsToRender, expectedNumCallsToRender).
-						doAction(function (tweenFactor:Number) :void {
-							if (tweenFactor < lastRenderTweenFactor) {
+						doAction(function (renderInfo:RenderInfo) :void {
+							if (renderInfo.tweenFactor < lastRenderTweenFactor) {
 								Assert.assertTrue(numTimesUpdateHasBeenCalled >
 										numTimesUpdateHadBeenCalledOnLastRender);
 							}
-							lastRenderTweenFactor = tweenFactor;
+							lastRenderTweenFactor = renderInfo.tweenFactor;
 							numTimesUpdateHadBeenCalledOnLastRender =
 									numTimesUpdateHasBeenCalled;
 						});
@@ -198,7 +207,9 @@ package net.noiseinstitute.hopscotch.engine {
 			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
-			Expect.call(world.render(0)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0)]);
 			mocker.replayAll();
 			
 			var defaultUpdateIntervalMs:Number = engine.updateIntervalMs;
@@ -212,7 +223,9 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 0.5);
 			Expect.notCalled(world.update()).ignoreArguments();
-			Expect.call(world.render(0.5)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0.5)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -220,7 +233,9 @@ package net.noiseinstitute.hopscotch.engine {
 			
 			mocker.backToRecord(world);
 			Expect.notCalled(world.update()).ignoreArguments();
-			Expect.call(world.render(0.25)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0.25)]);
 			mocker.replayAll();
 			
 			engine.updateIntervalMs = defaultUpdateIntervalMs * 2;
@@ -231,7 +246,9 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs);
 			Expect.notCalled(world.update()).ignoreArguments();
-			Expect.call(world.render(0.5)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0.5)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -243,7 +260,8 @@ package net.noiseinstitute.hopscotch.engine {
 			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
-			Expect.call(world.render(0));
+			Expect.call(world.render(null)).
+					constraints([Property.value("tweenFactor", 0)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));
@@ -253,7 +271,9 @@ package net.noiseinstitute.hopscotch.engine {
 			mocker.backToRecord(world);
 			SetupResult.forCall(timeSource.getTime()).returnValue(defaultUpdateIntervalMs * 2.5);
 			Expect.notCalled(world.update()).ignoreArguments();
-			Expect.call(world.render(0.5)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0.5)]);
 			mocker.replayAll();
 			
 			engine.updateIntervalMs = defaultUpdateIntervalMs;
@@ -266,7 +286,9 @@ package net.noiseinstitute.hopscotch.engine {
 			Expect.call(world.update()).
 					ignoreArguments().
 					repeat.once();
-			Expect.call(world.render(0)).repeat.once();
+			Expect.call(world.render(null)).
+					repeat.once().
+					constraints([Property.value("tweenFactor", 0)]);
 			mocker.replayAll();
 			
 			frameEventDispatcher.dispatchEvent(new Event(Event.ENTER_FRAME));

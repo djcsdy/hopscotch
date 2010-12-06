@@ -1,10 +1,10 @@
 package net.noiseinstitute.hopscotch.engine {
-	import flash.events.Event;
-	import flash.events.IEventDispatcher;
+import flash.events.Event;
+import flash.events.IEventDispatcher;
 
-	import net.noiseinstitute.hopscotch.input.InputGroup;
+import net.noiseinstitute.hopscotch.input.InputGroup;
 
-	public class Engine {
+public class Engine {
 		
 		public var inputs :InputGroup = new InputGroup();
 		
@@ -17,6 +17,7 @@ package net.noiseinstitute.hopscotch.engine {
 		private var updateCount :int = 0;
 		private var running :Boolean = false;
 		private var _world :World = new World();
+		private var renderInfo :RenderInfo = new RenderInfo();
 		
 		public function Engine (
 				frameEventDispatcher:IEventDispatcher,
@@ -62,7 +63,11 @@ package net.noiseinstitute.hopscotch.engine {
 				world.update();
 			}
 
-			world.render(tweenFactor);
+			renderInfo._tweenFactor = tweenFactor;
+			renderInfo._fractionalUpdateCount = fractionalUpdateCount;
+			renderInfo._updateCount = updateCount;
+			renderInfo._skippedUpdates = updateCount - previousUpdateCount;
+			world.render(renderInfo);
 		}
 
 		public function get world () :World {
@@ -91,9 +96,9 @@ package net.noiseinstitute.hopscotch.engine {
 			var fractionalUpdateCount:Number = 1 + (now - startTime) / _updateIntervalMs;
 			var unservedFractionalUpdates:Number = fractionalUpdateCount - updateCount;
 			
-			updateCount = 1;
 			startTime = now - unservedFractionalUpdates * _updateIntervalMs;
-			
+			startTime -= updateCount * updateIntervalMs;
+
 			_updateIntervalMs = updateIntervalMs;
 		}
 		
