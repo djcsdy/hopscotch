@@ -5,7 +5,7 @@ package net.noiseinstitute.hopscotch.render {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
-	import net.noiseinstitute.hopscotch.entities.Entity;
+	import net.noiseinstitute.hopscotch.HsSprite;
 	import net.noiseinstitute.hopscotch.test.TestCaseWithMocks;
 	
 	import org.flexunit.Assert;
@@ -14,7 +14,7 @@ package net.noiseinstitute.hopscotch.render {
 		
 		private var mocker :MockRepository;
 		private var renderer :EntityRenderer;
-		private var entity :Entity;
+		private var entity :HsSprite;
 		private var displayObject :DisplayObject;
 		
 		public function EntityRendererTest () {
@@ -24,7 +24,7 @@ package net.noiseinstitute.hopscotch.render {
 		[Before]
 		public function setup () :void {
 			mocker = new MockRepository();
-			entity = new Entity();
+			entity = new HsSprite();
 			displayObject = new Sprite();
 			renderer = new EntityRenderer(displayObject);
 		}

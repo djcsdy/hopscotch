@@ -1,13 +1,15 @@
 package net.noiseinstitute.hopscotch.entities {
+	import net.noiseinstitute.hopscotch.HsSprite;
+
 	import org.flexunit.Assert;
 
 	public class EntityTest {
 		
-		private var entity :Entity;
+		private var entity :HsSprite;
 
 		[Before]
 		public function setup () :void {
-			entity = new Entity();
+			entity = new HsSprite();
 		}
 		
 		[Test]

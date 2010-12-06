@@ -1,18 +1,18 @@
 package net.noiseinstitute.hopscotch.collision {
 	import flash.utils.getQualifiedClassName;
 	
-	import net.noiseinstitute.hopscotch.entities.Entity;
+	import net.noiseinstitute.hopscotch.HsSprite;
 	import net.noiseinstitute.hopscotch.geom.HsPoint;
 	
 	final public class CircleCollider implements ICollider {
 		
-		public var entity :Entity;
+		public var entity :HsSprite;
 		public var radius :Number;
 		public var origin :HsPoint;
 		private var testingReverseCollision :Boolean = false;
 		
 		public function CircleCollider (
-				entity:Entity=null,
+				entity:HsSprite=null,
 				radius:Number=0,
 				offset:HsPoint=new HsPoint()) {
 			this.entity = entity;

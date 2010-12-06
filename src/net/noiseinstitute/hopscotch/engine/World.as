@@ -1,4 +1,5 @@
 package net.noiseinstitute.hopscotch.engine {
+	import net.noiseinstitute.hopscotch.HsSprite;
 	import net.noiseinstitute.hopscotch.entities.*;
 	import net.noiseinstitute.hopscotch.reuse.IReusable;
 	import net.noiseinstitute.hopscotch.reuse.ReusableImpl;
@@ -6,25 +7,25 @@ package net.noiseinstitute.hopscotch.engine {
 	public class World implements IReusable {
 
 		private var reusableImpl :ReusableImpl = new ReusableImpl();
-		private var entities :Vector.<Entity> = new Vector.<Entity>();
+		private var entities :Vector.<HsSprite> = new Vector.<HsSprite>();
 
 		public function update () :void {
-			for each (var entity:Entity in entities) {
+			for each (var entity:HsSprite in entities) {
 				entity.update();
 			}
 		}
 
 		public function render (tweenFactor:Number) :void {
-			for each (var entity:Entity in entities) {
+			for each (var entity:HsSprite in entities) {
 				entity.render(tweenFactor);
 			}
 		}
 
-		public function add (entity:Entity) :void {
+		public function add (entity:HsSprite) :void {
 			entities[entities.length] = entity;
 		}
 
-		public function remove (entity:Entity) :void {
+		public function remove (entity:HsSprite) :void {
 			entities.splice(entities.indexOf(entity), 1);
 		}
 
@@ -38,7 +39,7 @@ package net.noiseinstitute.hopscotch.engine {
 
 		public function kill () :void {
 			reusableImpl.kill();
-			for each (var entity:Entity in entities) {
+			for each (var entity:HsSprite in entities) {
 				entity.kill();
 			}
 		}
