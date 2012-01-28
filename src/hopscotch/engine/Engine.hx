@@ -1,4 +1,4 @@
-package hopscotch;
+package hopscotch.engine;
 
 class Engine {
 	public var playfield:Playfield;
