@@ -1,5 +1,5 @@
 package hopscotch;
-import flash.display.Bitmap;
+import flash.display.BitmapData;
 import flash.geom.Matrix;
 
 interface IGraphic {

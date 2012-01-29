@@ -2,7 +2,7 @@ package hopscotch;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 
-class Playfield implements IUpdater, IGraphic {
+class Playfield implements IUpdater, implements IGraphic {
 	public function begin(frame:Int):Void {
 		// TODO
 	}
