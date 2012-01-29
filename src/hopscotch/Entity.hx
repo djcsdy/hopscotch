@@ -2,7 +2,7 @@ package hopscotch;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 
-class Entity implements IUpdater, IGraphic {
+class Entity implements IUpdater, implements IGraphic {
 	public var graphic:IGraphic;
 	
 	public function begin(frame:Int):Void {
