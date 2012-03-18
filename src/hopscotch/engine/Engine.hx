@@ -68,7 +68,7 @@ class Engine {
         if (!running) {
             running = true;
             startTime = Math.floor(timeSource.getTime() -
-            (previousFrame - 1) / framesPerMillisecond);
+                    (previousFrame - 1) / framesPerMillisecond);
 
             targetBitmapData = new BitmapData(width, height, false, 0x000000);
             targetBitmap = new Bitmap(targetBitmapData);
