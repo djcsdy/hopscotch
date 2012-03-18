@@ -93,11 +93,19 @@ class Playfield implements IUpdater, implements IGraphic {
         for (updater in updaters) {
             updater.begin(frame);
         }
+
+        for (graphic in graphics) {
+            graphic.begin(frame);
+        }
     }
 
     public function end ():Void {
         for (updater in updaters) {
             updater.end();
+        }
+
+        for (graphic in graphics) {
+            graphic.end();
         }
     }
 
