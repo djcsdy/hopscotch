@@ -61,7 +61,7 @@ class Playfield implements IUpdater, implements IGraphic {
         graphics[graphics.length] = graphic;
 
         if (frame >= 0) {
-            graphic.begin(frame);
+            graphic.beginGraphic(frame);
         }
     }
 
@@ -79,7 +79,7 @@ class Playfield implements IUpdater, implements IGraphic {
         graphics.splice(i, 1);
 
         if (frame >= 0) {
-            graphic.end();
+            graphic.endGraphic();
         }
     }
 
@@ -93,6 +93,7 @@ class Playfield implements IUpdater, implements IGraphic {
 
         if (frame >= 0) {
             entity.begin(frame);
+            entity.beginGraphic(frame);
         }
     }
 
@@ -114,6 +115,7 @@ class Playfield implements IUpdater, implements IGraphic {
 
         if (frame >= 0) {
             entity.end();
+            entity.endGraphic();
         }
     }
 
@@ -123,19 +125,11 @@ class Playfield implements IUpdater, implements IGraphic {
         for (updater in updaters) {
             updater.begin(frame);
         }
-
-        for (graphic in graphics) {
-            graphic.begin(frame);
-        }
     }
 
     public function end ():Void {
         for (updater in updaters) {
             updater.end();
-        }
-
-        for (graphic in graphics) {
-            graphic.end();
         }
 
         this.frame = -1;
@@ -149,6 +143,22 @@ class Playfield implements IUpdater, implements IGraphic {
                 updater.update(frame);
             }
         }
+    }
+
+    public function beginGraphic (frame:Int):Void {
+        this.frame = frame;
+
+        for (graphic in graphics) {
+            graphic.beginGraphic(frame);
+        }
+    }
+
+    public function endGraphic ():Void {
+        for (graphic in graphics) {
+            graphic.endGraphic();
+        }
+
+        this.frame = -1;
     }
 
     public function updateGraphic (frame:Int):Void {

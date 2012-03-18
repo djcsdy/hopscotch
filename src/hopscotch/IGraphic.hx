@@ -5,8 +5,8 @@ import flash.geom.Matrix;
 interface IGraphic {
     var active:Bool;
     var visible:Bool;
-    function begin(frame:Int):Void;
-    function end():Void;
+    function beginGraphic(frame:Int):Void;
+    function endGraphic():Void;
     function updateGraphic(frame:Int):Void;
     function render(target:BitmapData, camera:Matrix):Void;
 }

@@ -25,6 +25,14 @@ class Entity implements IUpdater, implements IGraphic {
         // TODO
     }
 
+    public function beginGraphic (frame:Int):Void {
+        // TODO
+    }
+
+    public function endGraphic ():Void {
+        // TODO
+    }
+
     public function updateGraphic (frame:Int):Void {
         // TODO
     }
