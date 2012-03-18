@@ -5,7 +5,7 @@ import flash.Vector;
 import hopscotch.errors.ArgumentError;
 import hopscotch.errors.IllegalOperationError;
 
-class Playfield implements IUpdater, implements IGraphic {
+class Playfield implements IEntity {
     public var active:Bool;
     public var visible:Bool;
 
@@ -86,7 +86,7 @@ class Playfield implements IUpdater, implements IGraphic {
         }
     }
 
-    public function addEntity (entity:Entity):Void {
+    public function addEntity (entity:IEntity):Void {
         if (entity == null) {
             throw new ArgumentError("entity is null");
         }
@@ -103,7 +103,7 @@ class Playfield implements IUpdater, implements IGraphic {
         }
     }
 
-    public function removeEntity (entity:Entity):Void {
+    public function removeEntity (entity:IEntity):Void {
         if (entity == null) {
             throw new ArgumentError("entity is null");
         }
