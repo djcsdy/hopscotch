@@ -35,7 +35,7 @@ class Playfield implements IUpdater, implements IGraphic {
         var i = updaters.indexOf(updater);
         if (i < 0) {
             throw new IllegalOperationError("Tried to remove an updater "
-            + "that was never added");
+                    + "that was never added");
         }
 
         updaters.splice(i, 1);
@@ -57,7 +57,7 @@ class Playfield implements IUpdater, implements IGraphic {
         var i = graphics.indexOf(graphic);
         if (i < 0) {
             throw new IllegalOperationError("Tried to remove a graphic "
-            + "that was never added");
+                    + "that was never added");
         }
 
         graphics.splice(i, 1);
@@ -82,7 +82,7 @@ class Playfield implements IUpdater, implements IGraphic {
 
         if (updatersIndex < 0 || graphicsIndex < 0) {
             throw new IllegalOperationError("Tried to remove an entity "
-            + "that was never added");
+                    + "that was never added");
         }
 
         updaters.splice(updatersIndex, 1);
