@@ -1,7 +1,6 @@
 package hopscotch;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
-import flash.Vector;
 import hopscotch.errors.ArgumentError;
 import hopscotch.errors.IllegalOperationError;
 
@@ -12,8 +11,8 @@ class Playfield implements IEntity {
     var updateFrame:Int;
     var graphicFrame:Int;
 
-    var updaters:Vector<IUpdater>;
-    var graphics:Vector<IGraphic>;
+    var updaters:Array<IUpdater>;
+    var graphics:Array<IGraphic>;
 
     public function new () {
         active = true;
@@ -22,8 +21,8 @@ class Playfield implements IEntity {
         updateFrame = -1;
         graphicFrame = -1;
 
-        updaters = new Vector<IUpdater>();
-        graphics = new Vector<IGraphic>();
+        updaters = new Array<IUpdater>();
+        graphics = new Array<IGraphic>();
     }
 
     public function addUpdater (updater:IUpdater):Void {
@@ -43,7 +42,7 @@ class Playfield implements IEntity {
             throw new ArgumentError("updater is null");
         }
 
-        var i = updaters.indexOf(updater);
+        var i = Lambda.indexOf(updaters, updater);
         if (i < 0) {
             throw new IllegalOperationError("Tried to remove an updater "
                     + "that was never added");
@@ -73,7 +72,7 @@ class Playfield implements IEntity {
             throw new ArgumentError("graphic is null");
         }
 
-        var i = graphics.indexOf(graphic);
+        var i = Lambda.indexOf(graphics, graphic);
         if (i < 0) {
             throw new IllegalOperationError("Tried to remove a graphic "
                     + "that was never added");
@@ -108,8 +107,8 @@ class Playfield implements IEntity {
             throw new ArgumentError("entity is null");
         }
 
-        var updatersIndex = updaters.indexOf(entity);
-        var graphicsIndex = graphics.indexOf(entity);
+        var updatersIndex = Lambda.indexOf(updaters, entity);
+        var graphicsIndex = Lambda.indexOf(graphics, entity);
 
         if (updatersIndex < 0 || graphicsIndex < 0) {
             throw new IllegalOperationError("Tried to remove an entity "
