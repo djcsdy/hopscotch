@@ -14,30 +14,35 @@ class Entity implements IEntity {
     }
 
     public function begin (frame:Int):Void {
-        // TODO
     }
 
     public function end ():Void {
-        // TODO
     }
 
     public function update (frame:Int):Void {
-        // TODO
     }
 
     public function beginGraphic (frame:Int):Void {
-        // TODO
+        if (graphic != null) {
+            graphic.beginGraphic(frame);
+        }
     }
 
     public function endGraphic ():Void {
-        // TODO
+        if (graphic != null) {
+            graphic.endGraphic();
+        }
     }
 
     public function updateGraphic (frame:Int):Void {
-        // TODO
+        if (graphic != null) {
+            graphic.updateGraphic(frame);
+        }
     }
 
     public function render (target:BitmapData, camera:Matrix):Void {
-        // TODO
+        if (graphic != null) {
+            graphic.render(target, camera);
+        }
     }
 }
