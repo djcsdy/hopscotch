@@ -25,8 +25,8 @@ class Engine {
     var matrix:Matrix;
 
     public function new (renderTarget:DisplayObjectContainer,
-    width:Int, height:Int, framesPerSecond:Float,
-    timeSource:ITimeSource = null) {
+            width:Int, height:Int, framesPerSecond:Float,
+            timeSource:ITimeSource = null) {
 
         if (renderTarget == null) {
             throw new ArgumentError("renderTarget is null");
