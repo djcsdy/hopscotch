@@ -6,10 +6,15 @@ import hopscotch.errors.ArgumentError;
 import hopscotch.errors.IllegalOperationError;
 
 class Playfield implements IUpdater, implements IGraphic {
+    public var active:Bool;
+    public var visible:Bool;
+
     var updaters:Vector<IUpdater>;
     var graphics:Vector<IGraphic>;
 
     public function new () {
+        active = true;
+        visible = true;
         updaters = new Vector<IUpdater>();
         graphics = new Vector<IGraphic>();
     }
@@ -98,19 +103,25 @@ class Playfield implements IUpdater, implements IGraphic {
 
     public function update (frame:Int):Void {
         for (updater in updaters) {
-            updater.update(frame);
+            if (updater.active) {
+                updater.update(frame);
+            }
         }
     }
 
     public function updateGraphic (frame:Int):Void {
         for (graphic in graphics) {
-            graphic.updateGraphic(frame);
+            if (graphic.active) {
+                graphic.updateGraphic(frame);
+            }
         }
     }
 
     public function render (target:BitmapData, camera:Matrix):Void {
         for (graphic in graphics) {
-            graphic.render(target, camera);
+            if (graphic.visible) {
+                graphic.render(target, camera);
+            }
         }
     }
 }

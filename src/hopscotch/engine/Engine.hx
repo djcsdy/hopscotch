@@ -128,11 +128,13 @@ class Engine {
             previousPlayfield = playfield;
         }
 
-        playfield.update(frame);
+        if (playfield.active) {
+            playfield.update(frame);
+        }
     }
 
     function updateGraphic (frame:Int):Void {
-        if (playfield != null) {
+        if (playfield != null && playfield.active) {
             playfield.updateGraphic(frame);
         }
     }
@@ -140,7 +142,7 @@ class Engine {
     function render ():Void {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
-        if (playfield != null) {
+        if (playfield != null && playfield.visible) {
             matrix.identity();
             playfield.render(targetBitmapData, matrix);
         }
