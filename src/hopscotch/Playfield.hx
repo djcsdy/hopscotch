@@ -85,22 +85,32 @@ class Playfield implements IUpdater, implements IGraphic {
     }
 
     public function begin (frame:Int):Void {
-        // TODO
+        for (updater in updaters) {
+            updater.begin(frame);
+        }
     }
 
     public function end ():Void {
-        // TODO
+        for (updater in updaters) {
+            updater.end();
+        }
     }
 
     public function update (frame:Int):Void {
-        // TODO
+        for (updater in updaters) {
+            updater.update(frame);
+        }
     }
 
     public function updateGraphic (frame:Int):Void {
-        // TODO
+        for (graphic in graphics) {
+            graphic.updateGraphic(frame);
+        }
     }
 
     public function render (target:BitmapData, camera:Matrix):Void {
-        // TODO
+        for (graphic in graphics) {
+            graphic.render(target, camera);
+        }
     }
 }
