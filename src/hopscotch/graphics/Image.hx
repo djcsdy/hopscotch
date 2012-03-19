@@ -108,6 +108,7 @@ class Image implements IGraphic {
             Static.matrix.tx += position.x + x;
             Static.matrix.ty += position.y + y;
             Static.matrix.concat(camera);
+            bitmap.smoothing = smooth;
             target.draw(bitmap, Static.matrix, null, blendMode, null, smooth); // TODO clipRect
         }
     }
