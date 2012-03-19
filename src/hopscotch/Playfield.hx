@@ -17,7 +17,7 @@ class Playfield implements IEntity {
     var updaters:Array<IUpdater>;
     var graphics:Array<IGraphic>;
 
-    var tmpMatrix:Matrix;
+    static var tmpMatrix:Matrix = new Matrix();
 
     public function new () {
         active = true;
@@ -28,8 +28,6 @@ class Playfield implements IEntity {
 
         updaters = new Array<IUpdater>();
         graphics = new Array<IGraphic>();
-
-        tmpMatrix = new Matrix();
     }
 
     public function addUpdater (updater:IUpdater):Void {
