@@ -1,4 +1,5 @@
 package hopscotch;
+import flash.geom.Point;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 
@@ -12,6 +13,8 @@ class Entity implements IEntity {
     private var graphic:IGraphic;
 
     private var graphicFrame:Int;
+
+    private static var tmpPoint:Point = new Point();
 
     public function new() {
         active = true;
@@ -72,15 +75,16 @@ class Entity implements IEntity {
         graphicFrame = frame;
 
         if (graphic != null) {
-            graphic.x = x;
-            graphic.y = y;
             graphic.updateGraphic(frame);
         }
     }
 
-    public function render (target:BitmapData, camera:Matrix):Void {
+    public function render (target:BitmapData, position:Point, camera:Matrix):Void {
+        tmpPoint.x = position.x + x;
+        tmpPoint.y = position.y + y;
+
         if (graphic != null) {
-            graphic.render(target, camera);
+            graphic.render(target, tmpPoint, camera);
         }
     }
 }

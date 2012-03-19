@@ -4,7 +4,6 @@ import flash.display.BitmapData;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
-import flash.geom.Matrix;
 import hopscotch.errors.ArgumentError;
 import hopscotch.Playfield;
 
@@ -22,7 +21,6 @@ class Engine {
     var startTime:Int;
     var previousPlayfield:Playfield;
     var previousFrame:Int;
-    var matrix:Matrix;
 
     public function new (renderTarget:DisplayObjectContainer,
             width:Int, height:Int, framesPerSecond:Float,
@@ -53,7 +51,6 @@ class Engine {
         }
 
         running = false;
-        matrix = new Matrix();
     }
 
     public function setFramesPerSecond (framesPerSecond:Float):Void {
@@ -143,8 +140,7 @@ class Engine {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
         if (playfield != null && playfield.visible) {
-            matrix.identity();
-            playfield.render(targetBitmapData, matrix);
+            playfield.render(targetBitmapData, Static.zero, Static.identity);
         }
     }
 }
