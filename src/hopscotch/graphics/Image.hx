@@ -27,6 +27,9 @@ class Image implements IGraphic {
         active = false;
         visible = true;
 
+        x = 0;
+        y = 0;
+
         this.source = source;
 
         if (clipRect == null) {

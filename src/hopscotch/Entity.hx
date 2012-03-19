@@ -16,6 +16,10 @@ class Entity implements IEntity {
     public function new() {
         active = true;
         visible = true;
+
+        x = 0;
+        y = 0;
+
         graphicFrame = -1;
     }
 

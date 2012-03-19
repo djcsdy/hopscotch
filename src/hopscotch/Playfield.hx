@@ -23,6 +23,9 @@ class Playfield implements IEntity {
         active = true;
         visible = true;
 
+        x = 0;
+        y = 0;
+
         updateFrame = -1;
         graphicFrame = -1;
 
