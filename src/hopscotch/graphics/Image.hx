@@ -9,6 +9,9 @@ class Image implements IGraphic {
     public var active:Bool;
     public var visible:Bool;
 
+    public var x:Float;
+    public var y:Float;
+
     var source:BitmapData;
     var sourceRect:Rectangle;
 

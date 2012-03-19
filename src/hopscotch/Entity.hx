@@ -6,6 +6,9 @@ class Entity implements IEntity {
     public var active:Bool;
     public var visible:Bool;
 
+    public var x:Float;
+    public var y:Float;
+
     private var graphic:IGraphic;
 
     private var graphicFrame:Int;
@@ -65,6 +68,8 @@ class Entity implements IEntity {
         graphicFrame = frame;
 
         if (graphic != null) {
+            graphic.x = x;
+            graphic.y = y;
             graphic.updateGraphic(frame);
         }
     }
