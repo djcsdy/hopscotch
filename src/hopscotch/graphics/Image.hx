@@ -89,7 +89,8 @@ class Image implements IGraphic {
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
         if (tintColor != previousTintColor || tintAmount != previousTintAmount
-                || colorizeAmount != previousColorizeAmount) {
+                || colorizeAmount != previousColorizeAmount
+                || alpha != previousAlpha) {
             updateBuffer();
         }
 
