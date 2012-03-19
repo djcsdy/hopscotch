@@ -140,7 +140,7 @@ class Engine {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
         if (playfield != null && playfield.visible) {
-            playfield.render(targetBitmapData, Static.zero, Static.identity);
+            playfield.render(targetBitmapData, Static.origin, Static.identity);
         }
     }
 }

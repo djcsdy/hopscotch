@@ -32,7 +32,7 @@ class Image implements IGraphic {
         }
 
         buffer = new BitmapData(cast sourceRect.width, cast sourceRect.height, true);
-        buffer.copyPixels(source, sourceRect, Static.zero);
+        buffer.copyPixels(source, sourceRect, Static.origin);
 
         bitmap = new Bitmap(buffer);
     }

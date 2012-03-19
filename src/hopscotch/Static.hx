@@ -4,7 +4,7 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 
 class Static {
-    public static var zero:Point = new Point();
+    public static var origin:Point = new Point();
     public static var point:Point = new Point();
     public static var point2:Point = new Point();
 
