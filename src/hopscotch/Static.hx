@@ -1,5 +1,6 @@
 package hopscotch;
 
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 
@@ -10,4 +11,6 @@ class Static {
 
     public static var identity:Matrix = new Matrix();
     public static var matrix:Matrix = new Matrix();
+
+    public static var colorTransform:ColorTransform = new ColorTransform();
 }
