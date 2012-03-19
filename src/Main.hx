@@ -1,3 +1,4 @@
+import hopscotch.graphics.GraphicList;
 import hopscotch.graphics.Image;
 import hopscotch.Entity;
 import hopscotch.engine.Engine;
@@ -9,7 +10,9 @@ class Main {
         engine.playfield = new Playfield();
         var entity = new Entity();
         engine.playfield.addEntity(entity);
-        entity.setGraphic(new Image(null));
+        var graphicList = new GraphicList();
+        entity.setGraphic(graphicList);
+        graphicList.graphics.push(new Image(null));
         engine.start();
     }
 }
