@@ -16,11 +16,17 @@ class Image implements IGraphic {
     public var x:Float;
     public var y:Float;
 
+    public var width(default, null):Int;
+    public var height(default, null):Int;
+
     public var originX:Float;
     public var originY:Float;
 
     public var angle:Float;
     public var scale:Float;
+
+    public var flipX:Bool;
+    public var flipY:Bool;
 
     public var alpha:Float;
     public var blendMode:BlendMode;
@@ -36,7 +42,11 @@ class Image implements IGraphic {
     var buffer:BitmapData;
     var bitmap:Bitmap;
 
+    var previousFlipX:Bool;
+    var previousFlipY:Bool;
+
     var previousAlpha:Float;
+
     var previousTintColor:Int;
     var previousTintAmount:Float;
     var previousColorizeAmount:Float;
@@ -58,6 +68,9 @@ class Image implements IGraphic {
         angle = 0;
         scale = 1;
 
+        flipX = false;
+        flipY = false;
+
         alpha = 1;
         blendMode = BlendMode.NORMAL;
         smooth = true;
@@ -72,7 +85,10 @@ class Image implements IGraphic {
             sourceRect = source.rect;
         }
 
-        buffer = new BitmapData(cast sourceRect.width, cast sourceRect.height, true);
+        width = source.width;
+        height = source.height;
+
+        buffer = new BitmapData(width, height, true);
         bitmap = new Bitmap(buffer);
 
         updateBuffer();
@@ -88,9 +104,12 @@ class Image implements IGraphic {
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
-        if (tintColor != previousTintColor || tintAmount != previousTintAmount
-                || colorizeAmount != previousColorizeAmount
-                || alpha != previousAlpha) {
+        if (flipX != previousFlipX
+                || flipY != previousFlipY
+                || alpha != previousAlpha
+                || tintColor != previousTintColor
+                || tintAmount != previousTintAmount
+                || colorizeAmount != previousColorizeAmount) {
             updateBuffer();
         }
 
@@ -120,7 +139,18 @@ class Image implements IGraphic {
     }
 
     private function updateBuffer():Void {
-        buffer.copyPixels(source, sourceRect, Static.origin);
+        if (flipX || flipY) {
+            Static.matrix.b = Static.matrix.c = 0;
+            Static.matrix.a = if (flipX) -1 else 0;
+            Static.matrix.d = if (flipY) -1 else 0;
+            Static.matrix.tx = if (flipX) width else 0;
+            Static.matrix.ty = if (flipY) height else 0;
+
+            buffer.draw(source, Static.matrix);
+        } else {
+            buffer.copyPixels(source, sourceRect, Static.origin);
+        }
+
         if (tintAmount != 0 || alpha != 1) {
             Static.colorTransform.alphaMultiplier = alpha;
             Static.colorTransform.alphaOffset = 0;
@@ -136,7 +166,11 @@ class Image implements IGraphic {
             buffer.colorTransform(buffer.rect, Static.colorTransform);
         }
 
+        previousFlipX = flipX;
+        previousFlipY = flipY;
+
         previousAlpha = alpha;
+
         previousTintColor = tintColor;
         previousTintAmount = tintAmount;
         previousColorizeAmount = colorizeAmount;
