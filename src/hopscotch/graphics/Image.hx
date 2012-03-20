@@ -110,7 +110,12 @@ class Image implements IGraphic {
             Static.matrix.ty += position.y + y;
             Static.matrix.concat(camera);
             bitmap.smoothing = smooth;
+            #if flash
             target.draw(bitmap, Static.matrix, null, blendMode, null, smooth); // TODO clipRect
+            #else
+            bitmap.blendMode = blendMode;
+            target.draw(bitmap, Static.matrix, null, null, null, smooth); // TODO clipRect
+            #end
         }
     }
 
