@@ -140,6 +140,11 @@ class Image implements IGraphic {
         }
     }
 
+    public function centerOrigin():Void {
+        originX = width * 0.5;
+        originY = height * 0.5;
+    }
+
     private function updateBuffer():Void {
         if (flipX || flipY) {
             Static.matrix.b = Static.matrix.c = 0;
