@@ -36,11 +36,12 @@ class Image implements IGraphic {
     public var tintAmount:Float;
     public var colorizeAmount:Float;
 
+    var sourceBitmap:Bitmap;
     var source:BitmapData;
     var sourceRect:Rectangle;
 
     var buffer:BitmapData;
-    var bitmap:Bitmap;
+    var bufferBitmap:Bitmap;
 
     var previousFlipX:Bool;
     var previousFlipY:Bool;
@@ -80,6 +81,7 @@ class Image implements IGraphic {
         colorizeAmount = 0;
 
         this.source = source;
+        sourceBitmap = new Bitmap(source);
 
         if (clipRect == null) {
             sourceRect = source.rect;
@@ -89,7 +91,7 @@ class Image implements IGraphic {
         height = source.height;
 
         buffer = new BitmapData(width, height, true);
-        bitmap = new Bitmap(buffer);
+        bufferBitmap = new Bitmap(buffer);
 
         updateBuffer();
     }
@@ -128,12 +130,12 @@ class Image implements IGraphic {
             Static.matrix.tx += position.x + x;
             Static.matrix.ty += position.y + y;
             Static.matrix.concat(camera);
-            bitmap.smoothing = smooth;
+            bufferBitmap.smoothing = smooth;
             #if flash
-            target.draw(bitmap, Static.matrix, null, blendMode, null, smooth); // TODO clipRect
+            target.draw(bufferBitmap, Static.matrix, null, blendMode, null, smooth); // TODO clipRect
             #else
-            bitmap.blendMode = blendMode;
-            target.draw(bitmap, Static.matrix, null, null, null, smooth); // TODO clipRect
+            bufferBitmap.blendMode = blendMode;
+            target.draw(bufferBitmap, Static.matrix, null, null, null, smooth); // TODO clipRect
             #end
         }
     }
@@ -141,12 +143,13 @@ class Image implements IGraphic {
     private function updateBuffer():Void {
         if (flipX || flipY) {
             Static.matrix.b = Static.matrix.c = 0;
-            Static.matrix.a = if (flipX) -1 else 0;
-            Static.matrix.d = if (flipY) -1 else 0;
+            Static.matrix.a = if (flipX) -1 else 1;
+            Static.matrix.d = if (flipY) -1 else 1;
             Static.matrix.tx = if (flipX) width else 0;
             Static.matrix.ty = if (flipY) height else 0;
 
-            buffer.draw(source, Static.matrix);
+            buffer.fillRect(buffer.rect, 0);
+            buffer.draw(sourceBitmap, Static.matrix);
         } else {
             buffer.copyPixels(source, sourceRect, Static.origin);
         }
