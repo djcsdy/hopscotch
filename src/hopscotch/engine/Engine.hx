@@ -9,6 +9,7 @@ import hopscotch.Playfield;
 
 class Engine {
     public var playfield:Playfield;
+    public var inputs(default, null):Array<IInput>;
 
     var renderTarget:DisplayObjectContainer;
     var targetBitmap:Bitmap;
@@ -41,6 +42,8 @@ class Engine {
         this.renderTarget = renderTarget;
         this.width = width;
         this.height = height;
+
+        inputs = [];
 
         setFramesPerSecond(framesPerSecond);
 
@@ -123,6 +126,12 @@ class Engine {
             playfield.begin(frame - 1);
 
             previousPlayfield = playfield;
+        }
+
+        for (input in inputs) {
+            if (input != null) {
+                input.update(frame);
+            }
         }
 
         if (playfield.active) {
