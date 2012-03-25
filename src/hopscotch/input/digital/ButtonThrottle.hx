@@ -1,5 +1,6 @@
 package hopscotch.input.digital;
 
+import hopscotch.errors.ArgumentNullError;
 import hopscotch.input.analogue.Throttle;
 
 class ButtonThrottle extends Throttle {

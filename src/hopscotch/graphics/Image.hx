@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.errors.ArgumentNullError;
 import flash.geom.ColorTransform;
 import flash.geom.Point;
 import flash.display.Bitmap;
@@ -7,7 +8,6 @@ import flash.display.BlendMode;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.display.BitmapData;
-import hopscotch.errors.ArgumentError;
 
 class Image implements IGraphic {
     public var active:Bool;

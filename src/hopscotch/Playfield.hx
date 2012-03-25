@@ -1,8 +1,8 @@
 package hopscotch;
+import hopscotch.errors.ArgumentNullError;
 import flash.geom.Point;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
-import hopscotch.errors.ArgumentError;
 import hopscotch.errors.IllegalOperationError;
 
 class Playfield implements IEntity {
