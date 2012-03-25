@@ -56,6 +56,14 @@ class Keyboard {
         }
     }
 
+    public function throttleForKey(key:Key, ease:Float=0.2):ButtonThrottle {
+        return new ButtonThrottle(buttonForKey(key), ease);
+    }
+
+    public function wheelForKeys(left:Key, right:Key, ease:Float=0.2):ButtonWheel {
+        return new ButtonWheel(buttonForKey(left), buttonForKey(right), ease);
+    }
+
     private function onKeyDown(event:KeyboardEvent):Void {
         var button:Button = keyButtons[event.keyCode];
         if (button != null) {
