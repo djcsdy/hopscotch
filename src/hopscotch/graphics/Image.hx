@@ -54,7 +54,7 @@ class Image implements IGraphic {
 
     public function new (source:BitmapData, clipRect:Rectangle = null) {
         if (source == null) {
-            throw new ArgumentError("source is null");
+            throw new ArgumentNullError("source");
         }
 
         active = false;

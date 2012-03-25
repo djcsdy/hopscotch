@@ -30,7 +30,7 @@ class Playfield implements IEntity {
 
     public function addUpdater (updater:IUpdater):Void {
         if (updater == null) {
-            throw new ArgumentError("updater is null");
+            throw new ArgumentNullError("updater");
         }
 
         updaters[updaters.length] = updater;
@@ -42,7 +42,7 @@ class Playfield implements IEntity {
 
     public function removeUpdater (updater:IUpdater):Void {
         if (updater == null) {
-            throw new ArgumentError("updater is null");
+            throw new ArgumentNullError("updater");
         }
 
         var i = Lambda.indexOf(updaters, updater);
@@ -60,7 +60,7 @@ class Playfield implements IEntity {
 
     public function addGraphic (graphic:IGraphic):Void {
         if (graphic == null) {
-            throw new ArgumentError("graphic is null");
+            throw new ArgumentNullError("graphic");
         }
 
         graphics[graphics.length] = graphic;
@@ -72,7 +72,7 @@ class Playfield implements IEntity {
 
     public function removeGraphic (graphic:IGraphic):Void {
         if (graphic == null) {
-            throw new ArgumentError("graphic is null");
+            throw new ArgumentNullError("graphic");
         }
 
         var i = Lambda.indexOf(graphics, graphic);
@@ -90,7 +90,7 @@ class Playfield implements IEntity {
 
     public function addEntity (entity:IEntity):Void {
         if (entity == null) {
-            throw new ArgumentError("entity is null");
+            throw new ArgumentNullError("entity");
         }
 
         updaters[updaters.length] = entity;
@@ -107,7 +107,7 @@ class Playfield implements IEntity {
 
     public function removeEntity (entity:IEntity):Void {
         if (entity == null) {
-            throw new ArgumentError("entity is null");
+            throw new ArgumentNullError("entity");
         }
 
         var updatersIndex = Lambda.indexOf(updaters, entity);

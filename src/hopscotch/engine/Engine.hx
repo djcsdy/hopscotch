@@ -29,7 +29,7 @@ class Engine {
             timeSource:ITimeSource = null) {
 
         if (renderTarget == null) {
-            throw new ArgumentError("renderTarget is null");
+            throw new ArgumentNullError("renderTarget");
         }
 
         if (width <= 0) {
