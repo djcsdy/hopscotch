@@ -1,5 +1,6 @@
 package hopscotch.input.digital;
 
+import flash.Lib;
 import flash.events.KeyboardEvent;
 import flash.events.EventDispatcher;
 
@@ -13,10 +14,25 @@ class Keyboard {
     }
 
     public function bind(keyboardEventDispatcher:EventDispatcher):Void {
+        if (keyboardEventDispatcher == null) {
+            keyboardEventDispatcher = Lib.current.stage;
+        }
+
         if (keyboardEventDispatcher == this.keyboardEventDispatcher) {
             return;
         }
 
+        unbind();
+
+        keyboardEventDispatcher.addEventListener(
+                KeyboardEvent.KEY_DOWN, onKeyDown);
+        keyboardEventDispatcher.addEventListener(
+                KeyboardEvent.KEY_UP, onKeyUp);
+
+        this.keyboardEventDispatcher = keyboardEventDispatcher;
+    }
+
+    public function unbind():Void {
         for (button in keyButtons) {
             if (button != null) {
                 button.release();
@@ -29,17 +45,6 @@ class Keyboard {
             this.keyboardEventDispatcher.removeEventListener(
                     KeyboardEvent.KEY_UP, onKeyUp);
         }
-
-        keyboardEventDispatcher.addEventListener(
-                KeyboardEvent.KEY_DOWN, onKeyDown);
-        keyboardEventDispatcher.addEventListener(
-                KeyboardEvent.KEY_UP, onKeyUp);
-
-        this.keyboardEventDispatcher = keyboardEventDispatcher;
-    }
-
-    public function unbind():Void {
-        bind(null);
     }
 
     public function buttonForKey(key:Key):Button {
