@@ -13,7 +13,7 @@ class Keyboard {
         keyButtons = [];
     }
 
-    public function bind(keyboardEventDispatcher:EventDispatcher):Void {
+    public function bind(keyboardEventDispatcher:EventDispatcher=null):Void {
         if (keyboardEventDispatcher == null) {
             keyboardEventDispatcher = Lib.current.stage;
         }
