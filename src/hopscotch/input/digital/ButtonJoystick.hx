@@ -15,6 +15,19 @@ class ButtonJoystick extends Joystick {
             ease:Float=0.2) {
         super();
 
+        if (upButton == null) {
+            throw new ArgumentNullError("upButton");
+        }
+        if (downButton == null) {
+            throw new ArgumentNullError("downButton");
+        }
+        if (leftButton == null) {
+            throw new ArgumentNullError("leftButton");
+        }
+        if (rightButton == null) {
+            throw new ArgumentNullError("rightButton");
+        }
+
         this.upButton = upButton;
         this.downButton = downButton;
         this.leftButton = leftButton;

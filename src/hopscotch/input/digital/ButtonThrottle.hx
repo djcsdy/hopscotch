@@ -10,6 +10,10 @@ class ButtonThrottle extends Throttle {
     public function new(button:Button, ease=0.2) {
         super();
 
+        if (button == null) {
+            throw new ArgumentNullError("button");
+        }
+
         this.button = button;
         this.ease = ease;
     }

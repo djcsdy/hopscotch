@@ -11,6 +11,13 @@ class ButtonWheel extends Wheel {
     public function new(leftButton:Button, rightButton:Button, ease:Float=0.2) {
         super();
 
+        if (leftButton == null) {
+            throw new ArgumentNullError("leftButton");
+        }
+        if (rightButton == null) {
+            throw new ArgumentNullError("rightButton");
+        }
+
         this.leftButton = leftButton;
         this.rightButton = rightButton;
         this.ease = ease;
