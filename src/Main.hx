@@ -19,6 +19,8 @@ class Main {
         graphicList.graphics.push(new Image(null));
         var keyboard = new Keyboard(Lib.current.stage);
         engine.inputs.push(keyboard.buttonForKey(Key.X));
+        engine.inputs.push(keyboard.throttleForKey(Key.Up));
+        engine.inputs.push(keyboard.wheelForKeys(Key.Left, Key.Right));
         engine.start();
     }
 }

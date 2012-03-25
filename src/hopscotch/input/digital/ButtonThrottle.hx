@@ -15,7 +15,7 @@ class ButtonThrottle extends Throttle {
     }
 
     override public function update(frame:Int):Void {
-        button.update();
+        button.update(frame);
 
         var target:Float = if (button.pressed) 1 else 0;
 
