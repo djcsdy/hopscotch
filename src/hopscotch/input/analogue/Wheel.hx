@@ -7,6 +7,10 @@ import hopscotch.input.IInput;
 class Wheel implements IInput {
     public var position(default, null):Float;
 
+    public function new() {
+        position = 0;
+    }
+
     public function update(frame:Int):Void {
     }
 }

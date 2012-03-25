@@ -9,6 +9,8 @@ class ButtonWheel extends Wheel {
     private var rightButton:Button;
 
     public function new(leftButton:Button, rightButton:Button, ease:Float=0.2) {
+        super();
+
         this.leftButton = leftButton;
         this.rightButton = rightButton;
         this.ease = ease;
