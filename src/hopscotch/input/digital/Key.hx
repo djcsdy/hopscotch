@@ -1,4 +1,4 @@
-package hopscotch.input;
+package hopscotch.input.digital;
 
 enum Key {
     A;
