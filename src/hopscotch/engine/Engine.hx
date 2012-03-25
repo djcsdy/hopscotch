@@ -1,4 +1,5 @@
 package hopscotch.engine;
+import hopscotch.input.IInput;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObjectContainer;
