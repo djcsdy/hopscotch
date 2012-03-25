@@ -80,10 +80,10 @@ class Entity implements IEntity {
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
-        tmpPoint.x = position.x + x;
-        tmpPoint.y = position.y + y;
-
         if (graphic != null) {
+            tmpPoint.x = position.x + x;
+            tmpPoint.y = position.y + y;
+
             graphic.render(target, tmpPoint, camera);
         }
     }
