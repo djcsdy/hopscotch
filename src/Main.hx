@@ -21,6 +21,7 @@ class Main {
         engine.inputs.push(keyboard.buttonForKey(Key.X));
         engine.inputs.push(keyboard.throttleForKey(Key.Up));
         engine.inputs.push(keyboard.wheelForKeys(Key.Left, Key.Right));
+        engine.inputs.push(keyboard.joystickForKeys(Key.W, Key.S, Key.A, Key.D));
         engine.start();
     }
 }
