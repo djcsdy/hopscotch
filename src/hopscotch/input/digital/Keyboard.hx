@@ -64,6 +64,12 @@ class Keyboard {
         return new ButtonWheel(buttonForKey(left), buttonForKey(right), ease);
     }
 
+    public function joystickForKeys(up:Key, down:Key,
+            left:Key, right:Key, ease:Float=0.2):ButtonJoystick {
+        return new ButtonJoystick(buttonForKey(up), buttonForKey(down),
+                buttonForKey(left), buttonForKey(right), ease);
+    }
+
     private function onKeyDown(event:KeyboardEvent):Void {
         var button:Button = keyButtons[event.keyCode];
         if (button != null) {
