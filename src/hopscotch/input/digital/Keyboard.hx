@@ -9,8 +9,8 @@ class Keyboard {
     private var keyButtons:Array<Button>;
 
     public function new(keyboardEventDispatcher:EventDispatcher=null) {
-        bind(keyboardEventDispatcher);
         keyButtons = [];
+        bind(keyboardEventDispatcher);
     }
 
     public function bind(keyboardEventDispatcher:EventDispatcher=null):Void {
