@@ -110,6 +110,7 @@ class Engine {
                 updateGraphic(frame);
                 ++frame;
             }
+            previousFrame = frame;
 
             render();
         }
