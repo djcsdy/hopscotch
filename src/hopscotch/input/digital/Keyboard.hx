@@ -56,16 +56,16 @@ class Keyboard {
         }
     }
 
-    public function throttleForKey(key:Key, ease:Float=0.2):ButtonThrottle {
+    public function throttleForKey(key:Key, ease:Float=0.4):ButtonThrottle {
         return new ButtonThrottle(buttonForKey(key), ease);
     }
 
-    public function wheelForKeys(left:Key, right:Key, ease:Float=0.2):ButtonWheel {
+    public function wheelForKeys(left:Key, right:Key, ease:Float=0.4):ButtonWheel {
         return new ButtonWheel(buttonForKey(left), buttonForKey(right), ease);
     }
 
     public function joystickForKeys(up:Key, down:Key,
-            left:Key, right:Key, ease:Float=0.2):ButtonJoystick {
+            left:Key, right:Key, ease:Float=0.4):ButtonJoystick {
         return new ButtonJoystick(buttonForKey(up), buttonForKey(down),
                 buttonForKey(left), buttonForKey(right), ease);
     }

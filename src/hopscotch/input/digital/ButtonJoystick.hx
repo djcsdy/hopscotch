@@ -13,7 +13,7 @@ class ButtonJoystick extends Joystick {
 
     public function new(upButton:Button, downButton:Button,
             leftButton:Button, rightButton:Button,
-            ease:Float=0.2) {
+            ease:Float=0.4) {
         super();
 
         if (upButton == null) {

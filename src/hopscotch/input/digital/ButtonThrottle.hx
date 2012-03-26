@@ -8,7 +8,7 @@ class ButtonThrottle extends Throttle {
 
     private var button:Button;
 
-    public function new(button:Button, ease=0.2) {
+    public function new(button:Button, ease=0.4) {
         super();
 
         if (button == null) {
