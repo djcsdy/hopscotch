@@ -127,7 +127,7 @@ class Image implements IGraphic {
                 Static.matrix.tx = Static.point.x;
                 Static.matrix.ty = Static.point.y;
                 Static.rect.x = Static.point.x;
-                Static.rect.y = Static.point.y
+                Static.rect.y = Static.point.y;
                 Static.rect.width = buffer.width;
                 Static.rect.height = buffer.height;
                 bufferBitmap.smoothing = smooth;
