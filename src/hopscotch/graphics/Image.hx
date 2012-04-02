@@ -119,7 +119,25 @@ class Image implements IGraphic {
                 && angle == 0 && scale == 1 && blendMode == BlendMode.NORMAL) {
             Static.point.x = position.x + x - originX + camera.tx;
             Static.point.y = position.y + y - originY + camera.ty;
-            target.copyPixels(buffer, buffer.rect, Static.point, null, null, true);
+            if (!smooth || (Static.point.x%1==0 && Static.point.y%1==0)) {
+                target.copyPixels(buffer, buffer.rect, Static.point, null, null, true);
+            } else {
+                Static.matrix.a = Static.matrix.d = 1;
+                Static.matrix.b = Static.matrix.c = 0;
+                Static.matrix.tx = Static.point.x;
+                Static.matrix.ty = Static.point.y;
+                Static.rect.x = Static.point.x;
+                Static.rect.y = Static.point.y
+                Static.rect.width = buffer.width;
+                Static.rect.height = buffer.height;
+                bufferBitmap.smoothing = smooth;
+                #if flash
+                target.draw(bufferBitmap, Static.matrix, null, blendMode, Static.rect, smooth);
+                #else
+                bufferBitmap.blendMode = blendMode;
+                target.draw(bufferBitmap, Static.matrix, null, null, Static.rect, smooth);
+                #end
+            }
         } else {
             Static.matrix.a = Static.matrix.d = 1;
             Static.matrix.b = Static.matrix.c = 0;
