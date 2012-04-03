@@ -189,6 +189,7 @@ class Playfield implements IEntity {
 
         if (camera != null) {
             camera.update(frame, cameraMatrix);
+            cameraMatrix.invert();
         } else {
             cameraMatrix.identity();
         }
