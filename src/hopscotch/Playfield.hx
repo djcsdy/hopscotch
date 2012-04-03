@@ -1,4 +1,6 @@
 package hopscotch;
+
+import hopscotch.camera.ICamera;
 import hopscotch.errors.ArgumentNullError;
 import flash.geom.Point;
 import flash.display.BitmapData;
