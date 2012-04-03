@@ -1,5 +1,5 @@
 package hopscotch.camera;
 
 interface ICamera {
-    function update(matrix:Matrix):Void;
+    function update(frame:Int, matrix:Matrix):Void;
 }

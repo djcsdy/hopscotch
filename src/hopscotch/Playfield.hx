@@ -17,7 +17,7 @@ class Playfield implements IEntity {
     var updaters:Array<IUpdater>;
     var graphics:Array<IGraphic>;
 
-    static var tmpMatrix:Matrix = new Matrix();
+    var cameraMatrix:Matrix;
 
     public function new () {
         active = true;
@@ -28,6 +28,8 @@ class Playfield implements IEntity {
 
         updaters = new Array<IUpdater>();
         graphics = new Array<IGraphic>();
+
+        cameraMatrix = new Matrix();
     }
 
     public function addUpdater (updater:IUpdater):Void {
@@ -182,19 +184,22 @@ class Playfield implements IEntity {
                 graphic.updateGraphic(frame);
             }
         }
+
+        if (camera != null) {
+            camera.update(frame, cameraMatrix);
+        } else {
+            cameraMatrix.identity();
+        }
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
-        if (this.camera != null) {
-            this.camera.update(tmpMatrix);
-            tmpMatrix.translate(position.x, position.y);
-            tmpMatrix.concat(camera);
-            camera = tmpMatrix;
-        }
+        cameraMatrix.tx += position.x;
+        cameraMatrix.ty += position.y;
+        cameraMatrix.concat(camera);
 
         for (graphic in graphics) {
             if (graphic.visible) {
-                graphic.render(target, Static.origin, camera);
+                graphic.render(target, Static.origin, cameraMatrix);
             }
         }
     }
