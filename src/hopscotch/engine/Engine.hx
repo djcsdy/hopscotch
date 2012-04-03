@@ -1,4 +1,5 @@
 package hopscotch.engine;
+
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.input.IInput;
 import flash.display.Bitmap;
@@ -13,11 +14,10 @@ class Engine {
     public var playfield:Playfield;
     public var inputs(default, null):Array<IInput>;
 
+    var screenSize:ScreenSize;
     var renderTarget:DisplayObjectContainer;
     var targetBitmap:Bitmap;
     var targetBitmapData:BitmapData;
-    var width:Int;
-    var height:Int;
     var timeSource:ITimeSource;
     var framesPerMillisecond:Float;
     var running:Bool;
@@ -42,8 +42,7 @@ class Engine {
         }
 
         this.renderTarget = renderTarget;
-        this.width = width;
-        this.height = height;
+        this.screenSize = new ScreenSize(width, height);
 
         inputs = [];
 
@@ -72,7 +71,8 @@ class Engine {
             startTime = Math.floor(timeSource.getTime() -
                     (previousFrame - 1) / framesPerMillisecond);
 
-            targetBitmapData = new BitmapData(width, height, false, 0x000000);
+            targetBitmapData = new BitmapData(screenSize.width, screenSize.height,
+                    false, 0x000000);
             targetBitmap = new Bitmap(targetBitmapData);
             renderTarget.addChild(targetBitmap);
 
@@ -144,7 +144,7 @@ class Engine {
 
     function updateGraphic (frame:Int):Void {
         if (playfield != null && playfield.active) {
-            playfield.updateGraphic(frame);
+            playfield.updateGraphic(frame, screenSize);
         }
     }
 

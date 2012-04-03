@@ -1,4 +1,5 @@
 package hopscotch;
+import hopscotch.engine.ScreenSize;
 import flash.geom.Point;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
@@ -71,11 +72,11 @@ class Entity implements IEntity {
         graphicFrame = -1;
     }
 
-    public function updateGraphic (frame:Int):Void {
+    public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
         graphicFrame = frame;
 
         if (graphic != null) {
-            graphic.updateGraphic(frame);
+            graphic.updateGraphic(frame, screenSize);
         }
     }
 

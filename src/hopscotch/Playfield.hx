@@ -1,5 +1,6 @@
 package hopscotch;
 
+import hopscotch.engine.ScreenSize;
 import hopscotch.camera.ICamera;
 import hopscotch.errors.ArgumentNullError;
 import flash.geom.Point;
@@ -178,17 +179,17 @@ class Playfield implements IEntity {
         graphicFrame = -1;
     }
 
-    public function updateGraphic (frame:Int):Void {
+    public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
         graphicFrame = frame;
 
         for (graphic in graphics) {
             if (graphic.active) {
-                graphic.updateGraphic(frame);
+                graphic.updateGraphic(frame, screenSize);
             }
         }
 
         if (camera != null) {
-            camera.update(frame, cameraMatrix);
+            camera.update(frame, screenSize, cameraMatrix);
             cameraMatrix.invert();
         } else {
             cameraMatrix.identity();

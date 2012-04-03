@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.engine.ScreenSize;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.display.BitmapData;
@@ -33,10 +34,10 @@ class GraphicList implements IGraphic {
         }
     }
 
-    public function updateGraphic(frame:Int):Void {
+    public function updateGraphic(frame:Int, screenSize:ScreenSize):Void {
         for (graphic in graphics) {
             if (graphic != null && graphic.active) {
-                graphic.updateGraphic(frame);
+                graphic.updateGraphic(frame, screenSize);
             }
         }
     }

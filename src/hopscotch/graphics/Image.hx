@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.engine.ScreenSize;
 import hopscotch.errors.ArgumentNullError;
 import flash.geom.ColorTransform;
 import flash.geom.Point;
@@ -102,7 +103,7 @@ class Image implements IGraphic {
     public function endGraphic ():Void {
     }
 
-    public function updateGraphic (frame:Int):Void {
+    public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
