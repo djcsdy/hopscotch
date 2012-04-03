@@ -1,5 +1,6 @@
 package hopscotch.camera;
 
+import flash.geom.Matrix;
 import hopscotch.Entity;
 
 class FollowCamera implements ICamera {
