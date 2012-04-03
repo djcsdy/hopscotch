@@ -9,6 +9,8 @@ class Playfield implements IEntity {
     public var active:Bool;
     public var visible:Bool;
 
+    public var camera:ICamera;
+
     var updateFrame:Int;
     var graphicFrame:Int;
 
@@ -183,9 +185,16 @@ class Playfield implements IEntity {
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
+        if (this.camera != null) {
+            this.camera.update(tmpMatrix);
+            tmpMatrix.translate(position.x, position.y);
+            tmpMatrix.concat(camera);
+            camera = tmpMatrix;
+        }
+
         for (graphic in graphics) {
             if (graphic.visible) {
-                graphic.render(target, position, camera);
+                graphic.render(target, Static.origin, camera);
             }
         }
     }
