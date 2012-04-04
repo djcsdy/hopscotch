@@ -1,5 +1,6 @@
 package hopscotch;
 
+import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import hopscotch.camera.ICamera;
 import hopscotch.errors.ArgumentNullError;

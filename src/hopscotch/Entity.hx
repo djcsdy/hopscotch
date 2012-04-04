@@ -1,4 +1,6 @@
 package hopscotch;
+
+import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import flash.geom.Point;
 import flash.display.BitmapData;

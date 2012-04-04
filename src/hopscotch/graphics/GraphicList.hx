@@ -4,7 +4,6 @@ import hopscotch.engine.ScreenSize;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.display.BitmapData;
-import hopscotch.IGraphic;
 
 class GraphicList implements IGraphic {
     public var active:Bool;
