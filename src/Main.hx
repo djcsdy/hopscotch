@@ -1,3 +1,4 @@
+import hopscotch.math.Range;
 import flash.Lib;
 import hopscotch.input.digital.Keyboard;
 import hopscotch.input.digital.Button;
@@ -23,5 +24,6 @@ class Main {
         engine.inputs.push(keyboard.wheelForKeys(Key.Left, Key.Right));
         engine.inputs.push(keyboard.joystickForKeys(Key.W, Key.S, Key.A, Key.D));
         engine.start();
+        Range.int.wrap(8, 1, 2);
     }
 }
