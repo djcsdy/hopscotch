@@ -22,9 +22,7 @@ class FollowCamera implements ICamera {
             targetY = target.y;
         }
 
-        matrix.a = matrix.d = 1;
-        matrix.b = matrix.c = 0;
-        matrix.tx = targetX - screenSize.width * 0.5;
-        matrix.ty = targetY - screenSize.height * 0.5;
+        matrix.tx += targetX - screenSize.width * 0.5;
+        matrix.ty += targetY - screenSize.height * 0.5;
     }
 }
