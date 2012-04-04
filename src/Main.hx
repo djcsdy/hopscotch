@@ -1,3 +1,4 @@
+import hopscotch.collision.CircleMask;
 import hopscotch.math.Range;
 import flash.Lib;
 import hopscotch.input.digital.Keyboard;
@@ -25,5 +26,6 @@ class Main {
         engine.inputs.push(keyboard.joystickForKeys(Key.W, Key.S, Key.A, Key.D));
         engine.start();
         Range.int.wrap(8, 1, 2);
+        var mask = new CircleMask();
     }
 }
