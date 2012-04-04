@@ -18,14 +18,14 @@ class CircleMask extends Mask {
         implement(CircleMask, collideCircle);
     }
 
-    function collideCircle(mask:CircleMask):Bool {
-        Static.point.x = x;
-        Static.point.y = y;
-        Static.point2.x = mask.x;
-        Static.point2.y = mask.y;
+    function collideCircle(mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+        Static.point.x = x + x1;
+        Static.point.y = y + y1;
+        Static.point2.x = mask2.x + x2;
+        Static.point2.y = mask2.y + y2;
 
         VectorMath.subtract(Static.point, Static.point2);
 
-        return VectorMath.magnitude(Static.point) > radius + mask.radius;
+        return VectorMath.magnitude(Static.point) > radius + mask2.radius;
     }
 }
