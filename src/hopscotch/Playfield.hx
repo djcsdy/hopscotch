@@ -21,6 +21,7 @@ class Playfield implements IEntity {
     var updaters:Array<IUpdater>;
     var graphics:Array<IGraphic>;
 
+    var previousCamera:ICamera;
     var cameraMatrix:Matrix;
 
     public function new () {
@@ -170,12 +171,22 @@ class Playfield implements IEntity {
         for (graphic in graphics) {
             graphic.beginGraphic(frame);
         }
+
+        if (camera != null) {
+            camera.begin(frame);
+        }
+        previousCamera = camera;
     }
 
     public function endGraphic ():Void {
         for (graphic in graphics) {
             graphic.endGraphic();
         }
+
+        if (camera != null) {
+            camera.end();
+        }
+        previousCamera = null;
 
         graphicFrame = -1;
     }
@@ -187,6 +198,18 @@ class Playfield implements IEntity {
             if (graphic.active) {
                 graphic.updateGraphic(frame, screenSize);
             }
+        }
+
+        if (camera != previousCamera) {
+            if (previousCamera != null) {
+                previousCamera.end();
+            }
+
+            if (camera != null) {
+                camera.begin(frame);
+            }
+
+            previousCamera = camera;
         }
 
         cameraMatrix.identity();

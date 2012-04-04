@@ -16,6 +16,12 @@ class FollowCamera implements ICamera {
         targetY = 0;
     }
 
+    public function begin(frame:Int):Void {
+    }
+
+    public function end():Void {
+    }
+
     public function update(frame:Int, screenSize:ScreenSize, matrix:Matrix):Void {
         if (target != null) {
             targetX = target.x;
