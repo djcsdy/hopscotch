@@ -2,6 +2,7 @@ package hopscotch.input.digital;
 
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.input.analogue.Joystick;
+import hopscotch.math.VectorMath;
 
 class ButtonJoystick extends Joystick {
     private var upButton:Button;

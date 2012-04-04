@@ -1,5 +1,7 @@
-package hopscotch;
+package hopscotch.math;
+
 import flash.geom.Point;
+
 class VectorMath {
     public static inline function add(v:Point, w:Point):Void {
         v.x += w.x;
