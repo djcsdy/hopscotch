@@ -1,3 +1,5 @@
+import flash.display.BitmapData;
+import hopscotch.collision.PixelMask;
 import hopscotch.collision.CircleMask;
 import hopscotch.math.Range;
 import flash.Lib;
@@ -26,6 +28,7 @@ class Main {
         engine.inputs.push(keyboard.joystickForKeys(Key.W, Key.S, Key.A, Key.D));
         engine.start();
         Range.int.wrap(8, 1, 2);
-        var mask = new CircleMask();
+        var circleMask = new CircleMask();
+        var pixelMask = new PixelMask(new BitmapData(1,1));
     }
 }
