@@ -131,7 +131,9 @@ class Engine {
                 previousPlayfield.end();
             }
 
-            playfield.begin(frame - 1);
+            if (playfield != null) {
+                playfield.begin(frame - 1);
+            }
 
             previousPlayfield = playfield;
         }
@@ -154,7 +156,7 @@ class Engine {
             }
         }
 
-        if (playfield.active) {
+        if (playfield != null && playfield.active) {
             playfield.update(frame);
         }
 
