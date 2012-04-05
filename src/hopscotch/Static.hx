@@ -11,6 +11,7 @@ class Static {
     public static var point2:Point = new Point();
 
     public static var rect:Rectangle = new Rectangle();
+    public static var rect2:Rectangle = new Rectangle();
 
     public static var identity:Matrix = new Matrix();
     public static var matrix:Matrix = new Matrix();

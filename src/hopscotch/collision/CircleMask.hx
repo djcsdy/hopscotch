@@ -16,6 +16,7 @@ class CircleMask extends Mask {
         this.radius = radius;
 
         implement(CircleMask, collideCircle);
+        implement(BoxMask, collideBox);
     }
 
     function collideCircle(mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
@@ -27,5 +28,17 @@ class CircleMask extends Mask {
         VectorMath.subtract(Static.point, Static.point2);
 
         return VectorMath.magnitude(Static.point) > radius + mask2.radius;
+    }
+
+    function collideBox(mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+        Static.point.x = Math.abs(x + x1 - mask2.x - x2 - mask2.width * 0.5);
+        Static.point.y = Math.abs(y + y1 - mask2.y - y2 - mask2.height * 0.5);
+        var distance = VectorMath.magnitude(Static.point);
+        VectorMath.normalize(Static.point);
+
+        Static.point2.x = mask2.width * 0.5;
+        Static.point2.y = mask2.height * 0.5;
+
+        return VectorMath.dot(Static.point2, Static.point) + radius < distance;
     }
 }
