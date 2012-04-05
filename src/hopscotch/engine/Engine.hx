@@ -1,5 +1,6 @@
 package hopscotch.engine;
 
+import hopscotch.collision.IConsole;
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.input.IInput;
 import flash.display.Bitmap;
@@ -13,6 +14,7 @@ import hopscotch.Playfield;
 class Engine {
     public var playfield:Playfield;
     public var inputs(default, null):Array<IInput>;
+    public var console:IConsole;
 
     var screenSize:ScreenSize;
     var renderTarget:DisplayObjectContainer;
@@ -24,6 +26,7 @@ class Engine {
     var startTime:Int;
     var previousPlayfield:Playfield;
     var previousFrame:Int;
+    var previousConsole:IConsole;
 
     public function new (renderTarget:DisplayObjectContainer,
             width:Int, height:Int, framesPerSecond:Float,
@@ -55,6 +58,8 @@ class Engine {
         }
 
         running = false;
+
+        previousConsole = null;
     }
 
     public function setFramesPerSecond (framesPerSecond:Float):Void {
@@ -131,6 +136,18 @@ class Engine {
             previousPlayfield = playfield;
         }
 
+        if (console != previousConsole) {
+            if (previousConsole != null) {
+                previousConsole.end();
+            }
+
+            if (console != null) {
+                console.begin(frame);
+            }
+
+            previousConsole = console;
+        }
+
         for (input in inputs) {
             if (input != null) {
                 input.update(frame);
@@ -139,6 +156,10 @@ class Engine {
 
         if (playfield.active) {
             playfield.update(frame);
+        }
+
+        if (console != null && console.enabled) {
+            console.update(frame);
         }
     }
 
@@ -153,6 +174,10 @@ class Engine {
 
         if (playfield != null && playfield.visible) {
             playfield.render(targetBitmapData, Static.origin, Static.identity);
+        }
+
+        if (console != null && console.enabled) {
+            console.render(targetBitmapData);
         }
     }
 }
