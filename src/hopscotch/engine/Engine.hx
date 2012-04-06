@@ -1,6 +1,6 @@
 package hopscotch.engine;
 
-import hopscotch.collision.IConsole;
+import hopscotch.debug.IConsole;
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.input.IInput;
 import flash.display.Bitmap;

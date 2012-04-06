@@ -1,4 +1,4 @@
-package hopscotch.collision;
+package hopscotch.debug;
 
 import flash.geom.Matrix;
 import flash.geom.Point;
