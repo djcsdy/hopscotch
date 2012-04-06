@@ -19,6 +19,9 @@ class Console implements IConsole {
     public function update(frame:Int):Void {
     }
 
-    public function render(target:BitmapData):Void {
+    public function render(target:BitmapData, playfield:Playfield):Void {
+        if (playfield != null && playfield.visible) {
+            playfield.render(target, Static.origin, Static.identity);
+        }
     }
 }

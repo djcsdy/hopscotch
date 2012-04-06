@@ -174,12 +174,12 @@ class Engine {
     function render ():Void {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
-        if (playfield != null && playfield.visible) {
-            playfield.render(targetBitmapData, Static.origin, Static.identity);
-        }
-
-        if (console != null && console.enabled) {
-            console.render(targetBitmapData);
+        if (console == null || !console.enabled) {
+            if (playfield != null && playfield.visible) {
+                playfield.render(targetBitmapData, Static.origin, Static.identity);
+            }
+        } else {
+            console.render(targetBitmapData, playfield);
         }
     }
 }

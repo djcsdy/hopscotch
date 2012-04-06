@@ -1,5 +1,6 @@
 package hopscotch.debug;
 
+import hopscotch.Playfield;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.display.BitmapData;
@@ -9,5 +10,5 @@ interface IConsole {
     function begin(frame:Int):Void;
     function end():Void;
     function update(frame:Int):Void;
-    function render(target:BitmapData):Void;
+    function render(target:BitmapData, playfield:Playfield):Void;
 }
