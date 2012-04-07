@@ -127,10 +127,6 @@ class Engine {
     }
 
     function update (frame:Int):Void {
-        if (playfield == null) {
-            return;
-        }
-
         if (playfield != previousPlayfield) {
             if (previousPlayfield != null) {
                 previousPlayfield.end();
