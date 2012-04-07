@@ -1,40 +1,47 @@
 package hopscotch.engine;
 
+import hopscotch.Static;
+import hopscotch.Playfield;
+import hopscotch.debug.Console;
 import hopscotch.debug.IConsole;
-import hopscotch.errors.ArgumentNullError;
-import hopscotch.input.IInput;
+import flash.events.Event;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.DisplayObjectContainer;
-import flash.events.Event;
-import flash.events.IEventDispatcher;
 import hopscotch.errors.ArgumentError;
-import hopscotch.Playfield;
+import hopscotch.errors.ArgumentNullError;
+import hopscotch.input.IInput;
+import hopscotch.engine.ScreenSize;
+import flash.display.DisplayObjectContainer;
 
 class Engine {
     public var playfield:Playfield;
     public var inputs(default, null):Array<IInput>;
     public var console:IConsole;
 
-    var screenSize:ScreenSize;
     var renderTarget:DisplayObjectContainer;
-    var targetBitmap:Bitmap;
+    var screenSize:ScreenSize;
+
     var targetBitmapData:BitmapData;
-    var timeSource:ITimeSource;
+    var targetBitmap:Bitmap;
+
     var framesPerMillisecond:Float;
+
+    var timeSource:ITimeSource;
+
     var running:Bool;
     var startTime:Int;
-    var consoleActive:Bool;
+
+    var previousFrame:Int;
 
     var previousPlayfield:Playfield;
-    var previousFrame:Int;
-    var previousConsoleActive:Bool;
+
     var previousConsole:IConsole;
+    var consoleActive:Bool;
+    var previousConsoleActive:Bool;
 
     public function new (renderTarget:DisplayObjectContainer,
             width:Int, height:Int, framesPerSecond:Float,
-            timeSource:ITimeSource = null) {
-
+            timeSource:ITimeSource=null) {
         if (renderTarget == null) {
             throw new ArgumentNullError("renderTarget");
         }
@@ -43,69 +50,66 @@ class Engine {
             throw new ArgumentError("width out of range");
         }
 
-        if (height < 0) {
+        if (height <= 0) {
             throw new ArgumentError("height out of range");
+        }
+
+        if (framesPerSecond <= 0) {
+            throw new ArgumentError("framesPerSecond out of range");
         }
 
         this.renderTarget = renderTarget;
         this.screenSize = new ScreenSize(width, height);
 
-        inputs = [];
-
-        setFramesPerSecond(framesPerSecond);
-
-        if (timeSource == null) {
-            this.timeSource = new TimeSource();
-        } else {
-            this.timeSource = timeSource;
-        }
-
-        running = false;
-
-        consoleActive = false;
-        previousConsoleActive = false;
-        previousConsole = null;
-    }
-
-    public function setFramesPerSecond (framesPerSecond:Float):Void {
-        if (framesPerSecond <= 0) {
-            throw new ArgumentError("framesPerSecond out of range");
-        }
+        targetBitmapData = new BitmapData(width, height, false, 0x000000);
+        targetBitmap = new Bitmap(targetBitmapData);
 
         framesPerMillisecond = framesPerSecond / 1000;
+
+        this.timeSource =
+                if (timeSource == null) new TimeSource()
+                else timeSource;
+
+        playfield = null;
+
+        inputs = [];
+
+        running = false;
+        startTime = 0;
+
+        previousFrame = 0;
+
+        previousPlayfield = null;
+
+        console = new Console();
+        previousConsole = null;
+        consoleActive = false;
+        previousConsoleActive = false;
     }
 
-    public function start ():Void {
+    public function start():Void {
         if (!running) {
             running = true;
             startTime = Math.floor(timeSource.getTime() -
                     (previousFrame - 1) / framesPerMillisecond);
 
-            targetBitmapData = new BitmapData(screenSize.width, screenSize.height,
-                    false, 0x000000);
-            targetBitmap = new Bitmap(targetBitmapData);
             renderTarget.addChild(targetBitmap);
 
-            renderTarget.addEventListener(
-                Event.ENTER_FRAME, onEnterFrame);
+            renderTarget.addEventListener(Event.ENTER_FRAME, onEnterFrame);
         }
     }
 
-    public function stop ():Void {
+    public function stop():Void {
         if (running) {
             running = false;
 
             renderTarget.removeChild(targetBitmap);
-            targetBitmap = null;
-            targetBitmapData.dispose();
-            targetBitmapData = null;
 
-            renderTarget.removeEventListener(
-                Event.ENTER_FRAME, onEnterFrame);
+            renderTarget.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
         }
     }
 
-    function onEnterFrame (event:Event):Void {
+    function onEnterFrame(event:Event):Void {
         if (!running) {
             return;
         }
@@ -114,6 +118,11 @@ class Engine {
         var targetFrame:Int = Math.floor(1 + (now - startTime) * framesPerMillisecond);
 
         if (targetFrame > previousFrame) {
+            if (targetFrame > previousFrame + 5) {
+                startTime += Math.ceil((targetFrame - previousFrame - 5) * framesPerMillisecond);
+                targetFrame = previousFrame + 5;
+            }
+
             var frame = previousFrame + 1;
             while (frame <= targetFrame) {
                 update(frame);
@@ -126,7 +135,7 @@ class Engine {
         }
     }
 
-    function update (frame:Int):Void {
+    function update(frame:Int):Void {
         if (playfield != previousPlayfield) {
             if (previousPlayfield != null) {
                 previousPlayfield.end();
@@ -168,13 +177,13 @@ class Engine {
         }
     }
 
-    function updateGraphic (frame:Int):Void {
+    function updateGraphic(frame:Int):Void {
         if (playfield != null && playfield.active) {
             playfield.updateGraphic(frame, screenSize);
         }
     }
 
-    function render ():Void {
+    function render():Void {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
         if (!consoleActive || console == null || !console.enabled) {
