@@ -1,5 +1,6 @@
 package hopscotch.debug;
 
+import hopscotch.Static;
 import flash.geom.Point;
 import flash.display.BitmapData;
 
