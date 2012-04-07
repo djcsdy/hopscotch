@@ -24,8 +24,11 @@ class Engine {
     var framesPerMillisecond:Float;
     var running:Bool;
     var startTime:Int;
+    var consoleActive:Bool;
+
     var previousPlayfield:Playfield;
     var previousFrame:Int;
+    var previousConsoleActive:Bool;
     var previousConsole:IConsole;
 
     public function new (renderTarget:DisplayObjectContainer,
@@ -59,6 +62,8 @@ class Engine {
 
         running = false;
 
+        consoleActive = false;
+        previousConsoleActive = false;
         previousConsole = null;
     }
 
@@ -138,17 +143,19 @@ class Engine {
             previousPlayfield = playfield;
         }
 
-        if (console != previousConsole) {
+        if ((previousConsoleActive && !consoleActive)
+                || console != previousConsole) {
             if (previousConsole != null) {
                 previousConsole.end();
             }
 
-            if (console != null) {
+            if (consoleActive && console != null) {
                 console.begin(frame);
             }
 
             previousConsole = console;
         }
+        previousConsoleActive = consoleActive;
 
         for (input in inputs) {
             if (input != null) {
@@ -160,7 +167,7 @@ class Engine {
             playfield.update(frame);
         }
 
-        if (console != null && console.enabled) {
+        if (consoleActive && console != null && console.enabled) {
             console.update(frame);
         }
     }
@@ -174,7 +181,7 @@ class Engine {
     function render ():Void {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
-        if (console == null || !console.enabled) {
+        if (!consoleActive || console == null || !console.enabled) {
             if (playfield != null && playfield.visible) {
                 playfield.render(targetBitmapData, Static.origin, Static.identity);
             }
