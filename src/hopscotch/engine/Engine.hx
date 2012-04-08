@@ -1,5 +1,6 @@
 package hopscotch.engine;
 
+import hopscotch.debug.PerformanceInfo;
 import hopscotch.Static;
 import hopscotch.Playfield;
 import hopscotch.debug.Console;
@@ -16,6 +17,8 @@ import flash.display.DisplayObjectContainer;
 class Engine {
     public var playfield:Playfield;
     public var inputs(default, null):Array<IInput>;
+
+    public var performanceInfo(default, null):PerformanceInfo;
     public var console:IConsole;
 
     var renderTarget:DisplayObjectContainer;
@@ -24,6 +27,7 @@ class Engine {
     var targetBitmapData:BitmapData;
     var targetBitmap:Bitmap;
 
+    var framesPerSecond:Float;
     var framesPerMillisecond:Float;
 
     var timeSource:ITimeSource;
@@ -38,6 +42,18 @@ class Engine {
     var previousConsole:IConsole;
     var consoleActive:Bool;
     var previousConsoleActive:Bool;
+
+    var lastFrameFinishedTime:Int;
+
+    var performanceSamplesCount:Int;
+
+    var updateFramesPerSecondAverage:RollingAverage;
+    var renderFramesPerSecondAverage:RollingAverage;
+
+    var updateTimeMsAverage:RollingAverage;
+    var graphicUpdateTimeMsAverage:RollingAverage;
+    var renderTimeMsAverage:RollingAverage;
+    var systemTimeMsAverage:RollingAverage;
 
     public function new (renderTarget:DisplayObjectContainer,
             width:Int, height:Int, framesPerSecond:Float,
@@ -64,6 +80,7 @@ class Engine {
         targetBitmapData = new BitmapData(width, height, false, 0x000000);
         targetBitmap = new Bitmap(targetBitmapData);
 
+        this.framesPerSecond = framesPerSecond;
         framesPerMillisecond = framesPerSecond / 1000;
 
         this.timeSource =
@@ -81,10 +98,30 @@ class Engine {
 
         previousPlayfield = null;
 
+        performanceInfo = new PerformanceInfo();
+        performanceInfo.targetFramesPerSecond = framesPerSecond;
+        performanceInfo.updateFramesPerSecond = framesPerSecond;
+        performanceInfo.renderFramesPerSecond = framesPerSecond;
+
         console = new Console();
         previousConsole = null;
         consoleActive = false;
         previousConsoleActive = false;
+
+        lastFrameFinishedTime = -1;
+
+        performanceSamplesCount = Math.floor(framesPerSecond);
+
+        updateFramesPerSecondAverage = new RollingAverage(performanceSamplesCount);
+        updateFramesPerSecondAverage.push(framesPerSecond);
+
+        renderFramesPerSecondAverage = new RollingAverage(performanceSamplesCount);
+        renderFramesPerSecondAverage.push(framesPerSecond);
+
+        updateTimeMsAverage = new RollingAverage(performanceSamplesCount);
+        graphicUpdateTimeMsAverage = new RollingAverage(performanceSamplesCount);
+        renderTimeMsAverage = new RollingAverage(performanceSamplesCount);
+        systemTimeMsAverage = new RollingAverage(performanceSamplesCount);
     }
 
     public function start():Void {
@@ -106,6 +143,8 @@ class Engine {
             renderTarget.removeChild(targetBitmap);
 
             renderTarget.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+
+            lastFrameFinishedTime = -1;
         }
     }
 
@@ -117,22 +156,64 @@ class Engine {
         var now = timeSource.getTime();
         var targetFrame:Int = Math.floor(1 + (now - startTime) * framesPerMillisecond);
 
+        if (lastFrameFinishedTime >= 0) {
+            systemTimeMsAverage.push(now - lastFrameFinishedTime);
+        }
+
         if (targetFrame > previousFrame) {
-            if (targetFrame > previousFrame + 5) {
+            var framesAdvanced = targetFrame - previousFrame;
+            var updateFramesAdvanced:Int;
+
+            if (framesAdvanced > 5) {
+                updateFramesAdvanced = 5;
                 startTime += Math.ceil((targetFrame - previousFrame - 5) * framesPerMillisecond);
                 targetFrame = previousFrame + 5;
+            } else {
+                updateFramesAdvanced = framesAdvanced;
             }
+
+            var time1:Int, time2:Int, time3:Int;
 
             var frame = previousFrame + 1;
             while (frame <= targetFrame) {
+                time1 = timeSource.getTime();
                 update(frame);
+                time2 = timeSource.getTime();
                 updateGraphic(frame);
+                time3 = timeSource.getTime();
+
+                updateTimeMsAverage.push(time2 - time1);
+                graphicUpdateTimeMsAverage.push(time3 - time2);
+
                 ++frame;
             }
             previousFrame = frame;
 
+            time1 = timeSource.getTime();
             render();
+            time2 = timeSource.getTime();
+
+            renderTimeMsAverage.push(time2 - time1);
+
+            performanceInfo.systemTimeMs = systemTimeMsAverage.average();
+            performanceInfo.updateTimeMs = updateTimeMsAverage.average();
+            performanceInfo.graphicUpdateTimeMs = graphicUpdateTimeMsAverage.average();
+            performanceInfo.renderTimeMs = renderTimeMsAverage.average();
+
+            var updateFramesPerSecond = framesPerSecond / (framesAdvanced - updateFramesAdvanced + 1);
+            var renderFramesPerSecond = framesPerSecond / framesAdvanced;
+
+            var i:Int = 0;
+            while (i < framesAdvanced && i < framesPerSecond) {
+                updateFramesPerSecondAverage.push(updateFramesPerSecond);
+                renderFramesPerSecondAverage.push(renderFramesPerSecond);
+            }
+
+            performanceInfo.updateFramesPerSecond = updateFramesPerSecondAverage.average();
+            performanceInfo.renderFramesPerSecond = renderFramesPerSecondAverage.average();
         }
+
+        lastFrameFinishedTime = timeSource.getTime();
     }
 
     function update(frame:Int):Void {
