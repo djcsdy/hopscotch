@@ -1,5 +1,6 @@
 package hopscotch.debug;
 
+import flash.system.System;
 import flash.text.TextFormatAlign;
 import flash.text.TextFormat;
 import flash.text.TextField;
@@ -18,6 +19,7 @@ class Console implements IConsole {
     var graphicUpdateTimeText:TextField;
     var renderTimeText:TextField;
     var systemTimeText:TextField;
+    var memText:TextField;
 
     var textFormat:TextFormat;
     var badTextFormat:TextFormat;
@@ -53,12 +55,16 @@ class Console implements IConsole {
         systemTimeText = new TextField();
         systemTimeText.y = 100;
 
+        memText = new TextField();
+        memText.y = 120;
+
         sprite.addChild(fpsText);
         sprite.addChild(logicRateText);
         sprite.addChild(updateTimeText);
         sprite.addChild(graphicUpdateTimeText);
         sprite.addChild(renderTimeText);
         sprite.addChild(systemTimeText);
+        sprite.addChild(memText);
     }
 
     public function begin(frame:Int):Void {
@@ -94,6 +100,9 @@ class Console implements IConsole {
         
         systemTimeText.text = Std.string(Math.round(performanceInfo.systemTimeMs)) + "ms";
         systemTimeText.setTextFormat(textFormat);
+
+        memText.text = Std.string(Math.round(System.totalMemory * 100 / 1024 / 1024) / 100) + "MiB";
+        memText.setTextFormat(textFormat);
     }
 
     public function render(target:BitmapData, playfield:Playfield):Void {
