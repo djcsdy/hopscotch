@@ -13,7 +13,10 @@ class Console implements IConsole {
 
     var sprite:Sprite;
     var fpsText:TextField;
+    var logicRateText:TextField;
+
     var textFormat:TextFormat;
+    var badTextFormat:TextFormat;
 
     public function new() {
         enabled = true;
@@ -24,10 +27,17 @@ class Console implements IConsole {
         textFormat.align = TextFormatAlign.LEFT;
         textFormat.size = 16;
 
+        badTextFormat = new TextFormat();
+        textFormat.color = 0xffff0000;
+        textFormat.align = TextFormatAlign.LEFT;
+        textFormat.size = 16;
+
         fpsText = new TextField();
-        fpsText.setTextFormat(textFormat);
+        logicRateText = new TextField();
+        logicRateText.y = 20;
 
         sprite.addChild(fpsText);
+        sprite.addChild(logicRateText);
     }
 
     public function begin(frame:Int):Void {
@@ -39,6 +49,18 @@ class Console implements IConsole {
     public function update(frame:Int, performanceInfo:PerformanceInfo):Void {
         fpsText.text = Std.string(Math.round(performanceInfo.renderFramesPerSecond));
         fpsText.setTextFormat(textFormat);
+
+        var logicRate = Math.round(
+                performanceInfo.updateFramesPerSecond
+                / performanceInfo.targetFramesPerSecond) * 100;
+
+        logicRateText.text = Std.string(logicRate) + "%";
+
+        if (logicRate < 100) {
+            logicRateText.setTextFormat(badTextFormat);
+        } else {
+            logicRateText.setTextFormat(textFormat);
+        }
     }
 
     public function render(target:BitmapData, playfield:Playfield):Void {
