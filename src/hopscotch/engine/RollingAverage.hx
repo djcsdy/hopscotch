@@ -12,6 +12,7 @@ class RollingAverage {
         samples = [];
         this.samplesCount = 0;
         maxSamplesCount = samplesCount;
+        runningTotal = 0;
 
         for (i in 0...samplesCount) {
             samples[i] = 0;
