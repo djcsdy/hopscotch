@@ -13,18 +13,21 @@ class Console implements IConsole {
 
     var sprite:Sprite;
     var fpsText:TextField;
+    var textFormat:TextFormat;
 
     public function new() {
         enabled = true;
         sprite = new Sprite();
 
-        var textFormat = new TextFormat();
+        textFormat = new TextFormat();
         textFormat.color = 0xffffffff;
         textFormat.align = TextFormatAlign.LEFT;
         textFormat.size = 16;
 
         fpsText = new TextField();
         fpsText.setTextFormat(textFormat);
+
+        sprite.addChild(fpsText);
     }
 
     public function begin(frame:Int):Void {
@@ -35,6 +38,7 @@ class Console implements IConsole {
 
     public function update(frame:Int, performanceInfo:PerformanceInfo):Void {
         fpsText.text = Std.string(Math.round(performanceInfo.renderFramesPerSecond));
+        fpsText.setTextFormat(textFormat);
     }
 
     public function render(target:BitmapData, playfield:Playfield):Void {
