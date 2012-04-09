@@ -28,9 +28,9 @@ class Console implements IConsole {
         textFormat.size = 16;
 
         badTextFormat = new TextFormat();
-        textFormat.color = 0xffff0000;
-        textFormat.align = TextFormatAlign.LEFT;
-        textFormat.size = 16;
+        badTextFormat.color = 0xffff0000;
+        badTextFormat.align = TextFormatAlign.LEFT;
+        badTextFormat.size = 16;
 
         fpsText = new TextField();
         logicRateText = new TextField();
