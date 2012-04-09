@@ -39,23 +39,30 @@ class Console implements IConsole {
         badTextFormat.size = 16;
 
         fpsText = new TextField();
-        
+        fpsText.defaultTextFormat = textFormat;
+
         logicRateText = new TextField();
+        logicRateText.defaultTextFormat = textFormat;
         logicRateText.y = 20;
         
         updateTimeText = new TextField();
+        updateTimeText.defaultTextFormat = textFormat;
         updateTimeText.y = 40;
         
         graphicUpdateTimeText = new TextField();
+        graphicUpdateTimeText.defaultTextFormat = textFormat;
         graphicUpdateTimeText.y = 60;
         
         renderTimeText = new TextField();
+        renderTimeText.defaultTextFormat = textFormat;
         renderTimeText.y = 80;
         
         systemTimeText = new TextField();
+        systemTimeText.defaultTextFormat = textFormat;
         systemTimeText.y = 100;
 
         memText = new TextField();
+        memText.defaultTextFormat = textFormat;
         memText.y = 120;
 
         sprite.addChild(fpsText);
@@ -75,7 +82,6 @@ class Console implements IConsole {
 
     public function update(frame:Int, performanceInfo:PerformanceInfo):Void {
         fpsText.text = Std.string(Math.round(performanceInfo.renderFramesPerSecond));
-        fpsText.setTextFormat(textFormat);
 
         var logicRate = Math.round(
                 performanceInfo.updateFramesPerSecond
@@ -90,19 +96,10 @@ class Console implements IConsole {
         }
         
         updateTimeText.text = Std.string(Math.round(performanceInfo.updateTimeMs)) + "ms";
-        updateTimeText.setTextFormat(textFormat);
-        
         graphicUpdateTimeText.text = Std.string(Math.round(performanceInfo.graphicUpdateTimeMs)) + "ms";
-        graphicUpdateTimeText.setTextFormat(textFormat);
-        
         renderTimeText.text = Std.string(Math.round(performanceInfo.renderTimeMs)) + "ms";
-        renderTimeText.setTextFormat(textFormat);
-        
         systemTimeText.text = Std.string(Math.round(performanceInfo.systemTimeMs)) + "ms";
-        systemTimeText.setTextFormat(textFormat);
-
         memText.text = Std.string(Math.round(System.totalMemory * 100 / 1024 / 1024) / 100) + "MiB";
-        memText.setTextFormat(textFormat);
     }
 
     public function render(target:BitmapData, playfield:Playfield):Void {
