@@ -248,7 +248,7 @@ class Engine {
         }
 
         if (console != null && console.enabled) {
-            console.update(frame);
+            console.update(frame, performanceInfo);
         }
     }
 
