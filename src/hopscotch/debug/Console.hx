@@ -14,6 +14,10 @@ class Console implements IConsole {
     var sprite:Sprite;
     var fpsText:TextField;
     var logicRateText:TextField;
+    var updateTimeText:TextField;
+    var graphicUpdateTimeText:TextField;
+    var renderTimeText:TextField;
+    var systemTimeText:TextField;
 
     var textFormat:TextFormat;
     var badTextFormat:TextFormat;
@@ -33,11 +37,28 @@ class Console implements IConsole {
         badTextFormat.size = 16;
 
         fpsText = new TextField();
+        
         logicRateText = new TextField();
         logicRateText.y = 20;
+        
+        updateTimeText = new TextField();
+        updateTimeText.y = 40;
+        
+        graphicUpdateTimeText = new TextField();
+        graphicUpdateTimeText.y = 60;
+        
+        renderTimeText = new TextField();
+        renderTimeText.y = 80;
+        
+        systemTimeText = new TextField();
+        systemTimeText.y = 100;
 
         sprite.addChild(fpsText);
         sprite.addChild(logicRateText);
+        sprite.addChild(updateTimeText);
+        sprite.addChild(graphicUpdateTimeText);
+        sprite.addChild(renderTimeText);
+        sprite.addChild(systemTimeText);
     }
 
     public function begin(frame:Int):Void {
@@ -61,6 +82,18 @@ class Console implements IConsole {
         } else {
             logicRateText.setTextFormat(textFormat);
         }
+        
+        updateTimeText.text = Std.string(Math.round(performanceInfo.updateTimeMs)) + "ms";
+        updateTimeText.setTextFormat(textFormat);
+        
+        graphicUpdateTimeText.text = Std.string(Math.round(performanceInfo.graphicUpdateTimeMs)) + "ms";
+        graphicUpdateTimeText.setTextFormat(textFormat);
+        
+        renderTimeText.text = Std.string(Math.round(performanceInfo.renderTimeMs)) + "ms";
+        renderTimeText.setTextFormat(textFormat);
+        
+        systemTimeText.text = Std.string(Math.round(performanceInfo.systemTimeMs)) + "ms";
+        systemTimeText.setTextFormat(textFormat);
     }
 
     public function render(target:BitmapData, playfield:Playfield):Void {
