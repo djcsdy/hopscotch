@@ -203,6 +203,7 @@ class Engine {
             while (i < framesAdvanced && i < framesPerSecond) {
                 updateFramesPerSecondAverage.push(updateFramesPerSecond);
                 renderFramesPerSecondAverage.push(renderFramesPerSecond);
+                ++i;
             }
 
             performanceInfo.updateFramesPerSecond = updateFramesPerSecondAverage.average();
