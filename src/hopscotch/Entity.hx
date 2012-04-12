@@ -77,13 +77,13 @@ class Entity implements IEntity {
     public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
         graphicFrame = frame;
 
-        if (graphic != null) {
+        if (graphic != null && graphic.active) {
             graphic.updateGraphic(frame, screenSize);
         }
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
-        if (graphic != null) {
+        if (graphic != null && graphic.visible) {
             tmpPoint.x = position.x + x;
             tmpPoint.y = position.y + y;
 
