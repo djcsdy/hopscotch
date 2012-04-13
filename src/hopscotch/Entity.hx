@@ -13,11 +13,10 @@ class Entity implements IEntity {
     public var x:Float;
     public var y:Float;
 
-    private var graphic:IGraphic;
+    public var graphic:IGraphic;
+    var previousGraphic:IGraphic;
 
-    private var graphicFrame:Int;
-
-    private static var tmpPoint:Point = new Point();
+    static var tmpPoint:Point = new Point();
 
     public function new() {
         active = true;
@@ -26,27 +25,8 @@ class Entity implements IEntity {
         x = 0;
         y = 0;
 
-        graphicFrame = -1;
-    }
-
-    public function getGraphic():IGraphic {
-        return graphic;
-    }
-
-    public function setGraphic(graphic:IGraphic):Void {
-        if (graphic == this.graphic) {
-            return;
-        }
-
-        if (this.graphic != null && graphicFrame >= 0) {
-            this.graphic.endGraphic();
-        }
-
-        this.graphic = graphic;
-
-        if (graphic != null && graphicFrame >= 0) {
-            graphic.beginGraphic(graphicFrame);
-        }
+        graphic = null;
+        previousGraphic = null;
     }
 
     public function begin (frame:Int):Void {
@@ -59,23 +39,29 @@ class Entity implements IEntity {
     }
 
     public function beginGraphic (frame:Int):Void {
-        graphicFrame = frame;
-
         if (graphic != null) {
             graphic.beginGraphic(frame);
+            previousGraphic = graphic;
         }
     }
 
     public function endGraphic ():Void {
-        if (graphic != null) {
-            graphic.endGraphic();
+        if (previousGraphic != null) {
+            previousGraphic.endGraphic();
+            previousGraphic = null;
         }
-
-        graphicFrame = -1;
     }
 
     public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
-        graphicFrame = frame;
+        if (graphic != previousGraphic) {
+            if (previousGraphic != null) {
+                previousGraphic.endGraphic();
+            }
+            if (graphic != null) {
+                graphic.beginGraphic(frame);
+            }
+            previousGraphic = graphic;
+        }
 
         if (graphic != null && graphic.active) {
             graphic.updateGraphic(frame, screenSize);

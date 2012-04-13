@@ -19,7 +19,7 @@ class Main {
         var entity = new Entity();
         engine.playfield.addEntity(entity);
         var graphicList = new GraphicList();
-        entity.setGraphic(graphicList);
+        entity.graphic = graphicList;
         graphicList.graphics.push(new Image(null));
         var keyboard = new Keyboard(Lib.current.stage);
         engine.inputs.push(keyboard.buttonForKey(Key.X));
