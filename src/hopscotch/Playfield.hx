@@ -9,7 +9,7 @@ import flash.display.BitmapData;
 import flash.geom.Matrix;
 import hopscotch.errors.IllegalOperationError;
 
-class Playfield implements IEntity {
+class Playfield {
     public var active:Bool;
     public var visible:Bool;
 
