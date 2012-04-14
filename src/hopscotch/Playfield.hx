@@ -23,6 +23,7 @@ class Playfield implements IEntity {
 
     var previousCamera:ICamera;
     var cameraMatrix:Matrix;
+    var tmpMatrix:Matrix;
 
     public function new () {
         active = true;
@@ -35,6 +36,7 @@ class Playfield implements IEntity {
         graphics = new Array<IGraphic>();
 
         cameraMatrix = new Matrix();
+        tmpMatrix = new Matrix();
     }
 
     public function addUpdater (updater:IUpdater):Void {
@@ -220,13 +222,17 @@ class Playfield implements IEntity {
     }
 
     public function render (target:BitmapData, position:Point, camera:Matrix):Void {
-        cameraMatrix.tx += position.x;
-        cameraMatrix.ty += position.y;
-        cameraMatrix.concat(camera);
+        tmpMatrix.a = cameraMatrix.a;
+        tmpMatrix.b = cameraMatrix.b;
+        tmpMatrix.c = cameraMatrix.c;
+        tmpMatrix.d = cameraMatrix.d;
+        tmpMatrix.tx = cameraMatrix.tx + position.x;
+        tmpMatrix.ty = cameraMatrix.ty + position.y;
+        tmpMatrix.concat(camera);
 
         for (graphic in graphics) {
             if (graphic.visible) {
-                graphic.render(target, Static.origin, cameraMatrix);
+                graphic.render(target, Static.origin, tmpMatrix);
             }
         }
     }
