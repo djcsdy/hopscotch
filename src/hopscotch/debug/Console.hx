@@ -1,5 +1,6 @@
 package hopscotch.debug;
 
+import hopscotch.Playfield;
 import flash.text.TextFieldAutoSize;
 import flash.system.System;
 import flash.text.TextFormatAlign;

@@ -1,4 +1,6 @@
 package hopscotch.input.digital;
+import hopscotch.input.IInput;
+
 class Button implements IInput {
     public var pressed(default, null):Bool;
     public var justPressed(default, null):Bool;
