@@ -192,6 +192,6 @@ class Keyboard {
             case F15: 126;
 
             case Escape: 27;
-        }
+        };
     }
 }
