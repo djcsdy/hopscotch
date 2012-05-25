@@ -53,7 +53,7 @@ class Image implements IGraphic {
     var previousTintAmount:Float;
     var previousColorizeAmount:Float;
 
-    public function new (source:BitmapData, clipRect:Rectangle = null) {
+    public function new (source:BitmapData, clipX:Int=0, clipY:Int=0, clipWidth:Int=-1, clipHeight:Int=-1) {
         if (source == null) {
             throw new ArgumentNullError("source");
         }
@@ -84,12 +84,19 @@ class Image implements IGraphic {
         this.source = source;
         sourceBitmap = new Bitmap(source);
 
-        if (clipRect == null) {
-            sourceRect = source.rect;
+        if (clipWidth < 0) {
+            width = source.width;
+        } else {
+            width = clipWidth;
         }
 
-        width = source.width;
-        height = source.height;
+        if (clipHeight < 0) {
+            height = source.height;
+        } else {
+            height = clipHeight;
+        }
+
+        sourceRect = new Rectangle(clipX, clipY, width, height);
 
         buffer = new BitmapData(width, height, true);
         bufferBitmap = new Bitmap(buffer);
@@ -127,10 +134,10 @@ class Image implements IGraphic {
                 Static.matrix.b = Static.matrix.c = 0;
                 Static.matrix.tx = Static.point.x;
                 Static.matrix.ty = Static.point.y;
-                Static.rect.x = Static.point.x;
-                Static.rect.y = Static.point.y;
-                Static.rect.width = buffer.width;
-                Static.rect.height = buffer.height;
+                Static.rect.x = Static.point.x - 1; // offset to account for rounding errors and antialiasing.
+                Static.rect.y = Static.point.y - 1; // offset to account for rounding errors and antialiasing.
+                Static.rect.width = buffer.width + 2; // offset to account for rounding errors and antialiasing.
+                Static.rect.height = buffer.height + 2; // offset to account for rounding errors and antialiasing.
                 bufferBitmap.smoothing = smooth;
                 #if flash
                 target.draw(bufferBitmap, Static.matrix, null, blendMode, Static.rect, smooth);
