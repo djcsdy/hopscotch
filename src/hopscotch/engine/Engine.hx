@@ -24,7 +24,7 @@ class Engine {
     var renderTarget:DisplayObjectContainer;
     var screenSize:ScreenSize;
 
-    var targetBitmapData:BitmapData;
+    var target:BitmapData;
     var targetBitmap:Bitmap;
 
     var framesPerSecond:Float;
@@ -75,8 +75,8 @@ class Engine {
         this.renderTarget = renderTarget;
         this.screenSize = new ScreenSize(width, height);
 
-        targetBitmapData = new BitmapData(width, height, false, 0x000000);
-        targetBitmap = new Bitmap(targetBitmapData);
+        target = new BitmapData(width, height, false, 0x000000);
+        targetBitmap = new Bitmap(target);
 
         this.framesPerSecond = framesPerSecond;
         framesPerMillisecond = framesPerSecond / 1000;
@@ -260,14 +260,14 @@ class Engine {
     }
 
     function render() {
-        targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
+        target.fillRect(target.rect, 0x000000);
 
         if (console == null || !console.enabled) {
             if (playfield != null && playfield.visible) {
-                playfield.render(targetBitmapData, Static.origin, Static.identity);
+                playfield.render(target, Static.origin, Static.identity);
             }
         } else {
-            console.render(targetBitmapData, playfield);
+            console.render(target, playfield);
         }
     }
 }
