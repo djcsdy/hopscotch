@@ -208,9 +208,9 @@ class Engine {
 
             performanceInfo.updateFramesPerSecond = updateFramesPerSecondAverage.average();
             performanceInfo.renderFramesPerSecond = renderFramesPerSecondAverage.average();
-        }
 
-        lastFrameFinishedTime = timeSource.getTime();
+            lastFrameFinishedTime = timeSource.getTime();
+        }
     }
 
     function update(frame:Int):Void {
