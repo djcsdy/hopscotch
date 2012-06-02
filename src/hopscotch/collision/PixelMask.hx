@@ -19,7 +19,7 @@ class PixelMask extends Mask {
     var bitmap:Bitmap;
     var sprite:Sprite;
 
-    public function new(source:BitmapData) {
+    public function new (source:BitmapData) {
         super();
 
         if (source == null) {
@@ -44,14 +44,14 @@ class PixelMask extends Mask {
         implement(CircleMask, collideCircle);
     }
 
-    function collidePixelMask(mask2:PixelMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+    function collidePixelMask (mask2:PixelMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         applyTransform(x1, y1);
         mask2.applyTransform(x2, y2);
 
         return bitmap.hitTestObject(mask2.bitmap);
     }
 
-    function collideBox(mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+    function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         applyTransform(x1, y1);
 
         sprite.graphics.clear();
@@ -61,7 +61,7 @@ class PixelMask extends Mask {
         return bitmap.hitTestObject(sprite);
     }
 
-    function collideCircle(mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+    function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         applyTransform(x1, y1);
 
         sprite.graphics.clear();
@@ -71,7 +71,7 @@ class PixelMask extends Mask {
         return bitmap.hitTestObject(sprite);
     }
 
-    function applyTransform(x:Float, y:Float) {
+    function applyTransform (x:Float, y:Float) {
         var matrix = bitmap.transform.matrix;
         matrix.a = matrix.d = 1;
         matrix.b = matrix.c = 0;

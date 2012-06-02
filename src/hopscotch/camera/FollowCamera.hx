@@ -10,19 +10,19 @@ class FollowCamera implements ICamera {
     private var targetX:Float;
     private var targetY:Float;
 
-    public function new(target:Entity=null) {
+    public function new (target:Entity = null) {
         this.target = target;
         targetX = 0;
         targetY = 0;
     }
 
-    public function begin(frame:Int):Void {
+    public function begin (frame:Int) {
     }
 
-    public function end():Void {
+    public function end () {
     }
 
-    public function update(frame:Int, screenSize:ScreenSize, matrix:Matrix):Void {
+    public function update (frame:Int, screenSize:ScreenSize, matrix:Matrix) {
         if (target != null) {
             targetX = target.x;
             targetY = target.y;

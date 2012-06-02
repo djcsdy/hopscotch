@@ -8,12 +8,12 @@ class Keyboard {
     private var keyboardEventDispatcher:EventDispatcher;
     private var keyButtons:Array<Button>;
 
-    public function new(keyboardEventDispatcher:EventDispatcher=null) {
+    public function new (keyboardEventDispatcher:EventDispatcher = null) {
         keyButtons = [];
         bind(keyboardEventDispatcher);
     }
 
-    public function bind(keyboardEventDispatcher:EventDispatcher=null):Void {
+    public function bind (keyboardEventDispatcher:EventDispatcher = null) {
         if (keyboardEventDispatcher == null) {
             keyboardEventDispatcher = Lib.current.stage;
         }
@@ -32,7 +32,7 @@ class Keyboard {
         this.keyboardEventDispatcher = keyboardEventDispatcher;
     }
 
-    public function unbind():Void {
+    public function unbind () {
         for (button in keyButtons) {
             if (button != null) {
                 button.release();
@@ -47,7 +47,7 @@ class Keyboard {
         }
     }
 
-    public function buttonForKey(key:Key):Button {
+    public function buttonForKey (key:Key) {
         var keycode = keycodeForKey(key);
         if (keyButtons[keycode] != null) {
             return keyButtons[keycode];
@@ -56,35 +56,35 @@ class Keyboard {
         }
     }
 
-    public function throttleForKey(key:Key, ease:Float=0.4):ButtonThrottle {
+    public function throttleForKey (key:Key, ease:Float = 0.4) {
         return new ButtonThrottle(buttonForKey(key), ease);
     }
 
-    public function wheelForKeys(left:Key, right:Key, ease:Float=0.4):ButtonWheel {
+    public function wheelForKeys (left:Key, right:Key, ease:Float = 0.4) {
         return new ButtonWheel(buttonForKey(left), buttonForKey(right), ease);
     }
 
-    public function joystickForKeys(up:Key, down:Key,
-            left:Key, right:Key, ease:Float=0.4):ButtonJoystick {
+    public function joystickForKeys (up:Key, down:Key,
+            left:Key, right:Key, ease:Float=0.4) {
         return new ButtonJoystick(buttonForKey(up), buttonForKey(down),
                 buttonForKey(left), buttonForKey(right), ease);
     }
 
-    private function onKeyDown(event:KeyboardEvent):Void {
+    private function onKeyDown (event:KeyboardEvent) {
         var button:Button = keyButtons[event.keyCode];
         if (button != null) {
             button.press();
         }
     }
 
-    private function onKeyUp(event:KeyboardEvent):Void {
+    private function onKeyUp (event:KeyboardEvent) {
         var button:Button = keyButtons[event.keyCode];
         if (button != null) {
             button.release();
         }
     }
 
-    private function keycodeForKey(key:Key):Int {
+    private function keycodeForKey (key:Key) {
         return switch (key) {
             case A: 65;
             case B: 66;

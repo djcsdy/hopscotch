@@ -8,7 +8,7 @@ class BoxMask extends Mask {
     public var width:Float;
     public var height:Float;
 
-    public function new(x:Float=0, y:Float=0, width:Float=0, height:Float=0) {
+    public function new (x:Float = 0, y:Float = 0, width:Float = 0, height:Float = 0) {
         super();
 
         this.x = x;
@@ -19,7 +19,7 @@ class BoxMask extends Mask {
         implement(BoxMask, collideBox);
     }
 
-    function collideBox(mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+    function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         Static.rect.x = x + x1;
         Static.rect.y = y + y1;
         Static.rect.width = width;

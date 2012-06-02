@@ -1,4 +1,5 @@
 package hopscotch.input.digital;
+
 import hopscotch.input.IInput;
 
 class Button implements IInput {
@@ -10,21 +11,21 @@ class Button implements IInput {
 
     private var pressQueued:Bool;
 
-    public function new() {
+    public function new () {
         pressQueued = false;
         pressedFrame = -1;
         releasedFrame = -1;
     }
 
-    public function press():Void {
+    public function press () {
         pressQueued = true;
     }
 
-    public function release():Void {
+    public function release () {
         pressQueued = false;
     }
 
-    public function update(frame:Int):Void {
+    public function update (frame:Int) {
         if (pressQueued) {
             if (!pressed || pressedFrame == frame) {
                 pressedFrame = frame;

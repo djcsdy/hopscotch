@@ -11,13 +11,13 @@ class GraphicList implements IGraphic {
 
     public var graphics(default, null):Array<IGraphic>;
 
-    public function new() {
+    public function new () {
         active = false;
         visible = true;
         graphics = new Array<IGraphic>();
     }
 
-    public function beginGraphic(frame:Int):Void {
+    public function beginGraphic (frame:Int) {
         for (graphic in graphics) {
             if (graphic != null) {
                 graphic.beginGraphic(frame);
@@ -25,7 +25,7 @@ class GraphicList implements IGraphic {
         }
     }
 
-    public function endGraphic():Void {
+    public function endGraphic () {
         for (graphic in graphics) {
             if (graphic != null) {
                 graphic.endGraphic();
@@ -33,7 +33,7 @@ class GraphicList implements IGraphic {
         }
     }
 
-    public function updateGraphic(frame:Int, screenSize:ScreenSize):Void {
+    public function updateGraphic (frame:Int, screenSize:ScreenSize) {
         for (graphic in graphics) {
             if (graphic != null && graphic.active) {
                 graphic.updateGraphic(frame, screenSize);
@@ -41,7 +41,7 @@ class GraphicList implements IGraphic {
         }
     }
 
-    public function render(target:BitmapData, position:Point, camera:Matrix):Void {
+    public function render (target:BitmapData, position:Point, camera:Matrix) {
         for (graphic in graphics) {
             if (graphic != null && graphic.visible) {
                 graphic.render(target, position, camera);

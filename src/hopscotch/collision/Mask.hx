@@ -13,7 +13,7 @@ class Mask {
         tests = new Hash<Mask->Float->Float->Float->Float->Bool>();
     }
 
-    public function implement(otherClass:Class<Mask>, test:Dynamic->Float->Float->Float->Float->Bool) {
+    public function implement (otherClass:Class<Mask>, test:Dynamic->Float->Float->Float->Float->Bool) {
         if (otherClass == null) {
             throw new ArgumentNullError("otherClass");
         }
@@ -25,7 +25,7 @@ class Mask {
         tests.set(Type.getClassName(otherClass), test);
     }
 
-    public function collide(mask2:Mask, x1:Float=0, y1:Float=0, x2:Float=0, y2:Float=0):Bool {
+    public function collide (mask2:Mask, x1:Float=0, y1:Float=0, x2:Float=0, y2:Float=0) {
         if (tests.exists(mask2.className)) {
             return tests.get(mask2.className)(mask2, x1, y1, x2, y2);
         } else if (mask2.tests.exists(className)) {

@@ -8,7 +8,7 @@ class ButtonThrottle extends Throttle {
 
     private var button:Button;
 
-    public function new(button:Button, ease=0.4) {
+    public function new (button:Button, ease = 0.4) {
         super();
 
         if (button == null) {
@@ -19,7 +19,7 @@ class ButtonThrottle extends Throttle {
         this.ease = ease;
     }
 
-    override public function update(frame:Int):Void {
+    override public function update (frame:Int) {
         button.update(frame);
 
         var target:Float = if (button.pressed) 1 else 0;

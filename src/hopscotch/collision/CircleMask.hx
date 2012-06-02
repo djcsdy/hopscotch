@@ -8,7 +8,7 @@ class CircleMask extends Mask {
     public var y:Float;
     public var radius:Float;
 
-    public function new(x:Float=0, y:Float=0, radius:Float=0) {
+    public function new (x:Float = 0, y:Float = 0, radius:Float = 0) {
         super();
 
         this.x = x;
@@ -19,7 +19,7 @@ class CircleMask extends Mask {
         implement(BoxMask, collideBox);
     }
 
-    function collideCircle(mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+    function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         Static.point.x = x + x1;
         Static.point.y = y + y1;
         Static.point2.x = mask2.x + x2;
@@ -30,7 +30,7 @@ class CircleMask extends Mask {
         return VectorMath.magnitude(Static.point) > radius + mask2.radius;
     }
 
-    function collideBox(mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float):Bool {
+    function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         Static.point.x = Math.abs(x + x1 - mask2.x - x2 - mask2.width * 0.5);
         Static.point.y = Math.abs(y + y1 - mask2.y - y2 - mask2.height * 0.5);
         var distance = VectorMath.magnitude(Static.point);

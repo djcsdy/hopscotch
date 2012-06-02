@@ -169,13 +169,13 @@ class Console implements IConsole {
         sprite.addChild(systemTimeText);
     }
 
-    public function begin(frame:Int):Void {
+    public function begin(frame:Int) {
     }
 
-    public function end():Void {
+    public function end() {
     }
 
-    public function update(frame:Int, performanceInfo:PerformanceInfo):Void {
+    public function update(frame:Int, performanceInfo:PerformanceInfo) {
         fpsText.text = Std.string(Math.round(performanceInfo.renderFramesPerSecond));
 
         var logicRate = Math.round(
@@ -190,7 +190,7 @@ class Console implements IConsole {
         memoryText.text = Std.string(Math.round(System.totalMemory * 100 / 1024 / 1024) / 100) + "MiB";
     }
 
-    public function render(target:BitmapData, playfield:Playfield):Void {
+    public function render(target:BitmapData, playfield:Playfield) {
         if (playfield != null && playfield.visible) {
             playfield.render(target, Static.origin, Static.identity);
         }

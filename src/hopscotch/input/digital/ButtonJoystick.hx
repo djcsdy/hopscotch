@@ -12,9 +12,9 @@ class ButtonJoystick extends Joystick {
 
     private var ease:Float;
 
-    public function new(upButton:Button, downButton:Button,
-            leftButton:Button, rightButton:Button,
-            ease:Float=0.4) {
+    public function new (upButton:Button, downButton:Button,
+    leftButton:Button, rightButton:Button,
+    ease:Float = 0.4) {
         super();
 
         if (upButton == null) {
@@ -38,7 +38,7 @@ class ButtonJoystick extends Joystick {
         this.ease = ease;
     }
 
-    override public function update(frame:Int):Void {
+    override public function update (frame:Int) {
         upButton.update(frame);
         downButton.update(frame);
         leftButton.update(frame);

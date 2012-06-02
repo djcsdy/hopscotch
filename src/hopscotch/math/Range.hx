@@ -9,9 +9,9 @@ class Range<T:(Float)> {
     private static var _int = new Range<Int>();
     private static var _float = new Range<Float>();
 
-    private function new() {}
+    private function new () {}
 
-    public inline function clamp(n:T, min:T, max:T):T {
+    public inline function clamp (n:T, min:T, max:T) {
         if (min > max) {
             throw new ArgumentError("min must be <= max");
         }
@@ -20,7 +20,7 @@ class Range<T:(Float)> {
         else n;
     }
 
-    public inline function wrap(n:T, min:T, max:T):T {
+    public inline function wrap (n:T, min:T, max:T) {
         if (min > max) {
             throw new ArgumentError("min must be <= max");
         }

@@ -104,16 +104,16 @@ class Image implements IGraphic {
         updateBuffer();
     }
 
-    public function beginGraphic (frame:Int):Void {
+    public function beginGraphic (frame:Int) {
     }
 
-    public function endGraphic ():Void {
+    public function endGraphic () {
     }
 
-    public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
+    public function updateGraphic (frame:Int, screenSize:ScreenSize) {
     }
 
-    public function render (target:BitmapData, position:Point, camera:Matrix):Void {
+    public function render (target:BitmapData, position:Point, camera:Matrix) {
         if (flipX != previousFlipX
                 || flipY != previousFlipY
                 || alpha != previousAlpha
@@ -166,12 +166,12 @@ class Image implements IGraphic {
         }
     }
 
-    public function centerOrigin():Void {
+    public function centerOrigin() {
         originX = width * 0.5;
         originY = height * 0.5;
     }
 
-    private function updateBuffer():Void {
+    private function updateBuffer() {
         if (flipX || flipY) {
             Static.matrix.b = Static.matrix.c = 0;
             Static.matrix.a = if (flipX) -1 else 1;

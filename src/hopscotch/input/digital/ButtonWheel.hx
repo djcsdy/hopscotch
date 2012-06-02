@@ -9,7 +9,7 @@ class ButtonWheel extends Wheel {
     private var leftButton:Button;
     private var rightButton:Button;
 
-    public function new(leftButton:Button, rightButton:Button, ease:Float=0.4) {
+    public function new (leftButton:Button, rightButton:Button, ease:Float = 0.4) {
         super();
 
         if (leftButton == null) {
@@ -24,7 +24,7 @@ class ButtonWheel extends Wheel {
         this.ease = ease;
     }
 
-    override public function update(frame:Int):Void {
+    override public function update (frame:Int) {
         leftButton.update(frame);
         rightButton.update(frame);
 

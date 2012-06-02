@@ -29,30 +29,30 @@ class Entity implements IEntity {
         previousGraphic = null;
     }
 
-    public function begin (frame:Int):Void {
+    public function begin (frame:Int) {
     }
 
-    public function end ():Void {
+    public function end () {
     }
 
-    public function update (frame:Int):Void {
+    public function update (frame:Int) {
     }
 
-    public function beginGraphic (frame:Int):Void {
+    public function beginGraphic (frame:Int) {
         if (graphic != null) {
             graphic.beginGraphic(frame);
             previousGraphic = graphic;
         }
     }
 
-    public function endGraphic ():Void {
+    public function endGraphic () {
         if (previousGraphic != null) {
             previousGraphic.endGraphic();
             previousGraphic = null;
         }
     }
 
-    public function updateGraphic (frame:Int, screenSize:ScreenSize):Void {
+    public function updateGraphic (frame:Int, screenSize:ScreenSize) {
         if (graphic != previousGraphic) {
             if (previousGraphic != null) {
                 previousGraphic.endGraphic();
@@ -68,7 +68,7 @@ class Entity implements IEntity {
         }
     }
 
-    public function render (target:BitmapData, position:Point, camera:Matrix):Void {
+    public function render (target:BitmapData, position:Point, camera:Matrix) {
         if (graphic != null && graphic.visible) {
             tmpPoint.x = position.x + x;
             tmpPoint.y = position.y + y;

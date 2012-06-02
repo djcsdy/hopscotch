@@ -7,8 +7,8 @@ class Error {
         this.message = message;
     }
 
-    public function toString ():String {
+    public function toString () {
         return if (message == null) "Unknown " + Type.getClassName(Type.getClass(this))
-                else Type.getClassName(Type.getClass(this)) + ": " + message;
+        else Type.getClassName(Type.getClass(this)) + ": " + message;
     }
 }

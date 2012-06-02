@@ -7,7 +7,7 @@ class RollingAverage {
     var maxSamplesCount:Int;
     var runningTotal:Float;
 
-    public function new(samplesCount:Int) {
+    public function new (samplesCount:Int) {
         i = 0;
         samples = [];
         this.samplesCount = 0;
@@ -19,7 +19,7 @@ class RollingAverage {
         }
     }
 
-    public function push(value:Float):Void {
+    public function push (value:Float) {
         if (samplesCount == maxSamplesCount) {
             runningTotal -= samples[i];
         } else {
@@ -32,7 +32,7 @@ class RollingAverage {
         i = (i + 1) % maxSamplesCount;
     }
 
-    public function average():Float {
+    public function average ():Float {
         if (samplesCount == 0) {
             return 0;
         } else {

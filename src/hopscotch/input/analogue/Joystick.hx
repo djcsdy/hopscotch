@@ -8,10 +8,10 @@ import flash.geom.Point;
 class Joystick implements IInput {
     public var position(default, null):Point;
 
-    public function new() {
+    public function new () {
         position = new Point();
     }
 
-    public function update(frame:Int):Void {
+    public function update (frame:Int) {
     }
 }
