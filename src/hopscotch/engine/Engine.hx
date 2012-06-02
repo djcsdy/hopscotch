@@ -171,7 +171,7 @@ class Engine {
             var time1:Int, time2:Int, time3:Int;
 
             var frame = previousFrame + 1;
-            while (frame <= targetFrame) {
+            do {
                 time1 = timeSource.getTime();
                 update(frame);
                 time2 = timeSource.getTime();
@@ -182,7 +182,7 @@ class Engine {
                 graphicUpdateTimeMsAverage.push(time3 - time2);
 
                 ++frame;
-            }
+            } while (frame < targetFrame);
             previousFrame = frame;
 
             time1 = timeSource.getTime();
@@ -200,7 +200,7 @@ class Engine {
             var renderFramesPerSecond = framesPerSecond / framesAdvanced;
 
             var i:Int = 0;
-            while (i < framesAdvanced && i < framesPerSecond) {
+            while (i < framesAdvanced && i < performanceSamplesCount) {
                 updateFramesPerSecondAverage.push(updateFramesPerSecond);
                 renderFramesPerSecondAverage.push(renderFramesPerSecond);
                 ++i;
@@ -208,9 +208,9 @@ class Engine {
 
             performanceInfo.updateFramesPerSecond = updateFramesPerSecondAverage.average();
             performanceInfo.renderFramesPerSecond = renderFramesPerSecondAverage.average();
-
-            lastFrameFinishedTime = timeSource.getTime();
         }
+
+        lastFrameFinishedTime = timeSource.getTime();
     }
 
     function update(frame:Int):Void {
