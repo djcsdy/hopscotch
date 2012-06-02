@@ -152,11 +152,11 @@ class Engine {
         var now = timeSource.getTime();
         var targetFrame:Int = Math.floor(1 + (now - startTime) * framesPerMillisecond);
 
-        if (lastFrameFinishedTime >= 0) {
-            systemTimeMsAverage.push(now - lastFrameFinishedTime);
-        }
-
         if (targetFrame > previousFrame) {
+            if (lastFrameFinishedTime >= 0) {
+                systemTimeMsAverage.push(now - lastFrameFinishedTime);
+            }
+
             var framesAdvanced = targetFrame - previousFrame;
             var updateFramesAdvanced:Int;
 
@@ -208,9 +208,9 @@ class Engine {
 
             performanceInfo.updateFramesPerSecond = updateFramesPerSecondAverage.average();
             performanceInfo.renderFramesPerSecond = renderFramesPerSecondAverage.average();
-        }
 
-        lastFrameFinishedTime = timeSource.getTime();
+            lastFrameFinishedTime = timeSource.getTime();
+        }
     }
 
     function update(frame:Int):Void {
