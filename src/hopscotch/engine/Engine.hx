@@ -170,8 +170,10 @@ class Engine {
 
             var time1:Int, time2:Int, time3:Int;
 
-            var frame = previousFrame + 1;
-            do {
+            var frame = previousFrame;
+            while (frame < targetFrame) {
+                ++frame;
+
                 time1 = timeSource.getTime();
                 update(frame);
                 time2 = timeSource.getTime();
@@ -180,9 +182,7 @@ class Engine {
 
                 updateTimeMsAverage.push(time2 - time1);
                 graphicUpdateTimeMsAverage.push(time3 - time2);
-
-                ++frame;
-            } while (frame < targetFrame);
+            }
             previousFrame = frame;
 
             time1 = timeSource.getTime();
