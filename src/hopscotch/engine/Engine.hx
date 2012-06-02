@@ -120,7 +120,7 @@ class Engine {
         systemTimeMsAverage = new RollingAverage(performanceSamplesCount);
     }
 
-    public function start():Void {
+    public function start() {
         if (!running) {
             running = true;
             startTime = Math.floor(timeSource.getTime() -
@@ -132,7 +132,7 @@ class Engine {
         }
     }
 
-    public function stop():Void {
+    public function stop() {
         if (running) {
             running = false;
 
@@ -144,7 +144,7 @@ class Engine {
         }
     }
 
-    function onEnterFrame(event:Event):Void {
+    function onEnterFrame(event:Event) {
         if (!running) {
             return;
         }
@@ -213,7 +213,7 @@ class Engine {
         }
     }
 
-    function update(frame:Int):Void {
+    function update(frame:Int) {
         if (playfield != previousPlayfield) {
             if (previousPlayfield != null) {
                 previousPlayfield.end();
@@ -253,13 +253,13 @@ class Engine {
         }
     }
 
-    function updateGraphic(frame:Int):Void {
+    function updateGraphic(frame:Int) {
         if (playfield != null && playfield.active) {
             playfield.updateGraphic(frame, screenSize);
         }
     }
 
-    function render():Void {
+    function render() {
         targetBitmapData.fillRect(targetBitmapData.rect, 0x000000);
 
         if (console == null || !console.enabled) {
