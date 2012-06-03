@@ -2,16 +2,10 @@ package hopscotch.math;
 
 import hopscotch.errors.ArgumentError;
 
-class Range<T:(Float)> {
-    public static inline var int = _int;
-    public static inline var float = _float;
-
-    private static var _int = new Range<Int>();
-    private static var _float = new Range<Float>();
-
+class Range {
     private function new () {}
 
-    public inline function clamp (n:T, min:T, max:T) {
+    public static inline function clampInt (n:Int, min:Int, max:Int) {
         if (min > max) {
             throw new ArgumentError("min must be <= max");
         }
@@ -20,7 +14,35 @@ class Range<T:(Float)> {
         else n;
     }
 
-    public inline function wrap (n:T, min:T, max:T) {
+    public static inline function clampFloat (n:Float, min:Float, max:Float) {
+        if (min > max) {
+            throw new ArgumentError("min must be <= max");
+        }
+        return if (n < min) min
+        else if (n > max) max
+        else n;
+    }
+
+    public static inline function wrapInt (n:Int, min:Int, max:Int) {
+        if (min > max) {
+            throw new ArgumentError("min must be <= max");
+        }
+
+        if (n < min) {
+            var result = max - ((min - n) % (max - min));
+            if (result == max) {
+                return min;
+            } else {
+                return result;
+            }
+        } else if (n >= max) {
+            return min + ((n - min) % (max - min));
+        } else {
+            return n;
+        }
+    }
+
+    public static inline function wrapFloat (n:Float, min:Float, max:Float) {
         if (min > max) {
             throw new ArgumentError("min must be <= max");
         }
