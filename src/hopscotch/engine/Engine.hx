@@ -21,6 +21,8 @@ class Engine {
     public var performanceInfo(default, null):PerformanceInfo;
     public var console:IConsole;
 
+    public var running(default, null):Bool;
+
     var renderTarget:DisplayObjectContainer;
     var screenSize:ScreenSize;
 
@@ -32,7 +34,6 @@ class Engine {
 
     var timeSource:ITimeSource;
 
-    var running:Bool;
     var startTime:Int;
 
     var previousFrame:Int;
