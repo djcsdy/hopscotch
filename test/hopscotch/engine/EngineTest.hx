@@ -51,4 +51,21 @@ class EngineTest extends TestCase {
             assertTrue(caught);
         }
     }
+
+    public function testRunningIsSetAsExpected() {
+        var engine = new Engine(Lib.current, 640, 480, 60);
+        assertFalse(engine.running);
+
+        engine.start();
+        assertTrue(engine.running);
+
+        engine.start();
+        assertTrue(engine.running);
+
+        engine.stop();
+        assertFalse(engine.running);
+
+        engine.stop();
+        assertFalse(engine.running);
+    }
 }
