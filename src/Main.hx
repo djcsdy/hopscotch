@@ -27,7 +27,7 @@ class Main {
         engine.inputs.push(keyboard.wheelForKeys(Key.Left, Key.Right));
         engine.inputs.push(keyboard.joystickForKeys(Key.W, Key.S, Key.A, Key.D));
         engine.start();
-        Range.int.wrap(8, 1, 2);
+        Range.wrapInt(8, 1, 2);
         var circleMask = new CircleMask();
         var pixelMask = new PixelMask(new BitmapData(1,1));
     }
