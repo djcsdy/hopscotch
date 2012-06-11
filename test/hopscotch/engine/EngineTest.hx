@@ -88,13 +88,16 @@ class EngineTest extends TestCase {
         assertTrue(true);
     }
 
-    public function testUpdateIsCalledAsExpected () {
+    public function testUpdateAndRenderAreCalledAsExpected () {
+        var width = 640;
+        var height = 480;
+
         var fps = 60;
         var frameInterval = 1000 / 60;
 
         var renderTarget = new Sprite();
         var timeSource = new TimeSourceMock();
-        var engine = new Engine(renderTarget, 640, 480, fps, timeSource);
+        var engine = new Engine(renderTarget, width, height, fps, timeSource);
 
         var playfield = new PlayfieldMock();
         engine.playfield = playfield;
@@ -107,8 +110,15 @@ class EngineTest extends TestCase {
             renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
 
             var frame = Math.floor(timeSource.time / frameInterval);
+
             assertEquals(frame + 1, playfield.updateCount);
             assertEquals(frame, playfield.updateFrame);
+
+            assertEquals(frame + 1, playfield.updateGraphicCount);
+            assertEquals(frame, playfield.updateGraphicFrame);
+
+            assertEquals(width, playfield.screenWidth);
+            assertEquals(height, playfield.screenHeight);
         }
     }
 }
