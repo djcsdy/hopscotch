@@ -108,7 +108,7 @@ class Playfield {
         }
     }
 
-    public function render (target:BitmapData, position:Point, camera:Matrix):Void {
+    public function render (target:BitmapData, position:Point, camera:Matrix) {
         tmpMatrix.a = cameraMatrix.a;
         tmpMatrix.b = cameraMatrix.b;
         tmpMatrix.c = cameraMatrix.c;
