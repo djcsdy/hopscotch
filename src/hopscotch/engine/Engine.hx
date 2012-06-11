@@ -93,7 +93,7 @@ class Engine {
         running = false;
         startTime = 0;
 
-        previousFrame = 0;
+        previousFrame = -1;
 
         previousPlayfield = null;
 
@@ -124,8 +124,13 @@ class Engine {
     public function start() {
         if (!running) {
             running = true;
-            startTime = Math.floor(timeSource.getTime() -
-                    (previousFrame - 1) / framesPerMillisecond);
+
+            var now = timeSource.getTime();
+            if (previousFrame == -1) {
+                startTime = now;
+            } else {
+                startTime = Math.floor(now - previousFrame / framesPerMillisecond);
+            }
 
             renderTarget.addChild(targetBitmap);
 
@@ -151,7 +156,7 @@ class Engine {
         }
 
         var now = timeSource.getTime();
-        var targetFrame:Int = Math.floor(1 + (now - startTime) * framesPerMillisecond);
+        var targetFrame:Int = Math.floor((now - startTime) * framesPerMillisecond);
 
         if (targetFrame > previousFrame) {
             if (lastFrameFinishedTime >= 0) {
