@@ -93,7 +93,7 @@ class EngineTest extends TestCase {
         var height = 480;
 
         var fps = 60;
-        var frameInterval = 1000 / 60;
+        var framesPerMillisecond = 60 / 1000;
 
         var renderTarget = new Sprite();
         var timeSource = new TimeSourceMock();
@@ -105,11 +105,14 @@ class EngineTest extends TestCase {
         timeSource.time = 0;
         engine.start();
 
-        for (i in 0...10) {
+        var lastFrame = -1;
+        var lastRenderCount = 0;
+
+        for (i in 0...40) {
             timeSource.time = i * i;
             renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
 
-            var frame = Math.floor(timeSource.time / frameInterval);
+            var frame = Math.floor(timeSource.time * framesPerMillisecond);
 
             assertEquals(frame + 1, playfield.updateCount);
             assertEquals(frame, playfield.updateFrame);
@@ -119,6 +122,28 @@ class EngineTest extends TestCase {
 
             assertEquals(width, playfield.screenWidth);
             assertEquals(height, playfield.screenHeight);
+
+            if (frame > lastFrame) {
+                assertEquals(++lastRenderCount, playfield.renderCount);
+                lastFrame = frame;
+            } else {
+                assertEquals(lastRenderCount, playfield.renderCount);
+            }
+            assertEquals(frame, playfield.renderFrame);
+
+            assertFalse(playfield.renderTarget == null);
+
+            assertFalse(playfield.renderPosition == null);
+            assertEquals(0.0, playfield.renderPosition.x);
+            assertEquals(0.0, playfield.renderPosition.y);
+
+            assertFalse(playfield.renderCamera == null);
+            assertEquals(1.0, playfield.renderCamera.a);
+            assertEquals(0.0, playfield.renderCamera.b);
+            assertEquals(0.0, playfield.renderCamera.c);
+            assertEquals(1.0, playfield.renderCamera.d);
+            assertEquals(0.0, playfield.renderCamera.tx);
+            assertEquals(0.0, playfield.renderCamera.ty);
         }
     }
 }
