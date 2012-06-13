@@ -32,7 +32,11 @@ class VectorMath {
     }
 
     public static inline function angle (v:Point) {
-        return Math.atan2(v.x, -v.y);
+        if (v.x == 0 && v.y == 0) {
+            return 0.0;
+        } else {
+            return Math.atan2(v.x, -v.y);
+        }
     }
 
     public static inline function magnitude (v:Point) {
