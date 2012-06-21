@@ -1,14 +1,15 @@
 package hopscotch.input.analogue;
 
-import flash.display.DisplayObject;
+import flash.display.InteractiveObject;
+
 class Mouse implements IPointer {
     public var x:Float;
     public var y:Float;
 
-    var displayObject:DisplayObject;
+    var displayObject:InteractiveObject;
 
-    public function new (displayObject:DisplayObject) {
-        this.displayObject = displayObject;
+    public function new (interactiveObject:InteractiveObjectObject) {
+        this.displayObject = interactiveObject;
 
         x = 0;
         y = 0;
