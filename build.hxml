@@ -1,6 +1,0 @@
--cp src
--swf bin/hopscotchhx.swf
--main Main
--swf-version 10
--swf-header 640:480:60:000000
---flash-strict
