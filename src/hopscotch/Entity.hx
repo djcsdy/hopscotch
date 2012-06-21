@@ -1,5 +1,6 @@
 package hopscotch;
 
+import hopscotch.collision.Mask;
 import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import flash.geom.Point;
@@ -13,6 +14,8 @@ class Entity implements IEntity {
     public var x:Float;
     public var y:Float;
 
+    public var collisionMask:Mask;
+
     public var graphic:IGraphic;
     var previousGraphic:IGraphic;
 
@@ -24,6 +27,8 @@ class Entity implements IEntity {
 
         x = 0;
         y = 0;
+
+        collisionMask = null;
 
         graphic = null;
         previousGraphic = null;
@@ -75,5 +80,21 @@ class Entity implements IEntity {
 
             graphic.render(target, tmpPoint, camera);
         }
+    }
+
+    public function collideEntity (entity:IEntity) {
+        if (collisionMask == null) {
+            return false;
+        }
+
+        return entity.collideMask(collisionMask, x, y);
+    }
+
+    public function collideMask (mask:Mask, maskX:Float, maskY:Float) {
+        if (collisionMask == null) {
+            return false;
+        }
+
+        return collisionMask.collide(mask, x, y, maskX, maskY);
     }
 }

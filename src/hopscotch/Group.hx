@@ -1,4 +1,6 @@
 package hopscotch;
+
+import hopscotch.collision.Mask;
 import flash.geom.Matrix;
 import flash.display.BitmapData;
 import flash.geom.Point;
@@ -188,5 +190,29 @@ class Group implements IEntity {
                 graphic.render(target, position, camera);
             }
         }
+    }
+
+    public function collideEntity (entity:IEntity) {
+        for (updater in updaters) {
+            if (Std.is(updater, IEntity)) {
+                if ((cast(updater, IEntity)).collideEntity(entity)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function collideMask (mask:Mask, maskX:Float, maskY:Float) {
+        for (updater in updaters) {
+            if (Std.is(updater, IEntity)) {
+                if ((cast(updater, IEntity)).collideMask(mask, maskX, maskY)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
