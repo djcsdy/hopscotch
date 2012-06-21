@@ -8,7 +8,7 @@ class Mouse implements IPointer {
 
     var displayObject:InteractiveObject;
 
-    public function new (interactiveObject:InteractiveObjectObject) {
+    public function new (interactiveObject:InteractiveObject) {
         this.displayObject = interactiveObject;
 
         x = 0;
