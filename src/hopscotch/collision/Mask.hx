@@ -29,7 +29,7 @@ class Mask {
         if (tests.exists(mask2.className)) {
             return tests.get(mask2.className)(mask2, x1, y1, x2, y2);
         } else if (mask2.tests.exists(className)) {
-            return tests.get(className)(this, x2, y2, x1, y1);
+            return mask2.tests.get(className)(this, x2, y2, x1, y1);
         } else {
             throw new NotImplementedError("Collision between " + className
                     + " and " + mask2.className
