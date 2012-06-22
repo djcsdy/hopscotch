@@ -16,4 +16,9 @@ class BoxMaskTest extends TestCase {
         var boxMask = new BoxMask(0, 0, 1, 1);
         assertTrue(boxMask.collide(boxMask));
     }
+
+    public function testBoxDoesNotCollideWithItselfAtDifferentCoordinates () {
+        var boxMask = new BoxMask(5, 5, 10, 10);
+        assertFalse(boxMask.collide(boxMask, -5, -10, 10, 10));
+    }
 }
