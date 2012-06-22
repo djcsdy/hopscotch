@@ -11,10 +11,10 @@ class MaskTest extends TestCase {
 
     public function testCollideAgainstNull () {
         var caught = false;
-        var mask1 = new Mask();
+        var mask = new Mask();
 
         try {
-            mask1.collide(null, 0, 0, 0, 0);
+            mask.collide(null, 0, 0, 0, 0);
         } catch (e:ArgumentNullError) {
             caught = true;
         }
@@ -50,6 +50,29 @@ class MaskTest extends TestCase {
         try {
             mask1.collide(mask1, 0, 0, 0, 0);
         } catch (e:NotImplementedError) {
+            caught = true;
+        }
+
+        assertTrue(caught);
+    }
+
+    public function testImplementNull () {
+        var caught = false;
+        var mask = new Mask();
+
+        try {
+            mask.implement(null, function (mask2:Mask, x1:Float, y1:Float, x2:Float, y2:Float) { return false; });
+        } catch (e:ArgumentNullError) {
+            caught = true;
+        }
+
+        assertTrue(caught);
+
+        caught = false;
+
+        try {
+            mask.implement(BoxMask, null);
+        } catch (e:ArgumentNullError) {
             caught = true;
         }
 
