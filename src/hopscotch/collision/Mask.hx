@@ -26,6 +26,10 @@ class Mask {
     }
 
     public function collide (mask2:Mask, x1:Float=0, y1:Float=0, x2:Float=0, y2:Float=0) {
+        if (mask2 == null) {
+            throw new ArgumentNullError("mask2");
+        }
+
         if (tests.exists(mask2.className)) {
             return tests.get(mask2.className)(mask2, x1, y1, x2, y2);
         } else if (mask2.tests.exists(className)) {

@@ -1,5 +1,6 @@
 package hopscotch;
 
+import hopscotch.collision.MaskTest;
 import hopscotch.math.VectorMathTest;
 import hopscotch.engine.EngineTest;
 import haxe.unit.TestRunner;
@@ -16,6 +17,7 @@ class TestMain {
 
         var testRunner = new TestRunner();
         testRunner.add(new EngineTest());
+        testRunner.add(new MaskTest());
         testRunner.add(new VectorMathTest());
         testRunner.run();
     }
