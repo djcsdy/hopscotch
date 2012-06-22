@@ -105,6 +105,7 @@ class MaskTest extends TestCase {
     public function testCollide () {
         var mask1 = new MaskMock1();
         var mask2 = new MaskMock2();
+        var mask3 = new MaskMock3();
 
         var called11 = false;
         var mask2_11:Mask = null;
@@ -178,6 +179,24 @@ class MaskTest extends TestCase {
                     return result22;
                 });
 
+        var called31 = false;
+        var mask2_31 = null;
+        var x1_31 = 0.0;
+        var y1_31 = 0.0;
+        var x2_31 = 0.0;
+        var y2_31 = 0.0;
+        var result31 = false;
+        mask3.implement(MaskMock1,
+                function (mask2:MaskMock1, x1:Float, y1:Float, x2:Float, y2:Float) {
+                    called31 = true;
+                    mask2_31 = mask2;
+                    x1_31 = x1;
+                    y1_31 = y1;
+                    x2_31 = x2;
+                    y2_31 = y2;
+                    return result31;
+                });
+
         assertEquals(result11, mask1.collide(mask1, 1, 2, 3, 4));
         assertTrue(called11);
         assertEquals(cast(mask1, Mask), mask2_11);
@@ -224,5 +243,37 @@ class MaskTest extends TestCase {
         assertEquals(32.0, y1_22);
         assertEquals(43.0, x2_22);
         assertEquals(54.0, y2_22);
+
+        called22 = false;
+        result22 = true;
+        assertEquals(result22, mask2.collide(mask2, 21, 32, 43, 54));
+        assertTrue(called22);
+
+        assertEquals(result31, mask3.collide(mask1, 1, 2, 3, 4));
+        assertTrue(called31);
+        assertEquals(cast(mask1, Mask), mask2_31);
+        assertEquals(1.0, x1_31);
+        assertEquals(2.0, y1_31);
+        assertEquals(3.0, x2_31);
+        assertEquals(4.0, y2_31);
+
+        called31 = false;
+        result31 = true;
+        assertEquals(result31, mask3.collide(mask1, 1, 2, 3, 4));
+        assertTrue(called31);
+
+        called31 = false;
+        result31 = false;
+        assertEquals(result31, mask1.collide(mask3, 1, 2, 3, 4));
+        assertEquals(cast(mask1, Mask), mask2_31);
+        assertEquals(3.0, x1_31);
+        assertEquals(4.0, y1_31);
+        assertEquals(1.0, x2_31);
+        assertEquals(2.0, y2_31);
+
+        called31 = false;
+        result31 = true;
+        assertEquals(result31, mask1.collide(mask3, 1, 2, 3 ,4));
+        assertTrue(called31);
     }
 }
