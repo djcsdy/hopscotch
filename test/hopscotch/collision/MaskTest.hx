@@ -54,6 +54,29 @@ class MaskTest extends TestCase {
         }
 
         assertTrue(caught);
+
+        mask1.implement(MaskMock1, function (mask2:MaskMock1, x1:Float, y1:Float, x2:Float, y2:Float) { return true; });
+        mask2.implement(MaskMock1, function (mask2:MaskMock1, x1:Float, y1:Float, x2:Float, y2:Float) { return true; });
+
+        caught = false;
+
+        try {
+            mask1.collide(mask2, 0, 0, 0, 0);
+        } catch (e:NotImplementedError) {
+            caught = true;
+        }
+
+        assertTrue(caught);
+
+        caught = false;
+
+        try {
+            mask2.collide(mask2, 0, 0, 0, 0);
+        } catch (e:NotImplementedError) {
+            caught = true;
+        }
+
+        assertTrue(caught);
     }
 
     public function testImplementNull () {
@@ -82,7 +105,6 @@ class MaskTest extends TestCase {
     public function testCollide () {
         var mask1 = new MaskMock1();
         var mask2 = new MaskMock2();
-        var boxMask = new BoxMask();
 
         var called11 = false;
         var mask2_11:Mask = null;
@@ -168,5 +190,39 @@ class MaskTest extends TestCase {
         result11 = true;
         assertEquals(result11, mask1.collide(mask1, 1, 2, 3, 4));
         assertTrue(called11);
+
+        assertEquals(result12, mask1.collide(mask2, 9, 8, 7, 6));
+        assertTrue(called12);
+        assertEquals(cast(mask2, Mask), mask2_12);
+        assertEquals(9.0, x1_12);
+        assertEquals(8.0, y1_12);
+        assertEquals(7.0, x2_12);
+        assertEquals(6.0, y2_12);
+
+        called12 = false;
+        result12 = true;
+        assertEquals(result12, mask1.collide(mask2, 9, 8, 7, 6));
+        assertTrue(called12);
+
+        assertEquals(result21, mask2.collide(mask1, 5, 2.5, 3, 1.1));
+        assertTrue(called21);
+        assertEquals(cast(mask1, Mask), mask2_21);
+        assertEquals(5.0, x1_21);
+        assertEquals(2.5, y1_21);
+        assertEquals(3.0, x2_21);
+        assertEquals(1.1, y2_21);
+
+        called21 = false;
+        result21 = true;
+        assertEquals(result21, mask2.collide(mask1, 5, 2.5, 3, 1.1));
+        assertTrue(called21);
+
+        assertEquals(result22, mask2.collide(mask2, 21, 32, 43, 54));
+        assertTrue(called22);
+        assertEquals(cast(mask2, Mask), mask2_22);
+        assertEquals(21.0, x1_22);
+        assertEquals(32.0, y1_22);
+        assertEquals(43.0, x2_22);
+        assertEquals(54.0, y2_22);
     }
 }
