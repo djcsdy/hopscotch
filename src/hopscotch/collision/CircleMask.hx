@@ -27,7 +27,7 @@ class CircleMask extends Mask {
 
         VectorMath.subtract(Static.point, Static.point2);
 
-        return VectorMath.magnitude(Static.point) > radius + mask2.radius;
+        return VectorMath.magnitude(Static.point) < radius + mask2.radius;
     }
 
     function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
