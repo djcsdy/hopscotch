@@ -62,6 +62,8 @@ class PixelMask extends Mask {
     }
 
     function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
+        mask2.checkProperties();
+
         applyTransform(x1, y1);
 
         sprite.graphics.clear();
