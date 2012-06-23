@@ -3,7 +3,7 @@
   <set name="WIDTH" value="640"/>
   <set name="HEIGHT" value="480"/>
 
-  <haxedef name="fdb" if="target_flash" />
+  <haxedef name="fdb" if="target_flash"/>
 
   <app file="hopscotch-test"
        title="Hopscotch Self Test"
