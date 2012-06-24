@@ -215,4 +215,26 @@ class CircleMaskTest extends TestCase {
         var circleMask = new CircleMask(5, 10, 1);
         assertTrue(circleMask.collide(circleMask));
     }
+
+    public function testCircleCollidesWithItselfAtOverlappingCoordinates () {
+        var circleMask = new CircleMask(5, 10, 5);
+        assertTrue(circleMask.collide(circleMask, -2, 4, 5, -3));
+    }
+
+    public function testCircleDoesNotCollideWithItselfAtDifferentCoordinates () {
+        var circleMask = new CircleMask(5, 10, 5);
+        assertFalse(circleMask.collide(circleMask, -2, 4, 5, -4));
+    }
+
+    public function testCircleDoesNotCollideWithAnAdjacentCircle () {
+        var circleMask1 = new CircleMask(5, 10, 5);
+        var circleMask2 = new CircleMask(-1, 2, 4);
+        assertFalse(circleMask1.collide(circleMask2, -2, 4, 4, 21));
+    }
+
+    public function testCircleDoesNotCollideWithAnotherCircle () {
+        var circleMask1 = new CircleMask(5, 10, 5);
+        var circleMask2 = new CircleMask(-1, 2, 4);
+        assertFalse(circleMask1.collide(circleMask2, -2, 4, 9, 3));
+    }
 }
