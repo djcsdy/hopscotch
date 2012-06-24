@@ -52,6 +52,7 @@ class CircleMask extends Mask {
 
     function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         checkProperties();
+        mask2.checkProperties();
 
         Static.point.x = Math.abs(x + x1 - mask2.x - x2 - mask2.width * 0.5);
         Static.point.y = Math.abs(y + y1 - mask2.y - y2 - mask2.height * 0.5);
