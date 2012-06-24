@@ -73,30 +73,55 @@ class CircleMaskTest extends TestCase {
 
     public function collideRejectsNaNProperties () {
         var caught = false;
-        var circleMask = new CircleMask();
-        circleMask.x = Math.NaN;
+        var circleMask1 = new CircleMask();
+        var circleMask2 = new CircleMask();
+        circleMask1.x = Math.NaN;
         try {
-            circleMask.collide(circleMask);
+            circleMask1.collide(circleMask2);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        circleMask.x = 0;
-        circleMask.y = Math.NaN;
         try {
-            circleMask.collide(circleMask);
+            circleMask2.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        circleMask.y = 0;
-        circleMask.radius = Math.NaN;
+        circleMask1.x = 0;
+        circleMask1.y = Math.NaN;
         try {
-            circleMask.collide(circleMask);
+            circleMask1.collide(circleMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask2.collide(circleMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        circleMask1.y = 0;
+        circleMask1.radius = Math.NaN;
+        try {
+            circleMask1.collide(circleMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask2.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
@@ -105,30 +130,55 @@ class CircleMaskTest extends TestCase {
 
     public function collideRejectsInfiniteProperties () {
         var caught = false;
-        var circleMask = new CircleMask();
-        circleMask.x = Math.POSITIVE_INFINITY;
+        var circleMask1 = new CircleMask();
+        var circleMask2 = new CircleMask();
+        circleMask1.x = Math.POSITIVE_INFINITY;
         try {
-            circleMask.collide(circleMask);
+            circleMask1.collide(circleMask2);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        circleMask.x = 0;
-        circleMask.y = Math.POSITIVE_INFINITY;
         try {
-            circleMask.collide(circleMask);
+            circleMask2.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        circleMask.y = 0;
-        circleMask.radius = Math.POSITIVE_INFINITY;
+        circleMask1.x = 0;
+        circleMask1.y = Math.POSITIVE_INFINITY;
         try {
-            circleMask.collide(circleMask);
+            circleMask1.collide(circleMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask2.collide(circleMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        circleMask1.y = 0;
+        circleMask1.radius = Math.POSITIVE_INFINITY;
+        try {
+            circleMask1.collide(circleMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask2.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
@@ -137,10 +187,19 @@ class CircleMaskTest extends TestCase {
 
     public function collideRejectsNegativeRadius () {
         var caught = false;
-        var circleMask = new CircleMask();
-        circleMask.radius = -1;
+        var circleMask1 = new CircleMask();
+        var circleMask2 = new CircleMask();
+        circleMask1.radius = -1;
         try {
-            circleMask.collide(circleMask);
+            circleMask1.collide(circleMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask2.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
