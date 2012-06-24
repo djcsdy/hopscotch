@@ -97,40 +97,73 @@ class BoxMaskTest extends TestCase {
 
     public function testCollideRejectsNaNProperties () {
         var caught = false;
-        var boxMask = new BoxMask();
-        boxMask.x = Math.NaN;
+        var boxMask1 = new BoxMask();
+        var boxMask2 = new BoxMask();
+        boxMask1.x = Math.NaN;
         try {
-            boxMask.collide(boxMask);
+            boxMask1.collide(boxMask2);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.x = 0;
-        boxMask.y = Math.NaN;
         try {
-            boxMask.collide(boxMask);
+            boxMask2.collide(boxMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.y = 0;
-        boxMask.width = Math.NaN;
+        boxMask1.x = 0;
+        boxMask1.y = Math.NaN;
         try {
-            boxMask.collide(boxMask);
+            boxMask1.collide(boxMask2);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.width = 0;
-        boxMask.height = Math.NaN;
         try {
-            boxMask.collide(boxMask);
+            boxMask2.collide(boxMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask1.y = 0;
+        boxMask1.width = Math.NaN;
+        try {
+            boxMask1.collide(boxMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask2.collide(boxMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask1.width = 0;
+        boxMask1.height = Math.NaN;
+        try {
+            boxMask1.collide(boxMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask2.collide(boxMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
@@ -139,40 +172,73 @@ class BoxMaskTest extends TestCase {
 
     public function testCollideRejectsInfiniteProperties () {
         var caught = false;
-        var boxMask = new BoxMask();
-        boxMask.x = Math.POSITIVE_INFINITY;
+        var boxMask1 = new BoxMask();
+        var boxMask2 = new BoxMask();
+        boxMask1.x = Math.POSITIVE_INFINITY;
         try {
-            boxMask.collide(boxMask);
+            boxMask1.collide(boxMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = true;
+        try {
+            boxMask2.collide(boxMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.x = 0;
-        boxMask.y = Math.POSITIVE_INFINITY;
+        boxMask1.x = 0;
+        boxMask1.y = Math.POSITIVE_INFINITY;
         try {
-            boxMask.collide(boxMask);
+            boxMask1.collide(boxMask2);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.y = 0;
-        boxMask.width = Math.POSITIVE_INFINITY;
         try {
-            boxMask.collide(boxMask);
+            boxMask2.collide(boxMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.width = 0;
-        boxMask.height = Math.POSITIVE_INFINITY;
+        boxMask1.y = 0;
+        boxMask1.width = Math.POSITIVE_INFINITY;
         try {
-            boxMask.collide(boxMask);
+            boxMask1.collide(boxMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask2.collide(boxMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask1.width = 0;
+        boxMask1.height = Math.POSITIVE_INFINITY;
+        try {
+            boxMask1.collide(boxMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask2.collide(boxMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
@@ -181,20 +247,36 @@ class BoxMaskTest extends TestCase {
 
     public function testCollideRejectsNegativeWidthOrHeightProperties () {
         var caught = false;
-        var boxMask = new BoxMask();
-        boxMask.width = -1;
+        var boxMask1 = new BoxMask();
+        var boxMask2 = new BoxMask();
+        boxMask1.width = -1;
         try {
-            boxMask.collide(boxMask);
+            boxMask1.collide(boxMask2);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
         assertTrue(caught);
 
         caught = false;
-        boxMask.width = 0;
-        boxMask.height = -1;
         try {
-            boxMask.collide(boxMask);
+            boxMask2.collide(boxMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+
+        caught = false;
+        boxMask1.width = 0;
+        boxMask1.height = -1;
+        try {
+            boxMask1.collide(boxMask2);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask2.collide(boxMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
