@@ -156,7 +156,7 @@ class Engine {
         }
 
         var now = timeSource.getTime();
-        var targetFrame:Int = Math.floor((now - startTime) * framesPerMillisecond);
+        var targetFrame = Math.round((now - startTime) * framesPerMillisecond);
 
         if (targetFrame > previousFrame) {
             if (lastFrameFinishedTime >= 0) {
