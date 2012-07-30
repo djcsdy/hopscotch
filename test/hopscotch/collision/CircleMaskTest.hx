@@ -71,7 +71,7 @@ class CircleMaskTest extends TestCase {
         assertTrue(caught);
     }
 
-    public function collideRejectsNaNProperties () {
+    public function testCollideRejectsNaNProperties () {
         var caught = false;
         var circleMask1 = new CircleMask();
         var circleMask2 = new CircleMask();
@@ -128,7 +128,7 @@ class CircleMaskTest extends TestCase {
         assertTrue(caught);
     }
 
-    public function collideRejectsInfiniteProperties () {
+    public function testCollideRejectsInfiniteProperties () {
         var caught = false;
         var circleMask1 = new CircleMask();
         var circleMask2 = new CircleMask();
@@ -185,7 +185,7 @@ class CircleMaskTest extends TestCase {
         assertTrue(caught);
     }
 
-    public function collideRejectsNegativeRadius () {
+    public function testCollideRejectsNegativeRadius () {
         var caught = false;
         var circleMask1 = new CircleMask();
         var circleMask2 = new CircleMask();

@@ -39,6 +39,7 @@ class CircleMask extends Mask {
 
     function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         checkProperties();
+        mask2.checkProperties();
 
         Static.point.x = x + x1;
         Static.point.y = y + y1;
