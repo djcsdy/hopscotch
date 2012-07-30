@@ -238,6 +238,195 @@ class CircleMaskTest extends TestCase {
         assertFalse(circleMask1.collide(circleMask2, -2, 4, 9, 3));
     }
 
+    public function testCollideRejectsBoxWithNaNProperties() {
+        var caught = false;
+        var circleMask = new CircleMask();
+        var boxMask = new BoxMask();
+        boxMask.x = Math.NaN;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.x = 0;
+        boxMask.y = Math.NaN;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.y = 0;
+        boxMask.width = Math.NaN;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.width = 0;
+        boxMask.height = Math.NaN;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsBoxWithInfiniteProperties() {
+        var caught = false;
+        var circleMask = new CircleMask();
+        var boxMask = new BoxMask();
+        boxMask.x = Math.POSITIVE_INFINITY;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.x = 0;
+        boxMask.y = Math.POSITIVE_INFINITY;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.y = 0;
+        boxMask.width = Math.POSITIVE_INFINITY;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.width = 0;
+        boxMask.height = Math.POSITIVE_INFINITY;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsBoxWithNegativeWidthOrHeightProperties() {
+        var caught = false;
+        var circleMask = new CircleMask();
+        var boxMask = new BoxMask();
+        boxMask.width = -1;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.width = 0;
+        boxMask.height = -1;
+        try {
+            boxMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
     public function testCircleCollidesWithABox () {
         var circleMask = new CircleMask(5, 10, 5);
         var boxMask = new BoxMask(-1, -1, 1, 1);
