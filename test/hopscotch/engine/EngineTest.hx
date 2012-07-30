@@ -112,7 +112,7 @@ class EngineTest extends TestCase {
             timeSource.time = i * i;
             renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
 
-            var frame = Math.floor(timeSource.time * framesPerMillisecond);
+            var frame = Math.round(timeSource.time * framesPerMillisecond);
 
             assertEquals(frame + 1, playfield.updateCount);
             assertEquals(frame, playfield.updateFrame);
