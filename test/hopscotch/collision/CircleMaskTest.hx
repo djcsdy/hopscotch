@@ -75,6 +75,7 @@ class CircleMaskTest extends TestCase {
         var caught = false;
         var circleMask1 = new CircleMask();
         var circleMask2 = new CircleMask();
+        var boxMask = new BoxMask();
         circleMask1.x = Math.NaN;
         try {
             circleMask1.collide(circleMask2);
@@ -86,6 +87,22 @@ class CircleMaskTest extends TestCase {
         caught = false;
         try {
             circleMask2.collide(circleMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask1.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
@@ -110,6 +127,22 @@ class CircleMaskTest extends TestCase {
         assertTrue(caught);
 
         caught = false;
+        try {
+            circleMask1.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(circleMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
         circleMask1.y = 0;
         circleMask1.radius = Math.NaN;
         try {
@@ -122,6 +155,22 @@ class CircleMaskTest extends TestCase {
         caught = false;
         try {
             circleMask2.collide(circleMask1);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask1.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(circleMask1);
         } catch (e:IllegalOperationError) {
             caught = true;
         }
