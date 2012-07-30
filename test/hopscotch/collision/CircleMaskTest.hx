@@ -237,4 +237,18 @@ class CircleMaskTest extends TestCase {
         var circleMask2 = new CircleMask(-1, 2, 4);
         assertFalse(circleMask1.collide(circleMask2, -2, 4, 9, 3));
     }
+
+    public function testCircleCollidesWithABox () {
+        var circleMask = new CircleMask(5, 10, 5);
+        var boxMask = new BoxMask(-1, -1, 1, 1);
+        assertTrue(circleMask.collide(boxMask, 4.5, 4.5, 0, 0));
+        assertTrue(boxMask.collide(circleMask, 0, 0, 4.5, 4.5));
+    }
+
+    public function testCircleDoesNotCollideWithABox () {
+        var circleMask = new CircleMask(5, 10, 5);
+        var boxMask = new BoxMask(-1, -1, 1, 1);
+        assertTrue(circleMask.collide(boxMask, 4.7, 4.7, 0, 0));
+        assertTrue(boxMask.collide(circleMask, 0, 0, 4.7, 4.7));
+    }
 }
