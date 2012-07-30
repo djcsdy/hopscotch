@@ -1,5 +1,7 @@
 package hopscotch.collision;
 
+import hopscotch.Static;
+import flash.display.StageScaleMode;
 import flash.display.BitmapData;
 import flash.display.Sprite;
 import flash.display.Bitmap;
@@ -45,10 +47,13 @@ class PixelMask extends Mask {
     }
 
     function collidePixelMask (mask2:PixelMask, x1:Float, y1:Float, x2:Float, y2:Float) {
-        applyTransform(x1, y1);
-        mask2.applyTransform(x2, y2);
+        Static.point.x = x + x1;
+        Static.point.y = y + y1;
 
-        return bitmap.hitTestObject(mask2.bitmap);
+        Static.point2.x = mask2.x + x2;
+        Static.point2.y = mask2.y + y2;
+
+        return bitmap.bitmapData.hitTest(Static.point, 1, mask2.bitmap.bitmapData, Static.point2, 1);
     }
 
     function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {

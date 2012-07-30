@@ -20,6 +20,8 @@
           resizable="true"
           hardware="false"/>
 
+  <assets path="test-assets"/>
+
   <classpath name="src"/>
   <classpath name="test"/>
 
