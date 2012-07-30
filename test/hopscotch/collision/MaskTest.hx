@@ -1,5 +1,6 @@
 package hopscotch.collision;
 
+import hopscotch.errors.ArgumentError;
 import hopscotch.errors.NotImplementedError;
 import hopscotch.errors.ArgumentNullError;
 import haxe.unit.TestCase;
@@ -9,7 +10,7 @@ class MaskTest extends TestCase {
         super();
     }
 
-    public function testCollideAgainstNull () {
+    public function testCollideRejectsNull () {
         var caught = false;
         var mask = new Mask();
 
@@ -19,6 +20,78 @@ class MaskTest extends TestCase {
             caught = true;
         }
 
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsNaN() {
+        var caught = false;
+        var mask1 = new Mask();
+        var mask2 = new Mask();
+        try {
+            mask1.collide(mask2, Math.NaN, 0, 0, 0);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            mask1.collide(mask2, 0, Math.NaN, 0, 0);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            mask1.collide(mask2, 0, 0, Math.NaN, 0);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            mask1.collide(mask2, 0, 0, 0, Math.NaN);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsInfinity() {
+        var caught = false;
+        var mask1 = new Mask();
+        var mask2 = new Mask();
+        try {
+            mask1.collide(mask2, Math.POSITIVE_INFINITY, 0, 0, 0);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            mask1.collide(mask2, 0, Math.POSITIVE_INFINITY, 0, 0);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            mask1.collide(mask2, 0, 0, Math.POSITIVE_INFINITY, 0);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            mask1.collide(mask2, 0, 0, 0, Math.POSITIVE_INFINITY);
+        } catch (e:ArgumentError) {
+            caught = true;
+        }
         assertTrue(caught);
     }
 

@@ -1,5 +1,6 @@
 package hopscotch.collision;
 
+import hopscotch.errors.ArgumentError;
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.errors.IllegalOperationError;
 import hopscotch.errors.NotImplementedError;
@@ -28,6 +29,22 @@ class Mask {
     public function collide (mask2:Mask, x1:Float=0, y1:Float=0, x2:Float=0, y2:Float=0) {
         if (mask2 == null) {
             throw new ArgumentNullError("mask2");
+        }
+
+        if (!Math.isFinite(x1)) {
+            throw new ArgumentError("x1 must be finite");
+        }
+
+        if (!Math.isFinite(y1)) {
+            throw new ArgumentError("y1 must be finite");
+        }
+
+        if (!Math.isFinite(x2)) {
+            throw new ArgumentError("x2 must be finite");
+        }
+
+        if (!Math.isFinite(y2)) {
+            throw new ArgumentError("y2 must be finite");
         }
 
         if (tests.exists(mask2.className)) {
