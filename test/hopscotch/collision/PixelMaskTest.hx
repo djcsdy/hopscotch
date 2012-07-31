@@ -25,21 +25,45 @@ class PixelMaskTest extends TestCase {
     }
 
     public function testPixelMaskCollidesWithItself() {
-        var mask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask.png"));
+        var mask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
         assertTrue(mask.collide(mask));
     }
 
     public function testPixelMaskCollidesWithItselfAtOverlappingCoordinates() {
-        var mask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask.png"));
+        var mask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
         mask.x = 5;
         mask.y = -2;
         assertTrue(mask.collide(mask, 7, -2, 23, 13));
     }
 
     public function testPixelMaskDoesNotCollideWithItselfAtDifferentCoordinates() {
-        var mask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask.png"));
+        var mask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
         mask.x = 5;
         mask.y = -2;
         assertFalse(mask.collide(mask, 7, -2, 23, 14));
+    }
+
+    public function testPixelMaskCollidesWithAnotherPixelMask() {
+        var mask1 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var mask2 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask2.png"));
+        mask1.x = 5;
+        mask2.y = -2;
+        mask2.x = -9;
+        mask2.y = 1;
+
+        assertTrue(mask1.collide(mask2, 7, -1, 38, 11));
+        assertTrue(mask2.collide(mask1, 38, 11, 7, -1));
+    }
+
+    public function testPixelMaskDoesNotCollideWithAnotherPixelMask() {
+        var mask1 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var mask2 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask2.png"));
+        mask1.x = 5;
+        mask2.y = -2;
+        mask2.x = -9;
+        mask2.y = 1;
+
+        assertFalse(mask1.collide(mask2, 7, -1, 40, 12));
+        assertFalse(mask2.collide(mask1, 40, 12, 7, -1));
     }
 }
