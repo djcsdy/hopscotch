@@ -47,7 +47,7 @@ class PixelMaskTest extends TestCase {
         var mask1 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
         var mask2 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask2.png"));
         mask1.x = 5;
-        mask2.y = -2;
+        mask1.y = -2;
         mask2.x = -9;
         mask2.y = 1;
 
@@ -59,11 +59,11 @@ class PixelMaskTest extends TestCase {
         var mask1 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
         var mask2 = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask2.png"));
         mask1.x = 5;
-        mask2.y = -2;
+        mask1.y = -2;
         mask2.x = -9;
         mask2.y = 1;
 
-        assertFalse(mask1.collide(mask2, 7, -1, 40, 12));
-        assertFalse(mask2.collide(mask1, 40, 12, 7, -1));
+        assertFalse(mask1.collide(mask2, 7, -1, 39, 11));
+        assertFalse(mask2.collide(mask1, 39, 11, 7, -1));
     }
 }
