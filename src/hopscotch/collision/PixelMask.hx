@@ -1,9 +1,9 @@
 package hopscotch.collision;
 
+import flash.display.Shape;
 import hopscotch.Static;
 import flash.display.StageScaleMode;
 import flash.display.BitmapData;
-import flash.display.Sprite;
 import flash.display.Bitmap;
 import hopscotch.errors.ArgumentNullError;
 import flash.geom.Rectangle;
@@ -18,9 +18,9 @@ class PixelMask extends Mask {
     public var angle:Float;
     public var scale:Float;
 
-    var container:Sprite;
-    var bitmap:Bitmap;
-    var sprite:Sprite;
+    var mask:BitmapData;
+    var otherMask:BitmapData;
+    var shape:Shape;
 
     public function new (source:BitmapData) {
         super();
@@ -29,9 +29,8 @@ class PixelMask extends Mask {
             throw new ArgumentNullError("source");
         }
 
-        container = new Sprite();
-
-        bitmap = new Bitmap(source);
+        mask = source;
+        otherMask = new BitmapData(source.width, source.height, true, 0x00000000);
 
         x = 0;
         y = 0;
@@ -42,10 +41,7 @@ class PixelMask extends Mask {
         angle = 0;
         scale = 1;
 
-        sprite = new Sprite();
-
-        container.addChild(bitmap);
-        container.addChild(sprite);
+        shape = new Shape();
 
         implement(PixelMask, collidePixelMask);
         implement(BoxMask, collideBox);
@@ -59,43 +55,37 @@ class PixelMask extends Mask {
         Static.point2.x = mask2.x + x2;
         Static.point2.y = mask2.y + y2;
 
-        return bitmap.bitmapData.hitTest(Static.point, 1, mask2.bitmap.bitmapData, Static.point2, 1);
+        return mask.hitTest(Static.point, 1, mask2.mask, Static.point2, 1);
     }
 
     function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         mask2.checkProperties();
 
-        applyTransform(x1, y1);
+        shape.graphics.clear();
+        shape.graphics.beginFill(0xffffff);
+        shape.graphics.drawRect(mask2.x + x2 - x - x1,
+                mask2.y + y2 - y - y1,
+                mask2.width, mask2.height);
 
-        sprite.graphics.clear();
-        sprite.graphics.beginFill(0xffffff);
-        sprite.graphics.drawRect(mask2.x + x2, mask2.y + y2, mask2.width, mask2.height);
+        otherMask.fillRect(otherMask.rect, 0x00000000);
+        otherMask.draw(shape);
 
-        return bitmap.hitTestObject(sprite);
+        return mask.hitTest(Static.origin, 1, otherMask, Static.origin, 1);
     }
 
     function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         mask2.checkProperties();
 
-        applyTransform(x1, y1);
+        shape.graphics.clear();
+        shape.graphics.beginFill(0xffffff);
+        shape.graphics.drawCircle(
+                mask2.x + x2 - x - x1,
+                mask2.y + y2 - y - y1,
+                mask2.radius);
 
-        sprite.graphics.clear();
-        sprite.graphics.beginFill(0xffffff);
-        sprite.graphics.drawCircle(mask2.x, mask2.y, mask2.radius);
+        otherMask.fillRect(otherMask.rect, 0x00000000);
+        otherMask.draw(shape);
 
-        return bitmap.hitTestObject(sprite);
-    }
-
-    function applyTransform (x:Float, y:Float) {
-        var matrix = bitmap.transform.matrix;
-        matrix.a = matrix.d = 1;
-        matrix.b = matrix.c = 0;
-        matrix.tx = -originX;
-        matrix.ty = -originY;
-        matrix.rotate(angle);
-        matrix.scale(scale, scale);
-        matrix.tx += this.x + x;
-        matrix.ty += this.y + y;
-        bitmap.transform.matrix = matrix;
+        return mask.hitTest(Static.origin, 1, otherMask, Static.origin, 1);
     }
 }
