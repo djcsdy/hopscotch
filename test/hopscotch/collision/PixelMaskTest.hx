@@ -286,4 +286,159 @@ class PixelMaskTest extends TestCase {
         assertFalse(pixelMask.collide(boxMask));
         assertFalse(boxMask.collide(pixelMask));
     }
+
+    public function testCollideRejectsCircleWithNaNProperties() {
+        var caught = false;
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var circleMask = new CircleMask();
+        circleMask.x = Math.NaN;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        circleMask.x = 0;
+        circleMask.y = Math.NaN;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        circleMask.y = 0;
+        circleMask.radius = Math.NaN;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsCircleWithInfiniteProperties() {
+        var caught = false;
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var circleMask = new CircleMask();
+        circleMask.x = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        circleMask.x = 0;
+        circleMask.y = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        circleMask.y = 0;
+        circleMask.radius = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsCircleWithNegativeRadius() {
+        var caught = false;
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var circleMask = new CircleMask();
+        circleMask.radius = -1;
+        try {
+            pixelMask.collide(circleMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            circleMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testPixelMaskCollidesWithACircle() {
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var circleMask = new CircleMask(-9, 1, 2.5);
+        pixelMask.x = 5;
+        pixelMask.y = -2;
+
+        assertTrue(pixelMask.collide(circleMask, 2, 3, 32.5, 18.5));
+        assertTrue(circleMask.collide(pixelMask, 32.5, 18.5, 2, 3));
+    }
+
+    public function testPixelMaskDoesNotCollideWithACircle() {
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var circleMask = new CircleMask(-9, 1, 2.5);
+        pixelMask.x = 5;
+        pixelMask.y = -2;
+
+        assertFalse(pixelMask.collide(circleMask, 2, 3, 33.5, 18.5));
+        assertFalse(circleMask.collide(pixelMask, 33.5, 18.5, 2, 3));
+    }
 }
