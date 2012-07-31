@@ -12,6 +12,8 @@ class PixelMask extends Mask {
     public var x:Float;
     public var y:Float;
 
+    var boundingBox:BoxMask;
+
     var mask:BitmapData;
     var otherMask:BitmapData;
     var shape:Shape;
@@ -22,6 +24,8 @@ class PixelMask extends Mask {
         if (source == null) {
             throw new ArgumentNullError("source");
         }
+
+        boundingBox = new BoxMask(0, 0, source.width, source.height);
 
         mask = source;
         otherMask = new BitmapData(source.width, source.height, true, 0x00000000);
@@ -37,6 +41,10 @@ class PixelMask extends Mask {
     }
 
     function collidePixelMask (mask2:PixelMask, x1:Float, y1:Float, x2:Float, y2:Float) {
+        if (!boundingBox.collide(mask2.boundingBox, x + x1, y + y1, mask2.x + x2, mask2.y + y2)) {
+            return false;
+        }
+
         Static.point.x = x + x1;
         Static.point.y = y + y1;
 
@@ -48,6 +56,10 @@ class PixelMask extends Mask {
 
     function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         mask2.checkProperties();
+
+        if (!boundingBox.collide(mask2, x + x1, y + y1, x2, y2)) {
+            return false;
+        }
 
         shape.graphics.clear();
         shape.graphics.beginFill(0xffffff);
@@ -63,6 +75,10 @@ class PixelMask extends Mask {
 
     function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         mask2.checkProperties();
+
+        if (!boundingBox.collide(mask2, x + x1, y + y1, x2, y2)) {
+            return false;
+        }
 
         shape.graphics.clear();
         shape.graphics.beginFill(0xffffff);
