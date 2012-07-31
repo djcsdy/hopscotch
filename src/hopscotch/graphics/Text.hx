@@ -54,6 +54,8 @@ class Text implements IGraphic {
         textFormat = new TextFormat();
         textFormat.font = fontFace.name;
         textFormat.size = fontSize;
+
+        textField = new TextField();
     }
 
     public function measure(outSize:Point) {
@@ -106,53 +108,59 @@ class Text implements IGraphic {
             throw new IllegalOperationError("fontFace must not be null");
         }
 
+        var updated = false;
+
         if (textField.embedFonts != fontFace.embedded) {
             textField.embedFonts = fontFace.embedded;
+            updated = true;
         }
-
-        var formatUpdated = false;
 
         if (textFormat.font != fontFace.name) {
             textFormat.font = fontFace.name;
-            formatUpdated = true;
+            updated = true;
         }
 
         if (textFormat.size != fontSize) {
             textFormat.size = fontSize;
-            formatUpdated = true;
+            updated = true;
         }
 
         if (textFormat.color != color) {
             textFormat.color = color;
-            formatUpdated = true;
+            updated = true;
         }
 
         if (textField.text != text) {
             textField.text = text;
-            formatUpdated = true;
+            updated = true;
         }
 
-        if (formatUpdated) {
+        if (updated) {
             textField.setTextFormat(textFormat);
         }
 
-        if (textField.autoSize != autoSize) {
-            if (autoSize) {
-                if (!wordWrap) {
-                    textField.width = 0;
-                }
-                textField.height = 0;
+        if (autoSize) {
+            if (wordWrap) {
+                updated = updated || textField.width != width;
             }
 
-            textField.autoSize = autoSize;
-        }
+            if (updated) {
+                if (wordWrap) {
+                    textField.width = width;
+                    textField.height = textField.textHeight + 4;
+                } else {
+                    textField.width = textField.textWidth + 4;
+                    textField.height = textField.textHeight + 4;
+                }
+            }
+        } else {
+            if (textField.width != width) {
+                textField.width = width;
+            }
 
-        if ((!autoSize || wordWrap) && textField.width != width) {
-            textField.width = width;
-        }
-
-        if (!autoSize && textField.height != height) {
-            textField.height = height;
+            if (textField.height != height) {
+                textField.height = height;
+            }
         }
     }
 }
