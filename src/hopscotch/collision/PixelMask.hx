@@ -15,9 +15,6 @@ class PixelMask extends Mask {
     public var originX:Float;
     public var originY:Float;
 
-    public var angle:Float;
-    public var scale:Float;
-
     var mask:BitmapData;
     var otherMask:BitmapData;
     var shape:Shape;
@@ -37,9 +34,6 @@ class PixelMask extends Mask {
 
         originX = 0;
         originY = 0;
-
-        angle = 0;
-        scale = 1;
 
         shape = new Shape();
 
