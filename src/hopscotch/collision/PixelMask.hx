@@ -18,6 +18,7 @@ class PixelMask extends Mask {
     public var angle:Float;
     public var scale:Float;
 
+    var container:Sprite;
     var bitmap:Bitmap;
     var sprite:Sprite;
 
@@ -27,6 +28,8 @@ class PixelMask extends Mask {
         if (source == null) {
             throw new ArgumentNullError("source");
         }
+
+        container = new Sprite();
 
         bitmap = new Bitmap(source);
 
@@ -40,6 +43,9 @@ class PixelMask extends Mask {
         scale = 1;
 
         sprite = new Sprite();
+
+        container.addChild(bitmap);
+        container.addChild(sprite);
 
         implement(PixelMask, collidePixelMask);
         implement(BoxMask, collideBox);

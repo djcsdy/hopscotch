@@ -1,5 +1,6 @@
 package hopscotch.collision;
 
+import hopscotch.errors.IllegalOperationError;
 import nme.installer.Assets;
 import flash.display.BitmapData;
 import hopscotch.errors.ArgumentNullError;
@@ -65,5 +66,214 @@ class PixelMaskTest extends TestCase {
 
         assertFalse(mask1.collide(mask2, 7, -1, 39, 11));
         assertFalse(mask2.collide(mask1, 39, 11, 7, -1));
+    }
+
+    public function testCollideRejectsBoxWithNaNProperties() {
+        var caught = false;
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var boxMask = new BoxMask();
+        boxMask.x = Math.NaN;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.x = 0;
+        boxMask.y = Math.NaN;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.y = 0;
+        boxMask.width = Math.NaN;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.width = 0;
+        boxMask.height = Math.NaN;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsBoxWithInfiniteProperties() {
+        var caught = false;
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var boxMask = new BoxMask();
+        boxMask.x = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.x = 0;
+        boxMask.y = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.y = 0;
+        boxMask.width = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.width = 0;
+        boxMask.height = Math.POSITIVE_INFINITY;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testCollideRejectsBoxWithNegativeWidthOrHeight() {
+        var caught = false;
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var boxMask = new BoxMask();
+        boxMask.width = -1;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        boxMask.width = 0;
+        boxMask.height = -1;
+        try {
+            pixelMask.collide(boxMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+
+        caught = false;
+        try {
+            boxMask.collide(pixelMask);
+        } catch (e:IllegalOperationError) {
+            caught = true;
+        }
+        assertTrue(caught);
+    }
+
+    public function testPixelMaskCollidesWithABox() {
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var boxMask = new BoxMask(-9, 1, 10, 5);
+        pixelMask.x = 5;
+        pixelMask.y = -2;
+
+        assertFalse(pixelMask.collide(boxMask, 2, 3, 30, 16));
+        assertFalse(boxMask.collide(pixelMask, 30, 16, 2, 3));
+    }
+
+    public function testPixelMaskDoesNotCollideWithABox() {
+        var pixelMask = new PixelMask(Assets.getBitmapData("test-assets/hopscotch/collision/PixelMask1.png"));
+        var boxMask = new BoxMask(-9, 1, 10, 5);
+        pixelMask.x = 5;
+        pixelMask.y = -2;
+
+        assertFalse(pixelMask.collide(boxMask, 2, 3, 31, 16));
+        assertFalse(boxMask.collide(pixelMask, 31, 16, 2, 3));
     }
 }
