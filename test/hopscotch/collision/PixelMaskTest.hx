@@ -263,8 +263,8 @@ class PixelMaskTest extends TestCase {
         pixelMask.x = 5;
         pixelMask.y = -2;
 
-        assertFalse(pixelMask.collide(boxMask, 2, 3, 30, 16));
-        assertFalse(boxMask.collide(pixelMask, 30, 16, 2, 3));
+        assertTrue(pixelMask.collide(boxMask, 2, 3, 30, 16));
+        assertTrue(boxMask.collide(pixelMask, 30, 16, 2, 3));
     }
 
     public function testPixelMaskDoesNotCollideWithABox() {
