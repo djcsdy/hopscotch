@@ -69,7 +69,7 @@ class PixelMask extends Mask {
 
         sprite.graphics.clear();
         sprite.graphics.beginFill(0xffffff);
-        sprite.graphics.drawRect(mask2.x + x1, mask2.y + y1, mask2.width, mask2.height);
+        sprite.graphics.drawRect(mask2.x + x2, mask2.y + y2, mask2.width, mask2.height);
 
         return bitmap.hitTestObject(sprite);
     }
