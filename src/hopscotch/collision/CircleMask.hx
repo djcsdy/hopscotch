@@ -63,7 +63,7 @@ class CircleMask extends Mask {
         Static.point2.x = mask2.width * 0.5;
         Static.point2.y = mask2.height * 0.5;
 
-        return VectorMath.dot(Static.point2, Static.point) + radius < distance;
+        return distance < VectorMath.dot(Static.point2, Static.point) + radius;
     }
 
     public inline function checkProperties () {
