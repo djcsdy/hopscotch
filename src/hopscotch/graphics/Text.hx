@@ -11,6 +11,10 @@ import flash.display.BitmapData;
 import hopscotch.engine.ScreenSize;
 
 class Text implements IGraphic {
+    // Add this fudge value to measured text dimensions, because TextField.textWidth and TextField.textHeight
+    // are notoriously broken.
+    private static inline var TEXT_DIMENSIONS_FUDGE = 4;
+
     public var active:Bool;
     public var visible:Bool;
 
@@ -63,6 +67,13 @@ class Text implements IGraphic {
 
         outSize.x = textField.width;
         outSize.y = textField.height;
+    }
+
+    public function measureText(outSize:Point) {
+        updateTextField();
+
+        outSize.x = textField.textWidth + TEXT_DIMENSIONS_FUDGE;
+        outSize.y = textField.textHeight + TEXT_DIMENSIONS_FUDGE;
     }
 
     public function beginGraphic(frame:Int) {
@@ -147,10 +158,10 @@ class Text implements IGraphic {
             if (updated) {
                 if (wordWrap) {
                     textField.width = width;
-                    textField.height = textField.textHeight + 4;
+                    textField.height = textField.textHeight + TEXT_DIMENSIONS_FUDGE;
                 } else {
-                    textField.width = textField.textWidth + 4;
-                    textField.height = textField.textHeight + 4;
+                    textField.width = textField.textWidth + TEXT_DIMENSIONS_FUDGE;
+                    textField.height = textField.textHeight + TEXT_DIMENSIONS_FUDGE;
                 }
             }
         } else {
