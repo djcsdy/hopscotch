@@ -156,6 +156,11 @@ class Text implements IGraphic {
             updated = true;
         }
 
+        if (textField.wordWrap != wordWrap) {
+            textField.wordWrap = wordWrap;
+            updated = true;
+        }
+
         if (updated) {
             textField.setTextFormat(textFormat);
         }
