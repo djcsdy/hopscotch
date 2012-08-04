@@ -168,7 +168,7 @@ class Engine {
 
             if (framesAdvanced > 5) {
                 updateFramesAdvanced = 5;
-                startTime += Math.ceil((targetFrame - previousFrame - 5) * framesPerMillisecond);
+                startTime += Math.ceil((targetFrame - previousFrame - 5) / framesPerMillisecond);
                 targetFrame = previousFrame + 5;
             } else {
                 updateFramesAdvanced = framesAdvanced;

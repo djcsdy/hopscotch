@@ -146,4 +146,58 @@ class EngineTest extends TestCase {
             assertEquals(0.0, playfield.renderCamera.ty);
         }
     }
+
+    public function testEngineSkipsUpdatesIfThereIsAnExcessiveDelayBetweenFrames() {
+        var width = 640;
+        var height = 480;
+
+        var fps = 60;
+        var framesPerMillisecond = 60 / 1000;
+
+        var renderTarget = new Sprite();
+        var timeSource = new TimeSourceMock();
+        var engine = new Engine(renderTarget, width, height, fps, timeSource);
+
+        var playfield = new PlayfieldMock();
+        engine.playfield = playfield;
+
+        timeSource.time = 0;
+        engine.start();
+
+        timeSource.time = 0;
+        renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
+
+        assertEquals(1, playfield.updateCount);
+        assertEquals(0, playfield.updateFrame);
+
+        assertEquals(1, playfield.renderCount);
+        assertEquals(0, playfield.renderFrame);
+
+        timeSource.time = Math.ceil(7 * 1000 / fps);
+        renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
+
+        assertEquals(6, playfield.updateCount);
+        assertEquals(5, playfield.updateFrame);
+
+        assertEquals(2, playfield.renderCount);
+        assertEquals(5, playfield.renderFrame);
+
+        timeSource.time = Math.ceil(8 * 1000 / fps);
+        renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
+
+        assertEquals(7, playfield.updateCount);
+        assertEquals(6, playfield.updateFrame);
+
+        assertEquals(3, playfield.renderCount);
+        assertEquals(6, playfield.renderFrame);
+
+        timeSource.time = Math.ceil(9 * 1000 / fps);
+        renderTarget.dispatchEvent(new Event(Event.ENTER_FRAME));
+
+        assertEquals(8, playfield.updateCount);
+        assertEquals(7, playfield.updateFrame);
+
+        assertEquals(4, playfield.renderCount);
+        assertEquals(7, playfield.renderFrame);
+    }
 }
