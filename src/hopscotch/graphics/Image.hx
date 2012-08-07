@@ -176,8 +176,8 @@ class Image implements IGraphic {
             Static.matrix.b = Static.matrix.c = 0;
             Static.matrix.a = if (flipX) -1 else 1;
             Static.matrix.d = if (flipY) -1 else 1;
-            Static.matrix.tx = if (flipX) width else 0;
-            Static.matrix.ty = if (flipY) height else 0;
+            Static.matrix.tx = -sourceRect.x + if (flipX) width else 0;
+            Static.matrix.ty = -sourceRect.y + if (flipY) height else 0;
 
             buffer.fillRect(buffer.rect, 0);
             buffer.draw(sourceBitmap, Static.matrix);
