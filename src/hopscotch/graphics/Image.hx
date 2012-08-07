@@ -125,8 +125,8 @@ class Image implements IGraphic {
 
         if (camera.a == 1 && camera.b == 0 && camera.c == 0 && camera.d == 1
                 && angle == 0 && scale == 1 && blendMode == BlendMode.NORMAL) {
-            Static.point.x = position.x + x - originX + camera.tx;
-            Static.point.y = position.y + y - originY + camera.ty;
+            Static.point.x = position.x + x - (if (flipX) width - originX else originX) + camera.tx;
+            Static.point.y = position.y + y - (if (flipY) width - originY else originY) + camera.ty;
             if (!smooth || (Static.point.x%1==0 && Static.point.y%1==0)) {
                 target.copyPixels(buffer, buffer.rect, Static.point, null, null, true);
             } else {
@@ -149,8 +149,8 @@ class Image implements IGraphic {
         } else {
             Static.matrix.a = Static.matrix.d = 1;
             Static.matrix.b = Static.matrix.c = 0;
-            Static.matrix.tx = -originX;
-            Static.matrix.ty = -originY;
+            Static.matrix.tx = -(if (flipX) width - originX else originX);
+            Static.matrix.ty = -(if (flipY) height - originY else originY);
             Static.matrix.rotate(angle);
             Static.matrix.scale(scale, scale);
             Static.matrix.tx += position.x + x;
@@ -176,8 +176,8 @@ class Image implements IGraphic {
             Static.matrix.b = Static.matrix.c = 0;
             Static.matrix.a = if (flipX) -1 else 1;
             Static.matrix.d = if (flipY) -1 else 1;
-            Static.matrix.tx = -sourceRect.x + if (flipX) width else 0;
-            Static.matrix.ty = -sourceRect.y + if (flipY) height else 0;
+            Static.matrix.tx = if (flipX) sourceRect.x + sourceRect.width else -sourceRect.x;
+            Static.matrix.ty = if (flipY) sourceRect.y + sourceRect.height else -sourceRect.y;
 
             buffer.fillRect(buffer.rect, 0);
             buffer.draw(sourceBitmap, Static.matrix);
