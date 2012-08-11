@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import flash.geom.Rectangle;
 import flash.text.TextFormatAlign;
 import flash.text.TextFormatAlign;
 import hopscotch.Static;
@@ -38,6 +39,12 @@ class Text implements IGraphic {
     public var wordWrap:Bool;
     public var autoSize:Bool;
 
+    public var originX:Float;
+    public var originY:Float;
+
+    public var angle:Float;
+    public var scale:Float;
+
     var textFormat:TextFormat;
     var textField:TextField;
 
@@ -60,6 +67,12 @@ class Text implements IGraphic {
         wordWrap = false;
         autoSize = true;
 
+        originX = 0;
+        originY = 0;
+
+        angle = 0;
+        scale = 1;
+
         textFormat = new TextFormat();
         textFormat.font = fontFace.name;
         textFormat.size = fontSize;
@@ -81,6 +94,12 @@ class Text implements IGraphic {
         outSize.y = textField.textHeight + TEXT_DIMENSIONS_FUDGE;
     }
 
+    public function centerOrigin() {
+        measureText(Static.point);
+        originX = Static.point.x * 0.5;
+        originY = Static.point.y * 0.5;
+    }
+
     public function beginGraphic(frame:Int) {
     }
 
@@ -95,13 +114,25 @@ class Text implements IGraphic {
 
         Static.matrix.a = Static.matrix.d = 1;
         Static.matrix.b = Static.matrix.c = 0;
-        Static.matrix.tx = position.x + x + camera.tx;
-        Static.matrix.ty = position.y + y + camera.ty;
+        Static.matrix.tx = -originX;
+        Static.matrix.ty = -originY;
 
-        Static.rect.x = Math.floor(Static.matrix.tx);
-        Static.rect.y = Math.floor(Static.matrix.ty);
-        Static.rect.width = Math.ceil(textField.width + 1);
-        Static.rect.height = Math.ceil(textField.height + 1);
+        Static.matrix.rotate(angle);
+        Static.matrix.scale(scale, scale);
+        Static.matrix.tx += position.x + x;
+        Static.matrix.ty += position.y + y;
+        Static.matrix.concat(camera);
+
+        var rect:Rectangle = null;
+
+        if (angle == 0 && scale == 1) {
+            Static.rect.x = Math.floor(Static.matrix.tx);
+            Static.rect.y = Math.floor(Static.matrix.ty);
+            Static.rect.width = Math.ceil(textField.width + 1);
+            Static.rect.height = Math.ceil(textField.height + 1);
+
+            rect = Static.rect;
+        }
 
         var colorTransform:ColorTransform = null;
         if (alpha < 1) {
@@ -116,7 +147,7 @@ class Text implements IGraphic {
             colorTransform.alphaOffset = 0;
         }
 
-        target.draw(textField, Static.matrix, colorTransform, null, Static.rect, true);
+        target.draw(textField, Static.matrix, colorTransform, null, rect, true);
     }
 
     function updateTextField() {
