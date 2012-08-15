@@ -11,10 +11,10 @@ class GraphicList implements IGraphic {
 
     public var graphics(default, null):Array<IGraphic>;
 
-    public function new () {
+    public function new (?graphics:Iterable<IGraphic>) {
         active = false;
         visible = true;
-        graphics = new Array<IGraphic>();
+        this.graphics = if (graphics == null) [] else Lambda.array(graphics);
     }
 
     public function beginGraphic (frame:Int) {
