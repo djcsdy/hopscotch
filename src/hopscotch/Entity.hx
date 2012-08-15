@@ -87,17 +87,17 @@ class Entity implements IEntity {
 
     public function collideEntity (entity:IEntity) {
         if (collisionMask == null) {
-            return false;
+            throw new IllegalOperationError("Tried to collide an entity that has no collision mask");
+        } else {
+            return entity.collideMask(collisionMask, x, y);
         }
-
-        return entity.collideMask(collisionMask, x, y);
     }
 
     public function collideMask (mask:Mask, maskX:Float, maskY:Float) {
         if (collisionMask == null) {
-            return false;
+            throw new IllegalOperationError("Tried to collide an entity that has no collision mask");
+        } else {
+            return collisionMask.collide(mask, x, y, maskX, maskY);
         }
-
-        return collisionMask.collide(mask, x, y, maskX, maskY);
     }
 }
