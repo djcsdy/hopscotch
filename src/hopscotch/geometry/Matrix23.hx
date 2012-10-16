@@ -48,6 +48,9 @@ class Matrix23 {
     /** The value at coordinates (3,2) in the matrix. */
     public var ty:Float;
 
+    /** Construct a new matrix with the specified values.
+     *
+     * With the default values, constructs a new identity matrix. */
     public function new(a=1.0, b=0.0, c=0.0, d=1.0, tx=0.0, ty=0.0) {
         this.a = a;
         this.b = b;
