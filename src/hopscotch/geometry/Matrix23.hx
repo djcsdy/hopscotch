@@ -1,12 +1,13 @@
 package hopscotch.geometry;
 
-/** A 2-row, 3-column matrix, used to represent an affine transformation in 2D.
+/** A 2-row, 3-column matrix, used to represent an affine transformation in
+ * two dimensions.
  *
  * It is not necessary to understand matrix mathematics to use this class. You
  * can think of a matrix as simply being a box that efficiently stores a
- * sequence of 2D geometric transformations (translation, rotation and
- * scaling), which you can then apply to a point or other geometry in a single
- * step.
+ * sequence of two-dimensional geometric transformations (translation, rotation
+ * and scaling), which can then be applied to a Vector2d or other geometry in a
+ * single step.
  *
  * The matrix values are arranged in the following orientation.
  *
