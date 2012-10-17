@@ -121,6 +121,45 @@ class Matrix23 {
     // extra property on every instance of Matrix23. This reduces memory
     // consumption on some platforms.
     //
+    /** Computes the determinant of the matrix.
+     *
+     * The determinant gives the proportional change in area of a shape that is
+     * transformed by the affine transformation represented by matrix.
+     *
+     * If the determinant is zero, then the matrix is a singular matrix, meaning
+     * that it transforms every shape into a single point. */
+    public inline function determinant() {
+        return Matrix23.determinant(this);
+    }
+
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Matrix23. This reduces memory
+    // consumption on some platforms.
+    //
+    /** Inverts the matrix.
+     *
+     * The inverse of a matrix represents the inverse of the affine
+     * transformation represented by the original matrix. For example, if the
+     * original matrix represented a transformation equivalent to scaling an
+     * object by four times and then rotating it by pi radians, its inverse will
+     * represent a transformation equivalent to rotating an object -pi radians
+     * and then scaling it by one quarter.
+     *
+     * If the matrix is a singular matrix, meaning that its determinant is
+     * zero, and that it represents an affine transformation that transforms
+     * every shape into a single point, then the matrix has no valid inverse.
+     * In that case, this function will instead set the values of the matrix to
+     * infinite values. */
+    public inline function invert() {
+        Matrix23.invert(this);
+    }
+
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Matrix23. This reduces memory
+    // consumption on some platforms.
+    //
     /** Concatenates a matrix with the current matrix. The current matrix is
      * replaced by the concatenated matrix.
      *
@@ -211,6 +250,50 @@ class Matrix23 {
     public static function translate(matrix:Matrix23, tx:Float, ty:Float) {
         matrix.tx += tx;
         matrix.ty += ty;
+    }
+
+    /** Computes the determinant of the specified matrix.
+     *
+     * The determinant gives the proportional change in area of a shape that is
+     * transformed by the affine transformation represented by matrix.
+     *
+     * If the determinant is zero, then the matrix is a singular matrix, meaning
+     * that it transforms every shape into a single point. */
+    public static inline function determinant(matrix:Matrix23) {
+        return a * d - b * c;
+    }
+
+    /** Inverts the specified matrix.
+     *
+     * The inverse of a matrix represents the inverse of the affine
+     * transformation represented by the original matrix. For example, if the
+     * original matrix represented a transformation equivalent to scaling an
+     * object by four times and then rotating it by pi radians, its inverse will
+     * represent a transformation equivalent to rotating an object -pi radians
+     * and then scaling it by one quarter.
+     *
+     * If the matrix is a singular matrix, meaning that its determinant is
+     * zero, and that it represents an affine transformation that transforms
+     * every shape into a single point, then the matrix has no valid inverse.
+     * In that case, this function will instead set the values of the matrix to
+     * infinite values. */
+    public static function invert(matrix:Matrix23) {
+        var determinant = Matrix23.determinant(matrix);
+        var inverseDeterminant = 1/determinant;
+
+        var a = matrix.a;
+        var b = matrix.b;
+        var c = matrix.c;
+        var d = matrix.d;
+        var tx = matrix.tx;
+        var ty = matrix.ty;
+
+        matrix.a = d * inverseDeterminant;
+        matrix.b = -b * inverseDeterminant;
+        matrix.c = -c * inverseDeterminant;
+        matrix.d = a * inverseDeterminant;
+        matrix.tx = ((c * ty) - (d * tx)) * inverseDeterminant;
+        matrix.ty = ((b * tx) - (a * ty)) * inverseDeterminant;
     }
 
     /** Concatenates two matrices. The first matrix is replaced by the
