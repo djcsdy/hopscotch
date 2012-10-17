@@ -1,6 +1,6 @@
 # Hopscotch
 
-Hopscotch is a simple framework for building 2D games in Haxe, targetting
+Hopscotch is a simple framework for building 2D games in Haxe, targeting
 Flash and NME.
 
 It is not quite ready for general public consumption yet, but I am using it
