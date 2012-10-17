@@ -178,6 +178,27 @@ class Vector2d {
         Vector2d.toPolar(this, radians, magnitude);
     }
 
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Vector2d. This reduces memory
+    // consumption on some platforms.
+    //
+    /** Copies the value of the source vector to the current vector. */
+    public inline function copyFrom(source:Vector2d) {
+        copyTo(this, source);
+    }
+
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Vector2d. This reduces memory
+    // consumption on some platforms.
+    //
+    /** Constructs a new vector that has the same value as the current
+     * vector. */
+    public inline function clone() {
+        return clone(this);
+    }
+
     /** Overwrites the first specified vector, v, with the sum of the specified
      * vectors, v and w. */
     public static inline function add(v:Vector2d, w:Vector2d) {
@@ -290,5 +311,17 @@ class Vector2d {
     public static inline function toPolar(v:Vector2d, radians:Float, magnitude:Float) {
         v.x = Math.sin(radians) * magnitude;
         v.y = -Math.cos(radians) * magnitude;
+    }
+
+    /** Copies the values of the source vector to the destination vector. */
+    public static inline function copyTo(dest:Vector2d, source:Vector2d) {
+        v.x = w.x;
+        v.y = w.y;
+    }
+
+    /** Constructs a new vector that has the same value as the specified
+     * vector. */
+    public static inline function clone(v:Vector2d) {
+        return new Vector2d(v.x, v.y);
     }
 }
