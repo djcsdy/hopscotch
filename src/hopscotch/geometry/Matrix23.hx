@@ -11,14 +11,14 @@ package hopscotch.geometry;
  *
  * The matrix values are arranged in the following orientation.
  *
- * <table><tr><td>a</td><td>b</td><td>tx</td></tr>
- * <tr><td>c</td><td>d</td><td>ty</td></tr></table>
+ * <table><tr><td>a</td><td>c</td><td>tx</td></tr>
+ * <tr><td>b</td><td>d</td><td>ty</td></tr></table>
  *
  * When used as an affine transformation, the matrix has an implicit third row
  * with the values [0 0 1].
  *
- * <table><tr><td>a</td><td>b</td><td>tx</td></tr>
- * <tr><td>c</td><td>d</td><td>ty</td></tr>
+ * <table><tr><td>a</td><td>c</td><td>tx</td></tr>
+ * <tr><td>b</td><td>d</td><td>ty</td></tr>
  * <tr><td>0</td><td>0</td><td>1</td></table>
  *
  * To transform source coordinates (x,y) to destination coordinates (x',y'),
@@ -34,10 +34,10 @@ class Matrix23 {
     /** The value at coordinates (1,1) in the matrix. */
     public var a:Float;
 
-    /** The value at coordinates (2,1) in the matrix. */
+    /** The value at coordinates (1,2) in the matrix. */
     public var b:Float;
 
-    /** The value at coordinates (1,2) in the matrix. */
+    /** The value at coordinates (2,1) in the matrix. */
     public var c:Float;
 
     /** The value at coordinates (2,2) in the matrix. */
