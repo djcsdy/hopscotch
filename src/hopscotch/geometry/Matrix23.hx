@@ -138,6 +138,17 @@ class Matrix23 {
         Matrix23.concat(this, matrix);
     }
 
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Matrix23. This reduces memory
+    // consumption on some platforms.
+    //
+    /** Constructs a new matrix with the same values as the current
+     * matrix. */
+    public inline function clone() {
+        return Matrix23.clone(this);
+    }
+
     /** Sets the properties of the specified matrix so that it is the identity
      * matrix.
      *
@@ -219,5 +230,11 @@ class Matrix23 {
         matrix1.d = matrix2.b * c + matrix2.d * d;
         matrix1.tx = matrix2.a * tx + matrix2.c * ty + matrix2.tx;
         matrix1.ty = matrix2.b * tx + matrix2.d * ty + matrix2.ty;
+    }
+
+    /** Constructs a new matrix with the same values as the specified
+     * matrix. */
+    public static inline function clone(matrix:Matrix23) {
+        return new Matrix23(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
     }
 }
