@@ -143,6 +143,16 @@ class Matrix23 {
     // extra property on every instance of Matrix23. This reduces memory
     // consumption on some platforms.
     //
+    /** Copies the values of the source matrix to the current matrix. */
+    public inline function copyFrom(source:Matrix23) {
+        Matrix23.copyTo(this, source);
+    }
+
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Matrix23. This reduces memory
+    // consumption on some platforms.
+    //
     /** Constructs a new matrix with the same values as the current
      * matrix. */
     public inline function clone() {
@@ -230,6 +240,16 @@ class Matrix23 {
         matrix1.d = matrix2.b * c + matrix2.d * d;
         matrix1.tx = matrix2.a * tx + matrix2.c * ty + matrix2.tx;
         matrix1.ty = matrix2.b * tx + matrix2.d * ty + matrix2.ty;
+    }
+
+    /** Copies the values of the source matrix to the destination matrix. */
+    public static function copyTo(dest:Matrix23, source:Matrix23) {
+        dest.a = source.a;
+        dest.b = source.b;
+        dest.c = source.c;
+        dest.d = source.d;
+        dest.tx = source.tx;
+        dest.ty = source.ty;
     }
 
     /** Constructs a new matrix with the same values as the specified
