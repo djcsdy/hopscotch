@@ -182,6 +182,29 @@ class Matrix23 {
     // extra property on every instance of Matrix23. This reduces memory
     // consumption on some platforms.
     //
+    /** Applies the affine transformation represented by the current matrix
+    * to the specified vector. The vector is modified in place. */
+    public inline function transform(point:Vector2d) {
+        Matrix23.transform(point, this);
+    }
+
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Matrix23. This reduces memory
+    // consumption on some platforms.
+    //
+    /** Applies the inverse of the affine transformation represented by the
+     * current matrix to the specified vector. The vector is modified in
+     * place. */
+    public inline function invertTransform(point:Vector2d) {
+        Matrix23.invertTransform(point, this);
+    }
+
+    // This function is defined as a more convenient way to call the equivalent
+    // static function. It is declared inline so that it will not create an
+    // extra property on every instance of Matrix23. This reduces memory
+    // consumption on some platforms.
+    //
     /** Copies the values of the source matrix to the current matrix. */
     public inline function copyFrom(source:Matrix23) {
         Matrix23.copyTo(this, source);
@@ -323,6 +346,44 @@ class Matrix23 {
         matrix1.d = matrix2.b * c + matrix2.d * d;
         matrix1.tx = matrix2.a * tx + matrix2.c * ty + matrix2.tx;
         matrix1.ty = matrix2.b * tx + matrix2.d * ty + matrix2.ty;
+    }
+
+    /** Applies the affine transformation represented by the specified matrix
+    * to the specified vector. The vector is modified in place. */
+    public static function transform(point:Vector2d, matrix:Matrix23) {
+        var x = point.x;
+        var y = point.y;
+
+        point.x = matrix.a * x + matrix.c * y + matrix.tx;
+        point.y = matrix.b * x + matrix.d * y + matrix.ty;
+    }
+
+    /** Applies the inverse of the affine transformation represented by the
+     * specified matrix to the specified vector. The vector is modified in
+     * place. */
+    public static function invertTransform(point:Vector2d, matrix:Matrix23) {
+        var x = point.x;
+        var y = point.y;
+
+        var determinant = Matrix23.determinant(matrix);
+        var inverseDeterminant = 1/determinant;
+
+        var a = matrix.a;
+        var b = matrix.b;
+        var c = matrix.c;
+        var d = matrix.d;
+        var tx = matrix.tx;
+        var ty = matrix.ty;
+
+        a = d * inverseDeterminant;
+        b = -b * inverseDeterminant;
+        c = -c * inverseDeterminant;
+        d = a * inverseDeterminant;
+        tx = ((c * ty) - (d * tx)) * inverseDeterminant;
+        ty = ((b * tx) - (a * ty)) * inverseDeterminant;
+
+        point.x = a * x + c * y + tx;
+        point.y = b * x + d * y + ty;
     }
 
     /** Copies the values of the source matrix to the destination matrix. */
