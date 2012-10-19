@@ -1,5 +1,6 @@
 package hopscotch;
 
+import hopscotch.geometry.Vector2dTest;
 import hopscotch.collision.PixelMaskTest;
 import hopscotch.collision.CircleMaskTest;
 import hopscotch.collision.BoxMaskTest;
@@ -25,6 +26,7 @@ class TestMain {
         testRunner.add(new MaskTest());
         testRunner.add(new PixelMaskTest());
         testRunner.add(new VectorMathTest());
+        testRunner.add(new Vector2dTest());
         testRunner.run();
     }
 }
