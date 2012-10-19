@@ -4,7 +4,8 @@ import hopscotch.errors.IllegalOperationError;
 import nme.installer.Assets;
 import flash.display.BitmapData;
 import hopscotch.errors.ArgumentNullError;
-import haxe.unit.TestCase;
+import hopscotch.test.TestCase;
+
 class PixelMaskTest extends TestCase {
     public function new() {
         super();

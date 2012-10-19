@@ -1,8 +1,7 @@
 package hopscotch.math;
 
-import haxe.PosInfos;
 import flash.geom.Point;
-import haxe.unit.TestCase;
+import hopscotch.test.TestCase;
 
 class VectorMathTest extends TestCase {
     public function new () {
@@ -261,21 +260,5 @@ class VectorMathTest extends TestCase {
         VectorMath.toPolar(p1, -Math.PI/4, -3.5);
         assertApproxEquals(3.5*Math.sqrt(0.5), p1.x);
         assertEquals(3.5*Math.sqrt(0.5), p1.y);
-    }
-
-    /** Tests if two floats are approximately equal. Useful to test for expected results while
-     * allowing for IEEE-754 rounding errors. */
-    function assertApproxEquals (expected:Float, actual:Float, ?deviation:Null<Float>, ?c:PosInfos) {
-        if (deviation == null) {
-            deviation = 0.000001;
-        }
-
-        currentTest.done = true;
-        if (actual < expected - deviation || actual > expected + deviation) {
-            currentTest.success = false;
-            currentTest.error = "expected '" + expected + "' +/- " + deviation + ", but was '" + actual + "'";
-            currentTest.posInfos = c;
-            throw currentTest;
-        }
     }
 }

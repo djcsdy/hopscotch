@@ -3,7 +3,7 @@ package hopscotch.collision;
 import hopscotch.errors.ArgumentError;
 import hopscotch.errors.NotImplementedError;
 import hopscotch.errors.ArgumentNullError;
-import haxe.unit.TestCase;
+import hopscotch.test.TestCase;
 
 class MaskTest extends TestCase {
     public function new () {

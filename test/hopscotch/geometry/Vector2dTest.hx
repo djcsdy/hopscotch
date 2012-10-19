@@ -1,7 +1,6 @@
 package hopscotch.geometry;
 
-import haxe.PosInfos;
-import haxe.unit.TestCase;
+import hopscotch.test.TestCase;
 
 class Vector2dTest extends TestCase {
     public function new() {
@@ -300,21 +299,5 @@ class Vector2dTest extends TestCase {
         assertFalse(u == w);
         assertEquals(v.x, u.x);
         assertEquals(v.y, u.y);
-    }
-
-    /** Tests if two floats are approximately equal. Useful to test for expected results while
-     * allowing for IEEE-754 rounding errors. */
-    function assertApproxEquals (expected:Float, actual:Float, ?deviation:Null<Float>, ?c:PosInfos) {
-        if (deviation == null) {
-            deviation = 0.000001;
-        }
-
-        currentTest.done = true;
-        if (actual < expected - deviation || actual > expected + deviation) {
-            currentTest.success = false;
-            currentTest.error = "expected '" + expected + "' +/- " + deviation + ", but was '" + actual + "'";
-            currentTest.posInfos = c;
-            throw currentTest;
-        }
     }
 }

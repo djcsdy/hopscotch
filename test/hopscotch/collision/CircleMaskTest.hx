@@ -2,7 +2,7 @@ package hopscotch.collision;
 
 import hopscotch.errors.IllegalOperationError;
 import hopscotch.errors.ArgumentError;
-import haxe.unit.TestCase;
+import hopscotch.test.TestCase;
 
 class CircleMaskTest extends TestCase {
     public function new() {

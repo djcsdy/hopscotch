@@ -5,7 +5,7 @@ import flash.events.Event;
 import hopscotch.errors.ArgumentError;
 import flash.Lib;
 import hopscotch.errors.ArgumentNullError;
-import haxe.unit.TestCase;
+import hopscotch.test.TestCase;
 
 class EngineTest extends TestCase {
     public function new () {
