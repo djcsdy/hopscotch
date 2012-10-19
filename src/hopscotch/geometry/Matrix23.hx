@@ -183,9 +183,12 @@ class Matrix23 {
     // consumption on some platforms.
     //
     /** Applies the affine transformation represented by the current matrix
-    * to the specified vector. The vector is modified in place. */
-    public inline function transform(point:Vector2d) {
-        Matrix23.transform(point, this);
+     * to the specified vector. The vector is modified in place.
+     *
+     * If ignoreTranslation is true, then the transformation is performed as
+     * if the tx and ty properties of the matrix were both zero. */
+    public inline function transform(point:Vector2d, ignoreTranslation = false) {
+        Matrix23.transform(point, this, ignoreTranslation);
     }
 
     // This function is defined as a more convenient way to call the equivalent
@@ -195,9 +198,12 @@ class Matrix23 {
     //
     /** Applies the inverse of the affine transformation represented by the
      * current matrix to the specified vector. The vector is modified in
-     * place. */
-    public inline function invertTransform(point:Vector2d) {
-        Matrix23.invertTransform(point, this);
+     * place.
+     *
+     * If ignoreTranslation is true, then the transformation is performed as
+     * if the tx and ty properties of the matrix were both zero. */
+    public inline function invertTransform(point:Vector2d, ignoreTranslation = false) {
+        Matrix23.invertTransform(point, this, ignoreTranslation);
     }
 
     // This function is defined as a more convenient way to call the equivalent
@@ -349,19 +355,30 @@ class Matrix23 {
     }
 
     /** Applies the affine transformation represented by the specified matrix
-    * to the specified vector. The vector is modified in place. */
-    public static function transform(point:Vector2d, matrix:Matrix23) {
+     * to the specified vector. The vector is modified in place.
+     *
+     * If ignoreTranslation is true, then the transformation is performed as
+     * if the tx and ty properties of the matrix were both zero. */
+    public static function transform(point:Vector2d, matrix:Matrix23, ignoreTranslation = false) {
         var x = point.x;
         var y = point.y;
 
-        point.x = matrix.a * x + matrix.c * y + matrix.tx;
-        point.y = matrix.b * x + matrix.d * y + matrix.ty;
+        point.x = matrix.a * x + matrix.c * y;
+        point.y = matrix.b * x + matrix.d * y;
+
+        if (!ignoreTranslation) {
+            point.x += matrix.tx;
+            point.y += matrix.ty;
+        }
     }
 
     /** Applies the inverse of the affine transformation represented by the
      * specified matrix to the specified vector. The vector is modified in
-     * place. */
-    public static function invertTransform(point:Vector2d, matrix:Matrix23) {
+     * place.
+     *
+     * If ignoreTranslation is true, then the transformation is performed as
+     * if the tx and ty properties of the matrix were both zero. */
+    public static function invertTransform(point:Vector2d, matrix:Matrix23, ignoreTranslation = false) {
         var x = point.x;
         var y = point.y;
 
