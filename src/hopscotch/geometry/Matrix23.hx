@@ -103,10 +103,10 @@ class Matrix23 {
         var tx = this.tx;
         var ty = this.ty;
 
-        this.a = cos * a + sin * b;
-        this.b = -sin * a + cos * b;
-        this.c = cos * c + sin * d;
-        this.d = -sin * c + cos * d;
+        this.a = cos * a + -sin * b;
+        this.b = sin * a + cos * b;
+        this.c = cos * c + -sin * d;
+        this.d = sin * c + cos * d;
         this.tx = cos * tx + -sin * ty;
         this.ty = sin * tx + cos * ty;
     }
