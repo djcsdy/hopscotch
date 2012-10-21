@@ -176,19 +176,26 @@ class Matrix23 {
      * In mathematical terms this operation is equivalent to matrix
      * multiplication. */
     public function concat(matrix:Matrix23) {
-        var a = this.a;
-        var b = this.b;
-        var c = this.c;
-        var d = this.d;
-        var tx = this.tx;
-        var ty = this.ty;
+        var a1 = this.a;
+        var b1 = this.b;
+        var c1 = this.c;
+        var d1 = this.d;
+        var tx1 = this.tx;
+        var ty1 = this.ty;
 
-        this.a = matrix.a * a + matrix.c * b;
-        this.b = matrix.b * a + matrix.d * b;
-        this.c = matrix.a * c + matrix.c * d;
-        this.d = matrix.b * c + matrix.d * d;
-        this.tx = matrix.a * tx + matrix.c * ty + matrix.tx;
-        this.ty = matrix.b * tx + matrix.d * ty + matrix.ty;
+        var a2 = matrix.a;
+        var b2 = matrix.b;
+        var c2 = matrix.c;
+        var d2 = matrix.d;
+        var tx2 = matrix.tx;
+        var ty2 = matrix.ty;
+
+        this.a = a2 * a1 + c2 * b1;
+        this.b = b2 * a1 + d2 * b1;
+        this.c = a2 * c1 + c2 * d1;
+        this.d = b2 * c1 + d2 * d1;
+        this.tx = a2 * tx1 + c2 * ty1 + tx2;
+        this.ty = b2 * tx1 + d2 * ty1 + ty2;
     }
 
     /** Applies the affine transformation represented by the current matrix

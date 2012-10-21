@@ -299,6 +299,17 @@ class Matrix23Test extends TestCase {
         assertApproxEquals(o.d, m.d);
         assertApproxEquals(o.tx, m.tx);
         assertApproxEquals(o.ty, m.ty);
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+
+        m.concat(m);
+
+        assertEquals(16.0, m.a);
+        assertEquals(21.0, m.b);
+        assertEquals(28.0, m.c);
+        assertEquals(37.0, m.d);
+        assertEquals(46.0, m.tx);
+        assertEquals(60.0, m.ty);
     }
 
     public function testTransform() {
