@@ -114,8 +114,8 @@ class Matrix23 {
     /** Applies a translation transformation to the matrix. The translation is
      * tx units along the x-axis, and ty pixels along the y-axis. */
     public function translate(tx:Float, ty:Float) {
-        tx += tx;
-        ty += ty;
+        this.tx += tx;
+        this.ty += ty;
     }
 
     /** Computes the determinant of the matrix.

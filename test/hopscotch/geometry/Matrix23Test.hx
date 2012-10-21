@@ -154,4 +154,26 @@ class Matrix23Test extends TestCase {
         assertApproxEquals(-Math.cos(Math.PI / 8) * 6 + Math.sin(Math.PI / 8) * 7, m.tx);
         assertApproxEquals(-Math.sin(Math.PI / 8) * 6 - Math.cos(Math.PI / 8) * 7, m.ty);
     }
+
+    public function testTranslate() {
+        var m = new Matrix23();
+        m.translate(7, 2);
+
+        assertEquals(1.0, m.a);
+        assertEquals(0.0, m.b);
+        assertEquals(0.0, m.c);
+        assertEquals(1.0, m.d);
+        assertEquals(7.0, m.tx);
+        assertEquals(2.0, m.ty);
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+        m.translate(7, 2);
+
+        assertEquals(2.0, m.a);
+        assertEquals(3.0, m.b);
+        assertEquals(4.0, m.c);
+        assertEquals(5.0, m.d);
+        assertEquals(13.0, m.tx);
+        assertEquals(9.0, m.ty);
+    }
 }
