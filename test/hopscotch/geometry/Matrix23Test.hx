@@ -237,4 +237,67 @@ class Matrix23Test extends TestCase {
         assertApproxEquals(n.tx, m.tx);
         assertApproxEquals(n.ty, m.ty);
     }
+
+    public function testConcat() {
+        var m = new Matrix23();
+        var n = new Matrix23();
+
+        m.concat(n);
+
+        assertEquals(1.0, m.a);
+        assertEquals(0.0, m.b);
+        assertEquals(0.0, m.c);
+        assertEquals(1.0, m.d);
+        assertEquals(0.0, m.tx);
+        assertEquals(0.0, m.ty);
+
+        m = new Matrix23();
+        n = new Matrix23(2, 3, 4, 5, 6, 7);
+
+        m.concat(n);
+
+        assertEquals(2.0, m.a);
+        assertEquals(3.0, m.b);
+        assertEquals(4.0, m.c);
+        assertEquals(5.0, m.d);
+        assertEquals(6.0, m.tx);
+        assertEquals(7.0, m.ty);
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+        n = new Matrix23(6, 8, 2, -3, 4, -9);
+
+        m.concat(n);
+
+        assertEquals(18.0, m.a);
+        assertEquals(7.0, m.b);
+        assertEquals(34.0, m.c);
+        assertEquals(17.0, m.d);
+        assertEquals(54.0, m.tx);
+        assertEquals(18.0, m.ty);
+
+        m = new Matrix23();
+        m.translate(-3, 2);
+        m.scale(6, 7);
+        m.rotate(7 * Math.PI / 8);
+
+        n = new Matrix23();
+        m.scale(0.5, 3);
+        m.translate(7, 2);
+
+        var o = new Matrix23();
+        o.translate(-3, 2);
+        o.scale(6, 7);
+        o.rotate(7 * Math.PI / 8);
+        o.scale(0.5, 3);
+        o.translate(7, 2);
+
+        m.concat(n);
+
+        assertApproxEquals(o.a, m.a);
+        assertApproxEquals(o.b, m.b);
+        assertApproxEquals(o.c, m.c);
+        assertApproxEquals(o.d, m.d);
+        assertApproxEquals(o.tx, m.tx);
+        assertApproxEquals(o.ty, m.ty);
+    }
 }
