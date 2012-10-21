@@ -195,5 +195,46 @@ class Matrix23Test extends TestCase {
         assertEquals(1.0, m.d);
         assertEquals(0.0, m.tx);
         assertEquals(0.0, m.ty);
+
+        m = new Matrix23(1, 0, 0, 1, 5, 10);
+        m.invert();
+
+        assertEquals(1.0, m.a);
+        assertEquals(0.0, m.b);
+        assertEquals(0.0, m.c);
+        assertEquals(1.0, m.d);
+        assertEquals(-5.0, m.tx);
+        assertEquals(-10.0, m.ty);
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+        m.invert();
+
+        assertEquals(-2.5, m.a);
+        assertEquals(1.5, m.b);
+        assertEquals(2.0, m.c);
+        assertEquals(-1.0, m.d);
+        assertEquals(1.0, m.tx);
+        assertEquals(-2.0, m.ty);
+
+        m = new Matrix23();
+        m.translate(4, -1);
+        m.rotate(3 * Math.PI / 8);
+        m.scale(8, -2);
+        m.translate(-7, 3);
+
+        var n = new Matrix23();
+        n.translate(7, -3);
+        n.scale(1/8, -1/2);
+        n.rotate(-3 * Math.PI / 8);
+        n.translate(-4, 1);
+
+        m.invert();
+
+        assertApproxEquals(n.a, m.a);
+        assertApproxEquals(n.b, m.b);
+        assertApproxEquals(n.c, m.c);
+        assertApproxEquals(n.d, m.d);
+        assertApproxEquals(n.tx, m.tx);
+        assertApproxEquals(n.ty, m.ty);
     }
 }
