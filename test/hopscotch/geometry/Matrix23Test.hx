@@ -176,4 +176,24 @@ class Matrix23Test extends TestCase {
         assertEquals(13.0, m.tx);
         assertEquals(9.0, m.ty);
     }
+
+    public function testDeterminant() {
+        var m = new Matrix23();
+        assertEquals(1.0, m.determinant());
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+        assertEquals(-2.0, m.determinant());
+    }
+
+    public function testInvert() {
+        var m = new Matrix23();
+        m.invert();
+
+        assertEquals(1.0, m.a);
+        assertEquals(0.0, m.b);
+        assertEquals(0.0, m.c);
+        assertEquals(1.0, m.d);
+        assertEquals(0.0, m.tx);
+        assertEquals(0.0, m.ty);
+    }
 }
