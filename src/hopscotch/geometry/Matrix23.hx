@@ -229,15 +229,15 @@ class Matrix23 {
         var tx = this.tx;
         var ty = this.ty;
 
-        a = d * inverseDeterminant;
-        b = -b * inverseDeterminant;
-        c = -c * inverseDeterminant;
-        d = a * inverseDeterminant;
-        tx = ((c * ty) - (d * tx)) * inverseDeterminant;
-        ty = ((b * tx) - (a * ty)) * inverseDeterminant;
+        var ai = d * inverseDeterminant;
+        var bi = -b * inverseDeterminant;
+        var ci = -c * inverseDeterminant;
+        var di = a * inverseDeterminant;
+        var txi = ((c * ty) - (d * tx)) * inverseDeterminant;
+        var tyi = ((b * tx) - (a * ty)) * inverseDeterminant;
 
-        point.x = a * x + c * y + tx;
-        point.y = b * x + d * y + ty;
+        point.x = ai * x + ci * y + txi;
+        point.y = bi * x + di * y + tyi;
     }
 
     /** Copies the values of the source matrix to the current matrix. */

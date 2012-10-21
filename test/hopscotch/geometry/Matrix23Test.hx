@@ -300,4 +300,65 @@ class Matrix23Test extends TestCase {
         assertApproxEquals(o.tx, m.tx);
         assertApproxEquals(o.ty, m.ty);
     }
+
+    public function testTransform() {
+        var m = new Matrix23();
+        var v = new Vector2d(1, 2);
+
+        m.transform(v);
+
+        assertEquals(1.0, v.x);
+        assertEquals(2.0, v.y);
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+        v = new Vector2d(1, 2);
+
+        m.transform(v);
+
+        assertEquals(16.0, v.x);
+        assertEquals(20.0, v.y);
+
+        m = new Matrix23();
+        m.translate(4, -1);
+        m.rotate(Math.PI / 8);
+        m.scale(2, 0.5);
+
+        v = new Vector2d(1, 2);
+
+        m.transform(v);
+
+        assertApproxEquals(Math.cos(Math.PI / 8) * 10 - Math.sin(Math.PI / 8) * 2, v.x);
+        assertApproxEquals(Math.cos(Math.PI / 8) * 0.5 + Math.sin(Math.PI / 8) * 2.5, v.y);
+    }
+
+    public function testInvertTransform() {
+        var m = new Matrix23();
+        var v = new Vector2d(1, 2);
+
+        m.invertTransform(v);
+
+        assertEquals(1.0, v.x);
+        assertEquals(2.0, v.y);
+
+        m = new Matrix23(2, 3, 4, 5, 6, 7);
+        v = new Vector2d(1, 2);
+
+        m.invertTransform(v);
+
+        assertEquals(2.5, v.x);
+        assertEquals(-2.5, v.y);
+
+        m = new Matrix23();
+        m.translate(4, -1);
+        m.rotate(Math.PI / 8);
+        m.scale(2, 0.5);
+
+        v = new Vector2d(Math.cos(Math.PI / 8) * 10 - Math.sin(Math.PI / 8) * 2,
+                Math.cos(Math.PI / 8) * 0.5 + Math.sin(Math.PI / 8) * 2.5);
+
+        m.invertTransform(v);
+
+        assertApproxEquals(1.0, v.x);
+        assertApproxEquals(2.0, v.y);
+    }
 }
