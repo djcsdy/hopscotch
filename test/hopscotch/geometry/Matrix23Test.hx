@@ -361,4 +361,32 @@ class Matrix23Test extends TestCase {
         assertApproxEquals(1.0, v.x);
         assertApproxEquals(2.0, v.y);
     }
+
+    public function testCopyFrom() {
+        var m = new Matrix23();
+        var n = new Matrix23(2, 3, 4, 5, 6, 7);
+
+        m.copyFrom(n);
+
+        assertEquals(2.0, m.a);
+        assertEquals(3.0, m.b);
+        assertEquals(4.0, m.c);
+        assertEquals(5.0, m.d);
+        assertEquals(6.0, m.tx);
+        assertEquals(7.0, m.ty);
+    }
+
+    public function testClone() {
+        var m = new Matrix23(4, 5, 6, 7, 8, 9);
+
+        var n = m.clone();
+
+        assertFalse(m == n);
+        assertEquals(4.0, n.a);
+        assertEquals(5.0, n.b);
+        assertEquals(6.0, n.c);
+        assertEquals(7.0, n.d);
+        assertEquals(8.0, n.tx);
+        assertEquals(9.0, n.ty);
+    }
 }
