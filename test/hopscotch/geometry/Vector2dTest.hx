@@ -15,6 +15,13 @@ class Vector2dTest extends TestCase {
 
         assertEquals(7.0, v.x);
         assertEquals(5.0, v.y);
+
+        v = new Vector2d(2, 3);
+
+        v.add(v);
+
+        assertEquals(4.0, v.x);
+        assertEquals(6.0, v.y);
     }
 
     public function testSubtract () {
@@ -25,6 +32,13 @@ class Vector2dTest extends TestCase {
 
         assertEquals(-3.0, v.x);
         assertEquals(1.0, v.y);
+
+        v = new Vector2d(2, 3);
+
+        v.subtract(v);
+
+        assertEquals(0.0, v.x);
+        assertEquals(0.0, v.y);
     }
 
     public function testDot () {
@@ -32,6 +46,8 @@ class Vector2dTest extends TestCase {
         var w = new Vector2d(4, -5);
 
         assertEquals(-7.0, v.dot(w));
+
+        assertEquals(13.0, v.dot(v));
     }
 
     public function testCross () {
@@ -39,6 +55,8 @@ class Vector2dTest extends TestCase {
         var w = new Vector2d(4, -5);
 
         assertEquals(-22.0, v.cross(w));
+
+        assertEquals(0.0, v.cross(v));
     }
 
     public function testScale () {
@@ -154,6 +172,8 @@ class Vector2dTest extends TestCase {
         var w = new Vector2d(4, -5);
 
         assertEquals(Math.sqrt(68), v.distance(w));
+
+        assertEquals(0.0, v.distance(v));
     }
 
     public function testRotate () {
@@ -277,6 +297,11 @@ class Vector2dTest extends TestCase {
         w.x = -9;
 
         v.copyFrom(w);
+
+        assertEquals(w.x, v.x);
+        assertEquals(w.y, v.y);
+
+        v.copyFrom(v);
 
         assertEquals(w.x, v.x);
         assertEquals(w.y, v.y);
