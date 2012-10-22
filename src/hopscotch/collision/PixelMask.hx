@@ -70,7 +70,7 @@ class PixelMask extends Mask {
         otherMask.fillRect(otherMask.rect, 0x00000000);
         otherMask.draw(shape);
 
-        return mask.hitTest(Static.origin, 1, otherMask, Static.origin, 1);
+        return mask.hitTest(Static.originPoint, 1, otherMask, Static.originPoint, 1);
     }
 
     function collideCircle (mask2:CircleMask, x1:Float, y1:Float, x2:Float, y2:Float) {
@@ -90,6 +90,6 @@ class PixelMask extends Mask {
         otherMask.fillRect(otherMask.rect, 0x00000000);
         otherMask.draw(shape);
 
-        return mask.hitTest(Static.origin, 1, otherMask, Static.origin, 1);
+        return mask.hitTest(Static.originPoint, 1, otherMask, Static.originPoint, 1);
     }
 }

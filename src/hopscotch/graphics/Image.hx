@@ -1,9 +1,9 @@
 package hopscotch.graphics;
 
+import hopscotch.geometry.Vector2d;
 import hopscotch.engine.ScreenSize;
 import hopscotch.errors.ArgumentNullError;
 import flash.geom.ColorTransform;
-import flash.geom.Point;
 import flash.display.Bitmap;
 import flash.display.BlendMode;
 import flash.geom.Matrix;
@@ -113,7 +113,7 @@ class Image implements IGraphic {
     public function updateGraphic (frame:Int, screenSize:ScreenSize) {
     }
 
-    public function render (target:BitmapData, position:Point, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
         if (flipX != previousFlipX
                 || flipY != previousFlipY
                 || alpha != previousAlpha
@@ -182,7 +182,7 @@ class Image implements IGraphic {
             buffer.fillRect(buffer.rect, 0);
             buffer.draw(sourceBitmap, Static.matrix);
         } else {
-            buffer.copyPixels(source, sourceRect, Static.origin);
+            buffer.copyPixels(source, sourceRect, Static.originPoint);
         }
 
         if (tintAmount != 0 || alpha != 1) {

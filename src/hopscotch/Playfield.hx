@@ -1,10 +1,10 @@
 package hopscotch;
 
+import hopscotch.geometry.Vector2d;
 import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import hopscotch.camera.ICamera;
 import hopscotch.errors.ArgumentNullError;
-import flash.geom.Point;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 import hopscotch.errors.IllegalOperationError;
@@ -108,7 +108,7 @@ class Playfield {
         }
     }
 
-    public function render (target:BitmapData, position:Point, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
         tmpMatrix.a = cameraMatrix.a;
         tmpMatrix.b = cameraMatrix.b;
         tmpMatrix.c = cameraMatrix.c;

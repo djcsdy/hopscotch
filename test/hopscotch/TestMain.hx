@@ -6,7 +6,6 @@ import hopscotch.collision.PixelMaskTest;
 import hopscotch.collision.CircleMaskTest;
 import hopscotch.collision.BoxMaskTest;
 import hopscotch.collision.MaskTest;
-import hopscotch.math.VectorMathTest;
 import hopscotch.engine.EngineTest;
 import haxe.unit.TestRunner;
 
@@ -26,7 +25,6 @@ class TestMain {
         testRunner.add(new CircleMaskTest());
         testRunner.add(new MaskTest());
         testRunner.add(new PixelMaskTest());
-        testRunner.add(new VectorMathTest());
         testRunner.add(new Vector2dTest());
         testRunner.add(new Matrix23Test());
         testRunner.run();

@@ -1,10 +1,10 @@
 package hopscotch;
 
+import hopscotch.geometry.Vector2d;
 import hopscotch.errors.IllegalOperationError;
 import hopscotch.collision.Mask;
 import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
-import flash.geom.Point;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
 
@@ -20,7 +20,7 @@ class Entity implements IEntity {
     public var graphic:IGraphic;
     var previousGraphic:IGraphic;
 
-    static var tmpPoint:Point = new Point();
+    static var tmpPoint:Vector2d = new Vector2d();
 
     public function new() {
         active = true;
@@ -74,7 +74,7 @@ class Entity implements IEntity {
         }
     }
 
-    public function render (target:BitmapData, position:Point, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
         if (graphic == null) {
             throw new IllegalOperationError("Tried to render an entity that has no graphic");
         } else if (graphic.visible) {

@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.geometry.Vector2d;
 import flash.geom.Rectangle;
 import flash.text.TextFormatAlign;
 import flash.text.TextFormatAlign;
@@ -9,7 +10,6 @@ import flash.text.TextFormat;
 import hopscotch.errors.IllegalOperationError;
 import flash.text.TextField;
 import flash.geom.Matrix;
-import flash.geom.Point;
 import flash.display.BitmapData;
 import hopscotch.engine.ScreenSize;
 
@@ -80,14 +80,14 @@ class Text implements IGraphic {
         textField = new TextField();
     }
 
-    public function measure(outSize:Point) {
+    public function measure(outSize:Vector2d) {
         updateTextField();
 
         outSize.x = textField.width;
         outSize.y = textField.height;
     }
 
-    public function measureText(outSize:Point) {
+    public function measureText(outSize:Vector2d) {
         updateTextField();
 
         outSize.x = textField.textWidth + TEXT_DIMENSIONS_FUDGE;
@@ -95,9 +95,9 @@ class Text implements IGraphic {
     }
 
     public function centerOrigin() {
-        measureText(Static.point);
-        originX = Static.point.x * 0.5;
-        originY = Static.point.y * 0.5;
+        measureText(Static.vector2d);
+        originX = Static.vector2d.x * 0.5;
+        originY = Static.vector2d.y * 0.5;
     }
 
     public function beginGraphic(frame:Int) {
@@ -109,7 +109,7 @@ class Text implements IGraphic {
     public function updateGraphic(frame:Int, screenSize:ScreenSize) {
     }
 
-    public function render(target:BitmapData, position:Point, camera:Matrix) {
+    public function render(target:BitmapData, position:Vector2d, camera:Matrix) {
         updateTextField();
 
         Static.matrix.a = Static.matrix.d = 1;

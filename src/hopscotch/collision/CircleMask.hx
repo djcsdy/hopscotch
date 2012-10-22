@@ -3,7 +3,6 @@ package hopscotch.collision;
 import hopscotch.errors.IllegalOperationError;
 import hopscotch.errors.ArgumentError;
 import hopscotch.Static;
-import hopscotch.math.VectorMath;
 
 class CircleMask extends Mask {
     public var x:Float;
@@ -41,29 +40,29 @@ class CircleMask extends Mask {
         checkProperties();
         mask2.checkProperties();
 
-        Static.point.x = x + x1;
-        Static.point.y = y + y1;
-        Static.point2.x = mask2.x + x2;
-        Static.point2.y = mask2.y + y2;
+        Static.vector2d.x = x + x1;
+        Static.vector2d.y = y + y1;
+        Static.vector2db.x = mask2.x + x2;
+        Static.vector2db.y = mask2.y + y2;
 
-        VectorMath.subtract(Static.point, Static.point2);
+        Static.vector2d.subtract(Static.vector2db);
 
-        return VectorMath.magnitude(Static.point) < radius + mask2.radius;
+        return Static.vector2d.magnitude() < radius + mask2.radius;
     }
 
     function collideBox (mask2:BoxMask, x1:Float, y1:Float, x2:Float, y2:Float) {
         checkProperties();
         mask2.checkProperties();
 
-        Static.point.x = Math.abs(x + x1 - mask2.x - x2 - mask2.width * 0.5);
-        Static.point.y = Math.abs(y + y1 - mask2.y - y2 - mask2.height * 0.5);
-        var distance = VectorMath.magnitude(Static.point);
-        VectorMath.normalize(Static.point);
+        Static.vector2d.x = Math.abs(x + x1 - mask2.x - x2 - mask2.width * 0.5);
+        Static.vector2d.y = Math.abs(y + y1 - mask2.y - y2 - mask2.height * 0.5);
+        var distance = Static.vector2d.magnitude();
+        Static.vector2d.normalize();
 
-        Static.point2.x = mask2.width * 0.5;
-        Static.point2.y = mask2.height * 0.5;
+        Static.vector2db.x = mask2.width * 0.5;
+        Static.vector2db.y = mask2.height * 0.5;
 
-        return distance < VectorMath.dot(Static.point2, Static.point) + radius;
+        return distance < Static.vector2db.dot(Static.vector2d) + radius;
     }
 
     public inline function checkProperties () {

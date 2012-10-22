@@ -2,7 +2,6 @@ package hopscotch.input.digital;
 
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.input.analogue.Joystick;
-import hopscotch.math.VectorMath;
 
 class ButtonJoystick extends Joystick {
     private var upButton:Button;
@@ -44,26 +43,26 @@ class ButtonJoystick extends Joystick {
         leftButton.update(frame);
         rightButton.update(frame);
 
-        Static.point.x = 0;
-        Static.point.y = 0;
+        Static.vector2d.x = 0;
+        Static.vector2d.y = 0;
 
         if (upButton.pressed) {
-            Static.point.y = -1;
+            Static.vector2d.y = -1;
         }
         if (downButton.pressed) {
-            Static.point.y += 1;
+            Static.vector2d.y += 1;
         }
 
         if (leftButton.pressed) {
-            Static.point.x = -1;
+            Static.vector2d.x = -1;
         }
         if (rightButton.pressed) {
-            Static.point.x += 1;
+            Static.vector2d.x += 1;
         }
 
-        VectorMath.normalize(Static.point);
+        Static.vector2d.normalize();
 
-        position.x += (Static.point.x - position.x) * ease;
-        position.y += (Static.point.y - position.y) * ease;
+        position.x += (Static.vector2d.x - position.x) * ease;
+        position.y += (Static.vector2d.y - position.y) * ease;
     }
 }

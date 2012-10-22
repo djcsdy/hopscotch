@@ -1,12 +1,17 @@
 package hopscotch;
 
+import flash.geom.Point;
+import hopscotch.geometry.Vector2d;
 import flash.geom.Rectangle;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
-import flash.geom.Point;
 
 class Static {
-    public static var origin = new Point();
+    public static var origin = new Vector2d();
+    public static var vector2d = new Vector2d();
+    public static var vector2db = new Vector2d();
+
+    public static var originPoint = new Point();
     public static var point = new Point();
     public static var point2 = new Point();
 
