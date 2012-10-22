@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
 import flash.geom.Rectangle;
 import flash.text.TextFormatAlign;
@@ -9,7 +10,6 @@ import flash.geom.ColorTransform;
 import flash.text.TextFormat;
 import hopscotch.errors.IllegalOperationError;
 import flash.text.TextField;
-import flash.geom.Matrix;
 import flash.display.BitmapData;
 import hopscotch.engine.ScreenSize;
 
@@ -109,7 +109,7 @@ class Text implements IGraphic {
     public function updateGraphic(frame:Int, screenSize:ScreenSize) {
     }
 
-    public function render(target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render(target:BitmapData, position:Vector2d, camera:Matrix23) {
         updateTextField();
 
         Static.matrix.a = Static.matrix.d = 1;
@@ -147,7 +147,14 @@ class Text implements IGraphic {
             colorTransform.alphaOffset = 0;
         }
 
-        target.draw(textField, Static.matrix, colorTransform, null, rect, true);
+        Static.matrixFlash.a = Static.matrix.a;
+        Static.matrixFlash.b = Static.matrix.b;
+        Static.matrixFlash.c = Static.matrix.c;
+        Static.matrixFlash.d = Static.matrix.d;
+        Static.matrixFlash.tx = Static.matrix.tx;
+        Static.matrixFlash.ty = Static.matrix.ty;
+
+        target.draw(textField, Static.matrixFlash, colorTransform, null, rect, true);
     }
 
     function updateTextField() {

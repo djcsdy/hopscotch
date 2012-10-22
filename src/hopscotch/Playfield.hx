@@ -1,12 +1,12 @@
 package hopscotch;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
 import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import hopscotch.camera.ICamera;
 import hopscotch.errors.ArgumentNullError;
 import flash.display.BitmapData;
-import flash.geom.Matrix;
 import hopscotch.errors.IllegalOperationError;
 
 class Playfield {
@@ -18,8 +18,8 @@ class Playfield {
     var group:Group;
 
     var previousCamera:ICamera;
-    var cameraMatrix:Matrix;
-    var tmpMatrix:Matrix;
+    var cameraMatrix:Matrix23;
+    var tmpMatrix:Matrix23;
 
     public function new () {
         active = true;
@@ -28,8 +28,8 @@ class Playfield {
         group = new Group();
 
         previousCamera = null;
-        cameraMatrix = new Matrix();
-        tmpMatrix = new Matrix();
+        cameraMatrix = new Matrix23();
+        tmpMatrix = new Matrix23();
     }
 
     public function addUpdater (updater:IUpdater) {
@@ -108,7 +108,7 @@ class Playfield {
         }
     }
 
-    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
         tmpMatrix.a = cameraMatrix.a;
         tmpMatrix.b = cameraMatrix.b;
         tmpMatrix.c = cameraMatrix.c;

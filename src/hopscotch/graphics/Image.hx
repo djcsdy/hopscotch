@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.Static;
 import hopscotch.geometry.Vector2d;
 import hopscotch.engine.ScreenSize;
@@ -7,7 +8,6 @@ import hopscotch.errors.ArgumentNullError;
 import flash.geom.ColorTransform;
 import flash.display.Bitmap;
 import flash.display.BlendMode;
-import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.display.BitmapData;
 
@@ -114,7 +114,7 @@ class Image implements IGraphic {
     public function updateGraphic (frame:Int, screenSize:ScreenSize) {
     }
 
-    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
         if (flipX != previousFlipX
                 || flipY != previousFlipY
                 || alpha != previousAlpha
@@ -131,20 +131,20 @@ class Image implements IGraphic {
             if (!smooth || (Static.point.x%1==0 && Static.point.y%1==0)) {
                 target.copyPixels(buffer, buffer.rect, Static.point, null, null, true);
             } else {
-                Static.matrix.a = Static.matrix.d = 1;
-                Static.matrix.b = Static.matrix.c = 0;
-                Static.matrix.tx = Static.point.x;
-                Static.matrix.ty = Static.point.y;
+                Static.matrixFlash.a = Static.matrixFlash.d = 1;
+                Static.matrixFlash.b = Static.matrixFlash.c = 0;
+                Static.matrixFlash.tx = Static.point.x;
+                Static.matrixFlash.ty = Static.point.y;
                 Static.rect.x = Static.point.x - 1; // offset to account for rounding errors and antialiasing.
                 Static.rect.y = Static.point.y - 1; // offset to account for rounding errors and antialiasing.
                 Static.rect.width = buffer.width + 2; // offset to account for rounding errors and antialiasing.
                 Static.rect.height = buffer.height + 2; // offset to account for rounding errors and antialiasing.
                 bufferBitmap.smoothing = smooth;
                 #if flash
-                target.draw(bufferBitmap, Static.matrix, null, blendMode, Static.rect, smooth);
+                target.draw(bufferBitmap, Static.matrixFlash, null, blendMode, Static.rect, smooth);
                 #else
                 bufferBitmap.blendMode = blendMode;
-                target.draw(bufferBitmap, Static.matrix, null, null, Static.rect, smooth);
+                target.draw(bufferBitmap, Static.matrixFlash, null, null, Static.rect, smooth);
                 #end
             }
         } else {
@@ -154,15 +154,22 @@ class Image implements IGraphic {
             Static.matrix.ty = -(if (flipY) height - originY else originY);
             Static.matrix.rotate(angle);
             Static.matrix.scale(scale, scale);
-            Static.matrix.tx += position.x + x;
-            Static.matrix.ty += position.y + y;
+            Static.matrix.translate(position.x + x, position.y + y);
             Static.matrix.concat(camera);
+
+            Static.matrixFlash.a = Static.matrix.a;
+            Static.matrixFlash.b = Static.matrix.b;
+            Static.matrixFlash.c = Static.matrix.c;
+            Static.matrixFlash.d = Static.matrix.d;
+            Static.matrixFlash.tx = Static.matrix.tx;
+            Static.matrixFlash.ty = Static.matrix.ty;
+
             bufferBitmap.smoothing = smooth;
             #if flash
-            target.draw(bufferBitmap, Static.matrix, null, blendMode, null, smooth); // TODO clipRect
+            target.draw(bufferBitmap, Static.matrixFlash, null, blendMode, null, smooth); // TODO clipRect
             #else
             bufferBitmap.blendMode = blendMode;
-            target.draw(bufferBitmap, Static.matrix, null, null, null, smooth); // TODO clipRect
+            target.draw(bufferBitmap, Static.matrixFlash, null, null, null, smooth); // TODO clipRect
             #end
         }
     }
@@ -174,14 +181,14 @@ class Image implements IGraphic {
 
     private function updateBuffer() {
         if (flipX || flipY) {
-            Static.matrix.b = Static.matrix.c = 0;
-            Static.matrix.a = if (flipX) -1 else 1;
-            Static.matrix.d = if (flipY) -1 else 1;
-            Static.matrix.tx = if (flipX) sourceRect.x + sourceRect.width else -sourceRect.x;
-            Static.matrix.ty = if (flipY) sourceRect.y + sourceRect.height else -sourceRect.y;
+            Static.matrixFlash.b = Static.matrixFlash.c = 0;
+            Static.matrixFlash.a = if (flipX) -1 else 1;
+            Static.matrixFlash.d = if (flipY) -1 else 1;
+            Static.matrixFlash.tx = if (flipX) sourceRect.x + sourceRect.width else -sourceRect.x;
+            Static.matrixFlash.ty = if (flipY) sourceRect.y + sourceRect.height else -sourceRect.y;
 
             buffer.fillRect(buffer.rect, 0);
-            buffer.draw(sourceBitmap, Static.matrix);
+            buffer.draw(sourceBitmap, Static.matrixFlash);
         } else {
             buffer.copyPixels(source, sourceRect, Static.originPoint);
         }

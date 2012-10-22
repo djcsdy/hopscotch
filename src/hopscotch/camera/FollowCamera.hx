@@ -1,7 +1,7 @@
 package hopscotch.camera;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.engine.ScreenSize;
-import flash.geom.Matrix;
 import hopscotch.Entity;
 
 class FollowCamera implements ICamera {
@@ -22,7 +22,7 @@ class FollowCamera implements ICamera {
     public function end () {
     }
 
-    public function update (frame:Int, screenSize:ScreenSize, matrix:Matrix) {
+    public function update (frame:Int, screenSize:ScreenSize, matrix:Matrix23) {
         if (target != null) {
             targetX = target.x;
             targetY = target.y;

@@ -1,8 +1,8 @@
 package hopscotch.graphics;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
 import hopscotch.engine.ScreenSize;
-import flash.geom.Matrix;
 import flash.display.BitmapData;
 
 class GraphicList implements IGraphic {
@@ -41,7 +41,7 @@ class GraphicList implements IGraphic {
         }
     }
 
-    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
         for (graphic in graphics) {
             if (graphic != null && graphic.visible) {
                 graphic.render(target, position, camera);

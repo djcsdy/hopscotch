@@ -1,7 +1,7 @@
 package hopscotch.graphics;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
-import flash.geom.Matrix;
 import flash.display.BitmapData;
 import hopscotch.engine.ScreenSize;
 
@@ -23,6 +23,6 @@ class Graphic implements IGraphic {
     public function updateGraphic (frame:Int, screenSize:ScreenSize) {
     }
 
-    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
     }
 }

@@ -1,12 +1,12 @@
 package hopscotch;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
 import hopscotch.errors.IllegalOperationError;
 import hopscotch.collision.Mask;
 import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import flash.display.BitmapData;
-import flash.geom.Matrix;
 
 class Entity implements IEntity {
     public var active:Bool;
@@ -74,7 +74,7 @@ class Entity implements IEntity {
         }
     }
 
-    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
         if (graphic == null) {
             throw new IllegalOperationError("Tried to render an entity that has no graphic");
         } else if (graphic.visible) {

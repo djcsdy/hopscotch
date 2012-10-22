@@ -1,8 +1,8 @@
 package hopscotch;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
 import hopscotch.collision.Mask;
-import flash.geom.Matrix;
 import flash.display.BitmapData;
 import hopscotch.engine.ScreenSize;
 import hopscotch.errors.IllegalOperationError;
@@ -184,7 +184,7 @@ class Group implements IEntity {
         }
     }
 
-    public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
         for (graphic in graphics) {
             if (graphic.visible) {
                 graphic.render(target, position, camera);

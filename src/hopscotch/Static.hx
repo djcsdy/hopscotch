@@ -1,10 +1,11 @@
 package hopscotch;
 
+import flash.geom.Matrix;
+import hopscotch.geometry.Matrix23;
 import flash.geom.Point;
 import hopscotch.geometry.Vector2d;
 import flash.geom.Rectangle;
 import flash.geom.ColorTransform;
-import flash.geom.Matrix;
 
 class Static {
     public static var origin = new Vector2d();
@@ -18,8 +19,11 @@ class Static {
     public static var rect = new Rectangle();
     public static var rect2 = new Rectangle();
 
-    public static var identity = new Matrix();
-    public static var matrix = new Matrix();
+    public static var identity = new Matrix23();
+    public static var matrix = new Matrix23();
+
+    public static var identityFlash = new Matrix();
+    public static var matrixFlash = new Matrix();
 
     public static var colorTransform = new ColorTransform();
 }

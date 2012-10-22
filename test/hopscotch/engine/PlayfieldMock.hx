@@ -1,8 +1,8 @@
 package hopscotch.engine;
 
+import hopscotch.geometry.Matrix23;
 import hopscotch.geometry.Vector2d;
 import flash.display.BitmapData;
-import flash.geom.Matrix;
 import hopscotch.Playfield;
 
 class PlayfieldMock extends Playfield {
@@ -20,7 +20,7 @@ class PlayfieldMock extends Playfield {
 
     public var renderTarget:BitmapData;
     public var renderPosition:Vector2d;
-    public var renderCamera:Matrix;
+    public var renderCamera:Matrix23;
 
     public function new () {
         super();
@@ -62,7 +62,7 @@ class PlayfieldMock extends Playfield {
         screenHeight = screenSize.height;
     }
 
-    override public function render (target:BitmapData, position:Vector2d, camera:Matrix) {
+    override public function render (target:BitmapData, position:Vector2d, camera:Matrix23) {
         if (updateGraphicFrame <= renderFrame) {
             throw "updateGraphic() was not called before render()";
         }
