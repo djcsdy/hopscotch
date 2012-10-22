@@ -8,7 +8,6 @@ import flash.text.TextFormat;
 import flash.text.TextField;
 import flash.display.Sprite;
 import hopscotch.Static;
-import flash.geom.Point;
 import flash.display.BitmapData;
 
 class Console implements IConsole {
