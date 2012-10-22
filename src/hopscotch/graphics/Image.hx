@@ -1,5 +1,6 @@
 package hopscotch.graphics;
 
+import hopscotch.Static;
 import hopscotch.geometry.Vector2d;
 import hopscotch.engine.ScreenSize;
 import hopscotch.errors.ArgumentNullError;
