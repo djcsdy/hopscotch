@@ -1,8 +1,6 @@
 package hopscotch.debug;
 
 import hopscotch.Playfield;
-import flash.geom.Matrix;
-import flash.geom.Point;
 import flash.display.BitmapData;
 
 interface IConsole {
