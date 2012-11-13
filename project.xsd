@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://ns.noiseinstitute.net/hopscotch/project"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    targetNamespace="http://ns.noiseinstitute.net/hopscotch/project">
+
+  <xs:element name="project" type="projectType"/>
+
+  <xs:complexType name="projectType">
+    <xs:sequence>
+      <xs:element name="module" type="module"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="module">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="target" type="target"/>
+      <xs:element name="classpath" type="path"/>
+      <xs:element name="assetpath" type="path"/>
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="path">
+    <xs:attribute name="path" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:schema>

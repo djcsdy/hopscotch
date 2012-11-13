@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Hopscotch"
+    xmlns="http://ns.noiseinstitute.net/hopscotch/project"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://ns.noiseinstitute.net/hopscotch/project project.xsd">
+
+  <module name="Hopscotch">
+    <classpath path="src"/>
+    <classpath path="test"/>
+    <assetpath path="test-assets"/>
+  </module>
+</project>
