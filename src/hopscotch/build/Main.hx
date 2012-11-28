@@ -1,11 +1,13 @@
 package hopscotch.build;
 
+import hopscotch.build.project.Project;
 import hopscotch.build.environment.BuildEnvironment;
+
 class Main {
     static function main() {
         try {
             var environment = BuildEnvironment.initialize();
-            // var project = Project.load(Sys.getCwd());
+            var project = Project.load(Sys.getCwd());
         } catch (e:BuildException) {
             var stderr = Sys.stderr();
             stderr.writeString("Error: " + e.message + "\n");
