@@ -1,7 +1,7 @@
 package hopscotch.errors;
 
 class Error {
-    public var message:String;
+    public var message(default, null):String;
 
     public function new (message:String) {
         this.message = message;
