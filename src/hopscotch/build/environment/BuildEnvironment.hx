@@ -10,13 +10,13 @@ class BuildEnvironment {
         var haxePath = Sys.getEnv("HAXEPATH");
 
         if (haxePath == null || haxePath == "") {
-            throw new HaxePathNotSetException();
+            throw new HaxePathNotSetError();
         }
 
         var haxeBinName = "haxe" + if (Sys.systemName() == "Windows") ".exe" else "";
         var haxeBinPath = haxePath + "/" + haxeBinName;
         if (!FileSystem.exists(haxeBinPath) || FileSystem.isDirectory(haxeBinPath)) {
-            throw new HaxePathInvalidException();
+            throw new HaxePathInvalidError();
         }
 
         var environment = new BuildEnvironment();

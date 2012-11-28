@@ -1,8 +1,8 @@
 package hopscotch.build.environment;
 
-import hopscotch.build.BuildException;
+import hopscotch.build.BuildError;
 
-class HaxePathException extends BuildException {
+class HaxePathError extends BuildError {
     private function new(message:String) {
         super(message, "Hopscotch uses the HAXEPATH environment variable to "
                 + "determine the location of the Haxe compiler and tools. You "

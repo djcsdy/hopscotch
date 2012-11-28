@@ -1,6 +1,6 @@
 package hopscotch.build.environment;
 
-class HaxePathNotSetException extends HaxePathException {
+class HaxePathNotSetError extends HaxePathError {
     public function new() {
         super("HAXEPATH environment variable is not set.");
     }

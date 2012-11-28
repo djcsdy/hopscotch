@@ -1,6 +1,6 @@
 package hopscotch.build.project;
 
-class ProjectFileInvalidXmlException extends ProjectFileException {
+class ProjectFileInvalidXmlError extends ProjectFileError {
     public function new(e:Dynamic) {
         super(Std.string(e));
     }

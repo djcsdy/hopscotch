@@ -19,7 +19,7 @@ class Project {
         }
 
         if (projectFile == null) {
-            throw new ProjectFileNotFoundException();
+            throw new ProjectFileNotFoundError();
         }
 
         var projectXmlString = File.getContent(projectFile);
@@ -28,14 +28,14 @@ class Project {
         try {
             projectXml = Parser.parse(projectXmlString);
         } catch (e:Dynamic) {
-            throw new ProjectFileInvalidXmlException(e);
+            throw new ProjectFileInvalidXmlError(e);
         }
 
         var projectXmlValidator = new ProjectXmlValidator();
         try {
             projectXmlValidator.validate(projectXml);
         } catch (e:Dynamic) {
-            throw new ProjectFileInvalidXmlException(e);
+            throw new ProjectFileInvalidXmlError(e);
         }
 
         var project = new Project();

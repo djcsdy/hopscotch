@@ -8,7 +8,7 @@ class Main {
         try {
             var environment = BuildEnvironment.initialize();
             var project = Project.load(Sys.getCwd());
-        } catch (e:BuildException) {
+        } catch (e:BuildError) {
             var stderr = Sys.stderr();
             stderr.writeString("Error: " + e.message + "\n");
             stderr.writeString("\n");

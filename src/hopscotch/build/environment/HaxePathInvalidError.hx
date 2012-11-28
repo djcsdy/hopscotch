@@ -1,6 +1,6 @@
 package hopscotch.build.environment;
 
-class HaxePathInvalidException extends HaxePathException {
+class HaxePathInvalidError extends HaxePathError {
     public function new() {
         super("HAXEPATH environment variable is invalid.");
     }

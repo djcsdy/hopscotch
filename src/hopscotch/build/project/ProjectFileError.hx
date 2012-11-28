@@ -1,8 +1,8 @@
 package hopscotch.build.project;
 
-import hopscotch.build.BuildException;
+import hopscotch.build.BuildError;
 
-class ProjectFileException extends BuildException {
+class ProjectFileError extends BuildError {
     private function new(message:String, help:String = null) {
         super(message, help);
     }
