@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <set name="WIDTH" value="640"/>
+    <set name="HEIGHT" value="480"/>
+
+    <haxedef name="fdb" if="target_flash"/>
+    <haxedef name="network-sandbox" if="target_flash"/>
+
+    <meta title="Hopscotch Self-Test"
+            package="net.noiseinstitute.hopscotch"
+            version="0"
+            company="Daniel Cassidy"/>
+
+    <app main="hopscotch.TestMain" file="hopscotch-self-test"/>
+
+    <window width="${WIDTH}"
+            height="${HEIGHT}"
+            orientation="landscape"
+            fps="60"
+            background="#ffffff"
+            resizable="true"
+            hardware="false"
+            vsync="true"/>
+
+    <assets path="test-assets"/>
+
+    <source name="src"/>
+    <source name="test"/>
+
+    <haxelib name="openfl"/>
+</project>

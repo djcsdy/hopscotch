@@ -1,5 +1,6 @@
 package hopscotch.collision;
 
+import haxe.ds.StringMap;
 import hopscotch.errors.ArgumentError;
 import hopscotch.errors.ArgumentNullError;
 import hopscotch.errors.IllegalOperationError;
@@ -7,11 +8,11 @@ import hopscotch.errors.NotImplementedError;
 
 class Mask {
     var className:String;
-    var tests:Hash<Mask->Float->Float->Float->Float->Bool>;
+    var tests:Map<String, Mask->Float->Float->Float->Float->Bool>;
 
     public function new() {
         className = Type.getClassName(Type.getClass(this));
-        tests = new Hash<Mask->Float->Float->Float->Float->Bool>();
+        tests = new StringMap<Mask->Float->Float->Float->Float->Bool>();
     }
 
     public function implement (otherClass:Class<Mask>, test:Dynamic->Float->Float->Float->Float->Bool) {
