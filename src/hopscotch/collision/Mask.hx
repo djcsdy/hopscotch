@@ -3,7 +3,6 @@ package hopscotch.collision;
 import haxe.ds.StringMap;
 import hopscotch.errors.ArgumentError;
 import hopscotch.errors.ArgumentNullError;
-import hopscotch.errors.IllegalOperationError;
 import hopscotch.errors.NotImplementedError;
 
 class Mask {

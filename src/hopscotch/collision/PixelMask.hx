@@ -2,9 +2,7 @@ package hopscotch.collision;
 
 import flash.display.Shape;
 import hopscotch.Static;
-import flash.display.StageScaleMode;
 import flash.display.BitmapData;
-import flash.display.Bitmap;
 import hopscotch.errors.ArgumentNullError;
 import flash.geom.Rectangle;
 

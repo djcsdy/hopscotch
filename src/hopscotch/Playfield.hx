@@ -3,11 +3,9 @@ package hopscotch;
 import hopscotch.graphics.IGraphic;
 import hopscotch.engine.ScreenSize;
 import hopscotch.camera.ICamera;
-import hopscotch.errors.ArgumentNullError;
 import flash.geom.Point;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
-import hopscotch.errors.IllegalOperationError;
 
 class Playfield {
     public var active:Bool;
