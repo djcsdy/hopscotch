@@ -2,7 +2,6 @@ package hopscotch.graphics;
 
 import hopscotch.engine.ScreenSize;
 import hopscotch.errors.ArgumentNullError;
-import flash.geom.ColorTransform;
 import flash.geom.Point;
 import flash.display.Bitmap;
 import flash.display.BlendMode;

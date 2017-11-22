@@ -4,7 +4,6 @@ import flash.display.Shape;
 import hopscotch.Static;
 import flash.display.BitmapData;
 import hopscotch.errors.ArgumentNullError;
-import flash.geom.Rectangle;
 
 class PixelMask extends Mask {
     public var x:Float;

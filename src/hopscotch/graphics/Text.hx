@@ -2,7 +2,6 @@ package hopscotch.graphics;
 
 import flash.geom.Rectangle;
 import flash.text.TextFormatAlign;
-import flash.text.TextFormatAlign;
 import hopscotch.Static;
 import flash.geom.ColorTransform;
 import flash.text.TextFormat;
