@@ -29,7 +29,7 @@ class Text implements IGraphic {
     public var text:String;
 
     public var fontFace:FontFace;
-    public var fontSize:Float;
+    public var fontSize:Int;
 
     public var color:UInt;
     public var alpha:Float;
